@@ -65,6 +65,7 @@
             this.dgFoundFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgFoundFiles.Size = new System.Drawing.Size(756, 276);
             this.dgFoundFiles.TabIndex = 5;
+            this.dgFoundFiles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgFoundFiles_CellContentClick);
             this.dgFoundFiles.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgFoundFiles_CellContentDoubleClick);
             // 
             // btnOpenFolder
