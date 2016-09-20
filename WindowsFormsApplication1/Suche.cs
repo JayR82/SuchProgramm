@@ -15,7 +15,6 @@ namespace WindowsFormsApplication1
     {
         string folder;
         DataTable dt = new DataTable();
-        
         string SuchText;
 
         public Suche()
@@ -40,14 +39,12 @@ namespace WindowsFormsApplication1
         }
 
         
-
         private void button1_Click(object sender, EventArgs e)
         {
             var fbd = new FolderBrowserDialog();
             fbd.ShowDialog();
             folder = fbd.SelectedPath;
             lbInitFolder.Text = folder;
-            
         }
 
         private void SuchText_TextChanged(object sender, EventArgs e)
@@ -107,7 +104,6 @@ namespace WindowsFormsApplication1
             }
         }
 
-       
 
         private void dgFoundFiles_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -127,7 +123,6 @@ namespace WindowsFormsApplication1
         {
             lbSuchText.Text = "";
         }
-
-        
+ 
     }
 }
