@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+
 
 namespace WindowsFormsApplication1
 {
@@ -60,7 +58,19 @@ namespace WindowsFormsApplication1
 
         private void btnSuche_Click(object sender, EventArgs e)
         {
- 
+            //Reset table
+            dt.Clear();
+            dgFoundFiles.DataSource = dt;
+            
+            if (dt.Columns.Contains("Name"))
+	        {
+		        dt.Columns.Remove("Name");
+                dt.Columns.Remove("Typ");
+                dt.Columns.Remove("Datum");
+	        }
+            
+
+            // Get search text frim TextVarIn
             SuchText = lbSuchText.Text;
             if (SuchText == "")
             {
@@ -68,7 +78,9 @@ namespace WindowsFormsApplication1
             }
             else
             {
+                // Get all files matching search text
                 GetAllFiles();
+                //Filling table
                 dgFoundFiles.DataSource = dt;
             }
         }
@@ -83,19 +95,36 @@ namespace WindowsFormsApplication1
             for (int i = 0; i <= s1.Length - 1; i++)
             {
                 Boolean match;
-                match = FileContentStringMatch(s1[i]);
+                String FileEnding;
+               
+                if (i == 0)
+                {
+                    //Add Data Grid Columns with name
+                    dt.Columns.Add("Name");
+                    dt.Columns.Add("Typ");
+                    dt.Columns.Add("Datum");
+                }
+
+                //Get each file information
+                FileInfo f = new FileInfo(s1[i]);
+                FileSystemInfo f1 = new FileInfo(s1[i]);
+                FileEnding = f1.Extension;
+                switch (FileEnding)
+                {
+                    case ".pdf":
+                        {
+                            match = FileContentStringMatchTXT(s1[i]);
+                            break;
+                        }
+                    default:
+                        {
+                            match = FileContentStringMatchTXT(s1[i]);
+                            break;
+                        }
+                }
+                match = FileContentStringMatchTXT(s1[i]);
                 if (match)
                 {
-                    if (i == 0)
-                    {
-                        //Add Data Grid Columns with name
-                        dt.Columns.Add("Name");
-                        dt.Columns.Add("Typ");
-                        dt.Columns.Add("Datum");
-                    }
-                    //Get each file information
-                    FileInfo f = new FileInfo(s1[i]);
-                    FileSystemInfo f1 = new FileInfo(s1[i]);
                     dr = dt.NewRow();
                     //Get File name of each file name
                     dr["Name"] = f1.FullName;
@@ -109,9 +138,9 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private bool FileContentStringMatch(string p)
+        private bool FileContentStringMatchTXT(string p)
         {
-            string contents = File.ReadAllText(p);
+            string contents = System.IO.File.ReadAllText(p);
             Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
             Match m = r.Match(contents);
             if (m.Success)
@@ -121,11 +150,31 @@ namespace WindowsFormsApplication1
             return false;
         }
 
+        private bool FileContentStringMatchPDF(string p)
+        {
+            //PdfReader reader2 = new PdfReader((string)Filename);
+            //string strText = string.Empty;
+
+            //for (int page = 1; page <= reader2.NumberOfPages; page++)
+            //{
+            //    ITextExtractionStrategy its = new iTextSharp.text.pdf.parser.SimpleTextExtractionStrategy();
+            //    PdfReader reader = new PdfReader((string)Filename);
+            //    String s = PdfTextExtractor.GetTextFromPage(reader, page, its);
+
+            //    s = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(s)));
+            //    strText = strText + s;
+            //    reader.Close();
+            //}
+            //return strText;
+
+            return true;
+        }
+
 
         private void dgFoundFiles_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             string filepath = (string)dgFoundFiles.Rows[e.RowIndex].Cells[0].Value;
-            if (File.Exists(filepath))
+            if (System.IO.File.Exists(filepath))
             {
                 System.Diagnostics.Process.Start(filepath);
             }
