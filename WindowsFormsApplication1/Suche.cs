@@ -162,7 +162,7 @@ namespace WindowsFormsApplication1
            
         }
 
-        private bool FileContentStringMatchPDF(string pdfFile)
+        private bool FileContentStringMatchPDF(string p)
         {
             try
             {
@@ -170,7 +170,7 @@ namespace WindowsFormsApplication1
                 PDFParser pdfParser = new PDFParser();
 
                 // extract the text
-                bool result = pdfParser.ExtractText(pdfFile, "temp.txt");
+                bool result = pdfParser.ExtractText(p, "temp.txt");
 
                 return result;
             }
