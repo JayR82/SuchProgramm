@@ -5,6 +5,9 @@ using System.Data;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using iTextSharp.text.pdf;
+using PdfToText;
+using ICSharpCode.SharpZipLib;
 
 
 
@@ -106,32 +109,32 @@ namespace WindowsFormsApplication1
                 }
 
                 //Get each file information
-                FileInfo f = new FileInfo(s1[i]);
-                FileSystemInfo f1 = new FileInfo(s1[i]);
-                FileEnding = f1.Extension;
+                String CurrentFile = s1[i];
+                FileSystemInfo CurrentFileInfo = new FileInfo(CurrentFile);
+                FileEnding = CurrentFileInfo.Extension;
                 switch (FileEnding)
                 {
                     case ".pdf":
                         {
-                            match = FileContentStringMatchTXT(s1[i]);
+                            match = FileContentStringMatchPDF(CurrentFile);
                             break;
                         }
                     default:
                         {
-                            match = FileContentStringMatchTXT(s1[i]);
+                            match = FileContentStringMatchTXT(CurrentFile);
                             break;
                         }
                 }
-                match = FileContentStringMatchTXT(s1[i]);
+               
                 if (match)
                 {
                     dr = dt.NewRow();
                     //Get File name of each file name
-                    dr["Name"] = f1.FullName;
+                    dr["Name"] = CurrentFileInfo.FullName;
                     //Get File Type/Extension of each file 
-                    dr["Typ"] = f1.Extension;
+                    dr["Typ"] = CurrentFileInfo.Extension;
                     //Get file Create Date and Time 
-                    dr["Datum"] = f1.CreationTime.Date.ToString("dd/MM/yyyy");
+                    dr["Datum"] = CurrentFileInfo.CreationTime.Date.ToString("dd/MM/yyyy");
                     //Insert collected file details in Datatable
                     dt.Rows.Add(dr);
                 }
@@ -140,34 +143,43 @@ namespace WindowsFormsApplication1
 
         private bool FileContentStringMatchTXT(string p)
         {
-            string contents = System.IO.File.ReadAllText(p);
-            Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
-            Match m = r.Match(contents);
-            if (m.Success)
+            try
             {
-                return true;
+                string contents = System.IO.File.ReadAllText(p);
+                Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
+                Match m = r.Match(contents);
+                if (m.Success)
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception)
+            {
+
+                return false;
+            }
+           
         }
 
-        private bool FileContentStringMatchPDF(string p)
+        private bool FileContentStringMatchPDF(string pdfFile)
         {
-            //PdfReader reader2 = new PdfReader((string)Filename);
-            //string strText = string.Empty;
+            try
+            {
+                // create an instance of the pdfparser class
+                PDFParser pdfParser = new PDFParser();
 
-            //for (int page = 1; page <= reader2.NumberOfPages; page++)
-            //{
-            //    ITextExtractionStrategy its = new iTextSharp.text.pdf.parser.SimpleTextExtractionStrategy();
-            //    PdfReader reader = new PdfReader((string)Filename);
-            //    String s = PdfTextExtractor.GetTextFromPage(reader, page, its);
+                // extract the text
+                bool result = pdfParser.ExtractText(pdfFile, "temp.txt");
 
-            //    s = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(s)));
-            //    strText = strText + s;
-            //    reader.Close();
-            //}
-            //return strText;
+                return result;
+            }
+            catch (Exception)
+            {
 
-            return true;
+                return false;
+            }
+           
         }
 
 
