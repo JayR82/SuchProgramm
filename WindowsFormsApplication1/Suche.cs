@@ -26,18 +26,7 @@ namespace WindowsFormsApplication1
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
-
-
+ 
         private void button1_Click(object sender, EventArgs e)
         {
             var fbd = new FolderBrowserDialog();
@@ -46,40 +35,36 @@ namespace WindowsFormsApplication1
             lbInitFolder.Text = folder;
         }
 
-        private void SuchText_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void btnSuche_Click(object sender, EventArgs e)
         {
-            bool result;
+            bool execute;
             string[] AllFiles;
-            string[] FilteredFiles;
+            string[] MatchedFiles;
+           
             ResetTable();
-            result = GetSearchText();
+            execute = GetSearchText();
 
-            if (result)
+            if (execute)
             {
                 AllFiles = GetAllFiles();
-                GetFilteredFiles(AllFiles);
-                //FillTable(FilteredFiles);
+                MatchedFiles = GetMatchedFiles(AllFiles);
+                if (!string.IsNullOrEmpty(MatchedFiles[0]))
+                {
+                    FillTable(MatchedFiles);
+                }
+                
             }
+            
         }
 
-        private void GetFilteredFiles(string[] AllFiles)
+        private void FillTable(string[] MatchedFiles)
         {
             DataRow dr;
 
-            for (int i = 0; i <= AllFiles.Length - 1; i++)
+            for (int i = 0; i <= MatchedFiles.Length - 1; i++)
             {
-                Boolean match;
-                String FileEnding;
+                FileSystemInfo CurrentFileInfo = new FileInfo(MatchedFiles[i]);
 
                 if (i == 0)
                 {
@@ -89,38 +74,83 @@ namespace WindowsFormsApplication1
                     dt.Columns.Add("Datum");
                 }
 
-                //Get each file information
+                //Prepare table content
+                dr = dt.NewRow();
+                //Get File name of each file name
+                dr["Name"] = CurrentFileInfo.FullName;
+                //Get File Type/Extension of each file 
+                dr["Typ"] = CurrentFileInfo.Extension;
+                //Get file Create Date and Time 
+                dr["Datum"] = CurrentFileInfo.CreationTime.Date.ToString("dd/MM/yyyy");
+                //Insert collected file details in Datatable
+                dt.Rows.Add(dr);
+            }
+            //Write to table
+            dgFoundFiles.DataSource = dt;
+        }
+
+        private string[] GetMatchedFiles(string[] AllFiles)
+        {
+            
+            string[] MatchedFiles;
+            int j = 0;
+            int FileCount;
+
+            toolStripProgressBar1.Maximum = AllFiles.Length;
+
+            for (int i = 0; i <= AllFiles.Length - 1; i++)
+            {
+                Boolean match;
+                String FileEnding;
                 String CurrentFile = AllFiles[i];
+
+                toolStripProgressBar1.Value += 1;
                 FileSystemInfo CurrentFileInfo = new FileInfo(CurrentFile);
                 FileEnding = CurrentFileInfo.Extension;
                 switch (FileEnding)
                 {
+                    case ".txt":
+                        {
+                            match = FileContentStringMatchTXT(CurrentFile);
+                            match = false;
+                            break;
+                        }
                     case ".pdf":
                         {
                             match = FileContentStringMatchPDF(CurrentFile);
                             break;
                         }
+                    case ".doc": case ".docx":
+                        {
+                            //match = FileContentStringMatchPDF(CurrentFile);
+                            match = false;
+                            break;
+                        }
+                    case ".ppt": case ".pptx":
+                        {
+                            //match = FileContentStringMatchPDF(CurrentFile);
+                            match = false;
+                            break;
+                        }
                     default:
                         {
-                            match = FileContentStringMatchTXT(CurrentFile);
+                            match = false;
                             break;
                         }
                 }
 
                 if (match)
                 {
-                    dr = dt.NewRow();
-                    //Get File name of each file name
-                    dr["Name"] = CurrentFileInfo.FullName;
-                    //Get File Type/Extension of each file 
-                    dr["Typ"] = CurrentFileInfo.Extension;
-                    //Get file Create Date and Time 
-                    dr["Datum"] = CurrentFileInfo.CreationTime.Date.ToString("dd/MM/yyyy");
-                    //Insert collected file details in Datatable
-                    dt.Rows.Add(dr);
+                    MatchedFiles[i] = CurrentFile;
+                    j++;
                 }
+
             }
-            dgFoundFiles.DataSource = dt;
+            FileCount = MatchedFiles.Length;
+            toolStripStatusLabel2.Text = string.Format("Treffer: {0}", FileCount);
+
+            return MatchedFiles;
+            
         }
 
         private bool GetSearchText()
@@ -129,7 +159,9 @@ namespace WindowsFormsApplication1
             SuchText = lbSuchText.Text;
             if (SuchText == "")
             {
-                lbSuchText.Text = "Bitte hier ein Suchtext eingeben!!!";
+                
+                toolStripStatusLabel1.Text = "SuchText \n eingeben!";
+                statusStrip1.Refresh();
                 return false;
             }
             else
@@ -154,8 +186,11 @@ namespace WindowsFormsApplication1
 
         private string[] GetAllFiles()
         {
-
+            int FileCount;
             string[] s1 = Directory.GetFiles(folder, "*", SearchOption.AllDirectories);
+            FileCount = s1.Length;
+            toolStripStatusLabel1.Text = string.Format("Dateien: {0}", FileCount);
+            statusStrip1.Refresh();
 
             return s1;
         }
@@ -220,10 +255,7 @@ namespace WindowsFormsApplication1
             lbSuchText.Text = "";
         }
 
-        private void dgFoundFiles_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+        
 
     }
 }
