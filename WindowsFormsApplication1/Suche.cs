@@ -40,7 +40,6 @@ namespace WindowsFormsApplication1
         {
             bool execute;
             string[] AllFiles;
-            string[] MatchedFiles;
            
             ResetTable();
             execute = GetSearchText();
@@ -48,8 +47,9 @@ namespace WindowsFormsApplication1
             if (execute)
             {
                 AllFiles = GetAllFiles();
+                List<string> MatchedFiles = new List<string>(AllFiles);
                 MatchedFiles = GetMatchedFiles(AllFiles);
-                if (!string.IsNullOrEmpty(MatchedFiles[0]))
+                if (MatchedFiles.Count > 0)
                 {
                     FillTable(MatchedFiles);
                 }
@@ -58,11 +58,11 @@ namespace WindowsFormsApplication1
             
         }
 
-        private void FillTable(string[] MatchedFiles)
+        private void FillTable(List<string> MatchedFiles)
         {
             DataRow dr;
 
-            for (int i = 0; i <= MatchedFiles.Length - 1; i++)
+            for (int i = 0; i <= MatchedFiles.Count - 1; i++)
             {
                 FileSystemInfo CurrentFileInfo = new FileInfo(MatchedFiles[i]);
 
@@ -89,10 +89,10 @@ namespace WindowsFormsApplication1
             dgFoundFiles.DataSource = dt;
         }
 
-        private string[] GetMatchedFiles(string[] AllFiles)
+        private List<string> GetMatchedFiles(string[] AllFiles)
         {
             
-            string[] MatchedFiles;
+            List<string> MatchedFiles = new List<string>();
             int j = 0;
             int FileCount;
 
@@ -141,12 +141,12 @@ namespace WindowsFormsApplication1
 
                 if (match)
                 {
-                    MatchedFiles[i] = CurrentFile;
+                    MatchedFiles[j] = CurrentFile;
                     j++;
                 }
 
             }
-            FileCount = MatchedFiles.Length;
+            FileCount = MatchedFiles.Count;
             toolStripStatusLabel2.Text = string.Format("Treffer: {0}", FileCount);
 
             return MatchedFiles;
