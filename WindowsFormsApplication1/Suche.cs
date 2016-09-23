@@ -5,9 +5,6 @@ using System.Data;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using iTextSharp.text.pdf;
-using PdfToText;
-using ICSharpCode.SharpZipLib;
 
 
 
@@ -31,7 +28,7 @@ namespace WindowsFormsApplication1
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -40,7 +37,7 @@ namespace WindowsFormsApplication1
 
         }
 
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             var fbd = new FolderBrowserDialog();
@@ -61,45 +58,29 @@ namespace WindowsFormsApplication1
 
         private void btnSuche_Click(object sender, EventArgs e)
         {
-            //Reset table
-            dt.Clear();
-            dgFoundFiles.DataSource = dt;
-            
-            if (dt.Columns.Contains("Name"))
-	        {
-		        dt.Columns.Remove("Name");
-                dt.Columns.Remove("Typ");
-                dt.Columns.Remove("Datum");
-	        }
-            
+            bool result;
+            string[] AllFiles;
+            string[] FilteredFiles;
+            ResetTable();
+            result = GetSearchText();
 
-            // Get search text frim TextVarIn
-            SuchText = lbSuchText.Text;
-            if (SuchText == "")
+            if (result)
             {
-                lbSuchText.Text = "Bitte hier ein Suchtext eingeben!!!";
-            }
-            else
-            {
-                // Get all files matching search text
-                GetAllFiles();
-                //Filling table
-                dgFoundFiles.DataSource = dt;
+                AllFiles = GetAllFiles();
+                GetFilteredFiles(AllFiles);
+                //FillTable(FilteredFiles);
             }
         }
 
-        private void GetAllFiles()
+        private void GetFilteredFiles(string[] AllFiles)
         {
- 	        DataRow dr;
-           
-            // Process the list of files found in the directory.
-            string[] s1 = Directory.GetFiles(folder, "*", SearchOption.AllDirectories);
-           
-            for (int i = 0; i <= s1.Length - 1; i++)
+            DataRow dr;
+
+            for (int i = 0; i <= AllFiles.Length - 1; i++)
             {
                 Boolean match;
                 String FileEnding;
-               
+
                 if (i == 0)
                 {
                     //Add Data Grid Columns with name
@@ -109,7 +90,7 @@ namespace WindowsFormsApplication1
                 }
 
                 //Get each file information
-                String CurrentFile = s1[i];
+                String CurrentFile = AllFiles[i];
                 FileSystemInfo CurrentFileInfo = new FileInfo(CurrentFile);
                 FileEnding = CurrentFileInfo.Extension;
                 switch (FileEnding)
@@ -125,7 +106,7 @@ namespace WindowsFormsApplication1
                             break;
                         }
                 }
-               
+
                 if (match)
                 {
                     dr = dt.NewRow();
@@ -139,6 +120,44 @@ namespace WindowsFormsApplication1
                     dt.Rows.Add(dr);
                 }
             }
+            dgFoundFiles.DataSource = dt;
+        }
+
+        private bool GetSearchText()
+        {
+            // Get search text frim TextVarIn
+            SuchText = lbSuchText.Text;
+            if (SuchText == "")
+            {
+                lbSuchText.Text = "Bitte hier ein Suchtext eingeben!!!";
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void ResetTable()
+        {
+            //Reset table
+            dt.Clear();
+            dgFoundFiles.DataSource = dt;
+
+            if (dt.Columns.Contains("Name"))
+            {
+                dt.Columns.Remove("Name");
+                dt.Columns.Remove("Typ");
+                dt.Columns.Remove("Datum");
+            }
+        }
+
+        private string[] GetAllFiles()
+        {
+
+            string[] s1 = Directory.GetFiles(folder, "*", SearchOption.AllDirectories);
+
+            return s1;
         }
 
         private bool FileContentStringMatchTXT(string p)
@@ -159,29 +178,28 @@ namespace WindowsFormsApplication1
 
                 return false;
             }
-           
+
         }
 
         private bool FileContentStringMatchPDF(string p)
         {
-            try
-            {
-                // create an instance of the pdfparser class
-                PDFParser pdfParser = new PDFParser();
+            //try
+            //{
+            //    // create an instance of the pdfparser class
+            //    PDFParser pdfParser = new PDFParser();
 
-                // extract the text
-                bool result = pdfParser.ExtractText(p, "temp.txt");
+            //    // extract the text
+            //    bool result = pdfParser.ExtractText(p, "temp.txt");
 
-                return result;
-            }
-            catch (Exception)
-            {
+            //    return result;
+            //}
+            //catch (Exception)
+            //{
 
                 return false;
-            }
-           
-        }
+            //}
 
+        }
 
         private void dgFoundFiles_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -194,7 +212,7 @@ namespace WindowsFormsApplication1
             {
                 MessageBox.Show("" + filepath + " kann nicht geöffnet werden!");
             }
-            
+
         }
 
         private void lbSuchText_MouseClick(object sender, MouseEventArgs e)
@@ -206,6 +224,6 @@ namespace WindowsFormsApplication1
         {
 
         }
- 
+
     }
 }
