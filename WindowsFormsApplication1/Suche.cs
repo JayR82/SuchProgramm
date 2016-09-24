@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using System.Text;
-
+using Code7248.word_reader;
 
 namespace WindowsFormsApplication1
 {
@@ -141,6 +141,9 @@ namespace WindowsFormsApplication1
                 switch (FileEnding)
                 {
                     case ".txt":
+                    case ".xml":
+                    case ".xaml":
+                    case ".cs":
                         {
                             match = FileContentStringMatchTXT(CurrentFile);
                             break;
@@ -153,8 +156,7 @@ namespace WindowsFormsApplication1
                     case ".doc":
                     case ".docx":
                         {
-                            //match = FileContentStringMatchPDF(CurrentFile);
-                            match = false;
+                            match = FileContentStringMatchDOC(CurrentFile);
                             break;
                         }
                     case ".ppt":
@@ -214,7 +216,9 @@ namespace WindowsFormsApplication1
 
         private bool FileContentStringMatchDOC(string p)
         {
-            return false;
+            TextExtractor extractor = new TextExtractor(p);
+            string text = extractor.ExtractText(); //The string 'text' is now loaded with the text from the Word Document
+            return FindText(text);
         }
 
         private bool FileContentStringMatchPPT(string p)

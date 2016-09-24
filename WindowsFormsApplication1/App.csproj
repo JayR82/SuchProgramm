@@ -52,6 +52,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Code7248.word_reader">
+      <HintPath>..\..\..\..\3rdPartyReferences\WordReader\Code7248.word_reader.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=3.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\3rdPartyReferences\iTextSharp\itextsharp.dll</HintPath>
