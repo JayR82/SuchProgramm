@@ -131,6 +131,12 @@ namespace WindowsFormsApplication1
                             match = false;
                             break;
                         }
+                    case ".xls":
+                        {
+                            //match = FileContentStringMatchXLS(CurrentFile);
+                            match = false;
+                            break;
+                        }
                     default:
                         {
                             match = false;
@@ -140,8 +146,7 @@ namespace WindowsFormsApplication1
 
                 if (match)
                 {
-                    MatchedFiles[j] = CurrentFile;
-                    j++;
+                    MatchedFiles.Add(CurrentFile);
                 }
 
             }
