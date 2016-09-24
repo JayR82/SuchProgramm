@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -39,15 +38,16 @@ namespace WindowsFormsApplication1
         private void btnSuche_Click(object sender, EventArgs e)
         {
             bool execute;
-            string[] AllFiles;
-           
+            List<string> AllFiles;
+            List<string> MatchedFiles;
+
             ResetTable();
             execute = GetSearchText();
 
             if (execute)
             {
                 AllFiles = GetAllFiles();
-                List<string> MatchedFiles = new List<string>(AllFiles);
+               
                 MatchedFiles = GetMatchedFiles(AllFiles);
                 if (MatchedFiles.Count > 0)
                 {
@@ -89,16 +89,16 @@ namespace WindowsFormsApplication1
             dgFoundFiles.DataSource = dt;
         }
 
-        private List<string> GetMatchedFiles(string[] AllFiles)
+        private List<string> GetMatchedFiles(List<string> AllFiles)
         {
             
             List<string> MatchedFiles = new List<string>();
             int j = 0;
             int FileCount;
 
-            toolStripProgressBar1.Maximum = AllFiles.Length;
+            toolStripProgressBar1.Maximum = AllFiles.Count;
 
-            for (int i = 0; i <= AllFiles.Length - 1; i++)
+            for (int i = 0; i <= AllFiles.Count - 1; i++)
             {
                 Boolean match;
                 String FileEnding;
@@ -112,7 +112,6 @@ namespace WindowsFormsApplication1
                     case ".txt":
                         {
                             match = FileContentStringMatchTXT(CurrentFile);
-                            match = false;
                             break;
                         }
                     case ".pdf":
@@ -184,15 +183,18 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private string[] GetAllFiles()
+        private List<string> GetAllFiles()
         {
             int FileCount;
+            
             string[] s1 = Directory.GetFiles(folder, "*", SearchOption.AllDirectories);
+            
             FileCount = s1.Length;
             toolStripStatusLabel1.Text = string.Format("Dateien: {0}", FileCount);
             statusStrip1.Refresh();
-
-            return s1;
+            
+            List<string> AllFiles = new List<string>(s1);
+            return AllFiles;
         }
 
         private bool FileContentStringMatchTXT(string p)
