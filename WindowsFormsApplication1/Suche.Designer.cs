@@ -177,7 +177,7 @@
             // toolStripProgressBar1
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 15);
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(96, 15);
             // 
             // toolStripStatusLabel2
             // 
