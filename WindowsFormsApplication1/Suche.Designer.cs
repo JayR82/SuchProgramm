@@ -83,6 +83,7 @@
             // 
             // lbSuchText
             // 
+            this.lbSuchText.AcceptsReturn = true;
             this.lbSuchText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbSuchText.Location = new System.Drawing.Point(83, 33);
             this.lbSuchText.Name = "lbSuchText";

@@ -13,7 +13,7 @@ namespace WindowsFormsApplication1
 {
     public partial class Suche : Form
     {
-        string folder;
+        string InitialDir;
         DataTable dt = new DataTable();
         string SuchText;
 
@@ -53,20 +53,18 @@ namespace WindowsFormsApplication1
         {
             var fbd = new FolderBrowserDialog();
             fbd.ShowDialog();
-            folder = fbd.SelectedPath;
-            lbInitFolder.Text = folder;
+            InitialDir = fbd.SelectedPath;
+            lbInitFolder.Text = InitialDir;
         }
 
         private void btnSuche_Click(object sender, EventArgs e)
         {
-            bool execute;
             List<string> AllFiles;
             List<string> MatchedFiles;
 
             Reset();
-            execute = GetSearchText();
-
-            if (execute)
+           
+            if (GetInitialDir() && GetSearchText())
             {
                 AllFiles = GetAllFiles();
                 MatchedFiles = GetMatchedFiles(AllFiles);
@@ -83,7 +81,7 @@ namespace WindowsFormsApplication1
             SuchText = lbSuchText.Text;
             if (SuchText == "")
             {
-                toolStripStatusLabel1.Text = "SuchText \n eingeben!";
+                toolStripStatusLabel1.Text = "SuchText\neingeben!";
                 statusStrip1.Refresh();
 
                 return false;
@@ -94,11 +92,23 @@ namespace WindowsFormsApplication1
             }
         }
 
+        private bool GetInitialDir()
+        {
+            // Get initial directory for file search
+            if (Directory.Exists(InitialDir))
+            {
+                return true;
+            }
+            toolStripStatusLabel1.Text = "Ordner\neingeben!";
+            statusStrip1.Refresh();
+            return false;
+        }
+
         private List<string> GetAllFiles()
         {
             int FileCount;
 
-            string[] s1 = Directory.GetFiles(folder, "*", SearchOption.AllDirectories);
+            string[] s1 = Directory.GetFiles(InitialDir, "*", SearchOption.AllDirectories);
 
             FileCount = s1.Length;
             toolStripStatusLabel1.Text = string.Format("Dateien: {0}", FileCount);
