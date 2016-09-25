@@ -37,11 +37,11 @@ namespace WindowsFormsApplication1
             //Reset status
             toolStripProgressBar1.Value = 0;
             toolStripStatusLabel2.Text = "Treffer: 0";
+            MatchCount = 0;
+
             //Reset table
             dt.Clear();
             dgFoundFiles.DataSource = dt;
-
-            MatchCount = 0;
 
             //Delete columns
             if (dt.Columns.Contains("Name"))
@@ -70,8 +70,9 @@ namespace WindowsFormsApplication1
             if (GetInitialDir() && GetSearchText())
             {
                 AllFiles = GetAllFiles();
+                //Find search text in file URL
                 MatchedFiles = GetMatchedURL(AllFiles);
-                
+                //Find search text in file content
                 MatchedFiles.AddRange(GetMatchedFiles(AllFiles));
                 if (MatchedFiles.Count > 0)
                 {
