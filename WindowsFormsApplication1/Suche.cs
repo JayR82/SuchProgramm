@@ -8,6 +8,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using System.Text;
 using Code7248.word_reader;
+using Excel;
 
 
 namespace WindowsFormsApplication1
@@ -17,7 +18,6 @@ namespace WindowsFormsApplication1
         string InitialDir;
         DataTable dt = new DataTable();
         string SuchText;
-        int MatchCount;
 
         public Suche()
         {
@@ -46,7 +46,6 @@ namespace WindowsFormsApplication1
             //Reset status
             toolStripProgressBar1.Value = 0;
             toolStripStatusLabel2.Text = "Treffer: 0";
-            MatchCount = 0;
 
             //Reset table
             dt.Clear();
@@ -146,9 +145,6 @@ namespace WindowsFormsApplication1
                 }
             }
 
-            MatchCount += MatchedURLs.Count;
-            toolStripStatusLabel2.Text = string.Format("Treffer: {0}", MatchCount);
-
             return MatchedURLs;
         }
 
@@ -213,9 +209,6 @@ namespace WindowsFormsApplication1
                 }
 
             }
-
-            MatchCount += MatchedFiles.Count;
-            toolStripStatusLabel2.Text = string.Format("Treffer: {0}", MatchCount);
             
             return MatchedFiles;
         }
@@ -254,6 +247,32 @@ namespace WindowsFormsApplication1
 
         private bool FileContentStringMatchXLS(string p)
         {
+            FileStream stream = File.Open(p, FileMode.Open, FileAccess.Read);
+            int i = 0;
+
+            //1. Reading from a binary Excel file ('97-2003 format; *.xls)
+            IExcelDataReader excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+            //...
+            //2. Reading from a OpenXml Excel file (2007 format; *.xlsx)
+            //IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+            //...
+            //3. DataSet - The result of each spreadsheet will be created in the result.Tables
+            DataSet result = excelReader.AsDataSet();
+            //...
+            //4. DataSet - Create column names from first row
+            excelReader.IsFirstRowAsColumnNames = true;
+            //DataSet result = excelReader.AsDataSet();
+            string result2;
+            //5. Data Reader methods
+            while (excelReader.Read())
+            {
+                
+                result2 = excelReader.Name.ToString();
+                i++;
+            }
+
+            //6. Free resources (IExcelDataReader is IDisposable)
+            excelReader.Close();
             return false;
         }
 
@@ -302,8 +321,42 @@ namespace WindowsFormsApplication1
                 //Insert collected file details in Datatable
                 dt.Rows.Add(dr);
             }
+            
             //Write to table
             dgFoundFiles.DataSource = dt;
+            //Delete duplicates in DataGridView
+            DeleteDuplicates(dgFoundFiles);
+            
+            toolStripStatusLabel2.Text = string.Format("Treffer: {0}", dgFoundFiles.RowCount);
+        }
+
+        private void DeleteDuplicates(DataGridView dt)
+        {
+            for (int currentRow = 0; currentRow < dt.Rows.Count - 1; currentRow++)
+            {
+                DataGridViewRow rowToCompare = dt.Rows[currentRow];
+
+                for (int otherRow = currentRow + 1; otherRow < dt.Rows.Count; otherRow++)
+                {
+                    DataGridViewRow row = dt.Rows[otherRow];
+                    bool duplicateRow = true;
+
+                    for (int cellIndex = 0; cellIndex < row.Cells.Count; cellIndex++)
+                    {
+                        if (!rowToCompare.Cells[cellIndex].Value.Equals(row.Cells[cellIndex].Value))
+                        {
+                            duplicateRow = false;
+                            break;
+                        }
+                    }
+
+                    if (duplicateRow)
+                    {
+                        dt.Rows.Remove(row);
+                        otherRow--;
+                    }
+                }
+            }
         }
 
         private void dgFoundFiles_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
