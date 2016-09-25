@@ -62,7 +62,7 @@
             this.dgFoundFiles.AllowDrop = true;
             this.dgFoundFiles.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dgFoundFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgFoundFiles.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgFoundFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgFoundFiles.Location = new System.Drawing.Point(83, 63);
             this.dgFoundFiles.Name = "dgFoundFiles";
             this.dgFoundFiles.ReadOnly = true;

@@ -105,7 +105,7 @@ namespace WindowsFormsApplication1
             {
                 return true;
             }
-            toolStripStatusLabel1.Text = "Ordner\neingeben!";
+            toolStripStatusLabel1.Text = "Initialer Ordner\neingeben!";
             statusStrip1.Refresh();
             return false;
         }
