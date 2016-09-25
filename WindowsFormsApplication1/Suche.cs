@@ -9,6 +9,7 @@ using iTextSharp.text.pdf.parser;
 using System.Text;
 using Code7248.word_reader;
 
+
 namespace WindowsFormsApplication1
 {
     public partial class Suche : Form
@@ -89,7 +90,6 @@ namespace WindowsFormsApplication1
             }
         }
 
-
         private bool GetSearchText()
         {
             // Get search text frim TextVarIn
@@ -154,7 +154,6 @@ namespace WindowsFormsApplication1
 
         private List<string> GetMatchedFiles(List<string> AllFiles)
         {
-
             List<string> MatchedFiles = new List<string>();      
 
             toolStripProgressBar1.Maximum = AllFiles.Count;
@@ -166,6 +165,7 @@ namespace WindowsFormsApplication1
                 String CurrentFile = AllFiles[i];
 
                 toolStripProgressBar1.Value += 1;
+
                 FileSystemInfo CurrentFileInfo = new FileInfo(CurrentFile);
                 FileEnding = CurrentFileInfo.Extension;
                 switch (FileEnding)
@@ -192,14 +192,12 @@ namespace WindowsFormsApplication1
                     case ".ppt":
                     case ".pptx":
                         {
-                            //match = FileContentStringMatchPDF(CurrentFile);
-                            match = false;
+                            match = FileContentStringMatchPPT(CurrentFile);
                             break;
                         }
                     case ".xls":
                         {
-                            //match = FileContentStringMatchXLS(CurrentFile);
-                            match = false;
+                            match = FileContentStringMatchXLS(CurrentFile);
                             break;
                         }
                     default:
@@ -242,8 +240,6 @@ namespace WindowsFormsApplication1
             }
         }
 
-  
-
         private bool FileContentStringMatchDOC(string p)
         {
             TextExtractor extractor = new TextExtractor(p);
@@ -259,6 +255,24 @@ namespace WindowsFormsApplication1
         private bool FileContentStringMatchXLS(string p)
         {
             return false;
+        }
+
+        private bool FindText(string contents)
+        {
+            try
+            {
+                Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
+                Match m = r.Match(contents);
+                if (m.Success)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         private void FillTable(List<string> MatchedFiles)
@@ -294,6 +308,7 @@ namespace WindowsFormsApplication1
 
         private void dgFoundFiles_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            //Open file from DataGrid
             string filepath = (string)dgFoundFiles.Rows[e.RowIndex].Cells[0].Value;
             if (System.IO.File.Exists(filepath))
             {
@@ -303,28 +318,7 @@ namespace WindowsFormsApplication1
             {
                 MessageBox.Show("" + filepath + " kann nicht geöffnet werden!");
             }
-
         }
-
-       
-        private bool FindText(string contents)
-        {
-            try
-            {
-                Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
-                Match m = r.Match(contents);
-                if (m.Success)
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-
+  
     }
 }
