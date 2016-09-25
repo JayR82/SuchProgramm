@@ -16,6 +16,7 @@ namespace WindowsFormsApplication1
         string InitialDir;
         DataTable dt = new DataTable();
         string SuchText;
+        int MatchCount;
 
         public Suche()
         {
@@ -39,6 +40,8 @@ namespace WindowsFormsApplication1
             //Reset table
             dt.Clear();
             dgFoundFiles.DataSource = dt;
+
+            MatchCount = 0;
 
             //Delete columns
             if (dt.Columns.Contains("Name"))
@@ -67,13 +70,16 @@ namespace WindowsFormsApplication1
             if (GetInitialDir() && GetSearchText())
             {
                 AllFiles = GetAllFiles();
-                MatchedFiles = GetMatchedFiles(AllFiles);
+                MatchedFiles = GetMatchedURL(AllFiles);
+                
+                MatchedFiles.AddRange(GetMatchedFiles(AllFiles));
                 if (MatchedFiles.Count > 0)
                 {
                     FillTable(MatchedFiles);
                 }
             }
         }
+
 
         private bool GetSearchText()
         {
@@ -120,12 +126,32 @@ namespace WindowsFormsApplication1
             return AllFiles;
         }
 
+        private List<string> GetMatchedURL(List<string> AllFiles)
+        {
+            List<string> MatchedURLs = new List<string>();
+
+            for (int i = 0; i <= AllFiles.Count - 1; i++)
+            {
+                String CurrentFileURL = AllFiles[i];
+
+                Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
+                Match m = r.Match(CurrentFileURL);
+                if (m.Success)
+                {
+                    MatchedURLs.Add(CurrentFileURL);
+                }
+            }
+
+            MatchCount += MatchedURLs.Count;
+            toolStripStatusLabel2.Text = string.Format("Treffer: {0}", MatchCount);
+
+            return MatchedURLs;
+        }
+
         private List<string> GetMatchedFiles(List<string> AllFiles)
         {
 
-            List<string> MatchedFiles = new List<string>();
-            int j = 0;
-            int FileCount;
+            List<string> MatchedFiles = new List<string>();      
 
             toolStripProgressBar1.Maximum = AllFiles.Count;
 
@@ -186,9 +212,9 @@ namespace WindowsFormsApplication1
 
             }
 
-            FileCount = MatchedFiles.Count;
-            toolStripStatusLabel2.Text = string.Format("Treffer: {0}", FileCount);
-
+            MatchCount += MatchedFiles.Count;
+            toolStripStatusLabel2.Text = string.Format("Treffer: {0}", MatchCount);
+            
             return MatchedFiles;
         }
 
