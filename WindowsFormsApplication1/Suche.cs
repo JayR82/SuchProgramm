@@ -32,6 +32,14 @@ namespace WindowsFormsApplication1
             lbSuchText.Text = "";
         }
 
+        private void lbSuchText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSuche_Click((object)sender, (EventArgs)e);
+            }
+        }
+
         private void Reset()
         {
             //Reset status
@@ -89,26 +97,21 @@ namespace WindowsFormsApplication1
             if (SuchText == "")
             {
                 toolStripStatusLabel1.Text = "SuchText\neingeben!";
-                statusStrip1.Refresh();
-
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            
+            return true;
         }
 
         private bool GetInitialDir()
         {
             // Get initial directory for file search
-            if (Directory.Exists(InitialDir))
+            if (!Directory.Exists(InitialDir))
             {
-                return true;
+                toolStripStatusLabel1.Text = "Initialen Ordner\neingeben!";
+                return false;
             }
-            toolStripStatusLabel1.Text = "Initialer Ordner\neingeben!";
-            statusStrip1.Refresh();
-            return false;
+            return true;
         }
 
         private List<string> GetAllFiles()
@@ -303,6 +306,7 @@ namespace WindowsFormsApplication1
 
         }
 
+       
         private bool FindText(string contents)
         {
             try
@@ -320,6 +324,7 @@ namespace WindowsFormsApplication1
                 return false;
             }
         }
+
 
     }
 }

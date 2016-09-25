@@ -60,10 +60,14 @@
             // dgFoundFiles
             // 
             this.dgFoundFiles.AllowDrop = true;
+            this.dgFoundFiles.AllowUserToAddRows = false;
+            this.dgFoundFiles.AllowUserToDeleteRows = false;
+            this.dgFoundFiles.AllowUserToResizeRows = false;
             this.dgFoundFiles.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dgFoundFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgFoundFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgFoundFiles.Location = new System.Drawing.Point(83, 63);
+            this.dgFoundFiles.MultiSelect = false;
             this.dgFoundFiles.Name = "dgFoundFiles";
             this.dgFoundFiles.ReadOnly = true;
             this.dgFoundFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
@@ -90,6 +94,7 @@
             this.lbSuchText.Size = new System.Drawing.Size(756, 20);
             this.lbSuchText.TabIndex = 3;
             this.lbSuchText.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbSuchText_MouseClick);
+            this.lbSuchText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbSuchText_KeyDown);
             // 
             // btnSuche
             // 
