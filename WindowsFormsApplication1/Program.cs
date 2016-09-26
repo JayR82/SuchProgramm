@@ -16,7 +16,16 @@ namespace WindowsFormsApplication1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Suche());
+            try
+            {
+                Application.Run(new Suche());
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Upps, das hätte nicht passieren dürfen\nBitte starte das Programm neu!!", "Suche",
+                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            
         }
     }
 }

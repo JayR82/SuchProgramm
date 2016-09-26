@@ -167,34 +167,41 @@ namespace WindowsFormsApplication1
 
                     FileSystemInfo CurrentFileInfo = new FileInfo(CurrentFile);
                     FileEnding = CurrentFileInfo.Extension;
-                    switch (FileEnding)
+                    switch (FileEnding.ToUpper())
                     {
-                        case ".txt":
-                        case ".xml":
-                        case ".xaml":
-                        case ".cs":
+                        case ".TXT":
+                        case ".XML":
+                        case ".XAML":
+                        case ".CS":
+                        case ".DAT":
+                        case ".CONFIG":
+                        case ".BAK":
+                        case ".HTM":
+                        case ".HTML":
                             {
                                 match = FileContentStringMatchTXT(CurrentFile);
                                 break;
                             }
-                        case ".pdf":
+                        case ".PDF":
                             {
                                 match = FileContentStringMatchPDF(CurrentFile);
                                 break;
                             }
-                        case ".doc":
-                        case ".docx":
+                        case ".DOC":
+                        case ".DOCX":
                             {
                                 match = FileContentStringMatchDOC(CurrentFile);
                                 break;
                             }
-                        case ".ppt":
-                        case ".pptx":
+                        case ".PPT":
+                        case ".PPTX":
                             {
                                 match = FileContentStringMatchPPT(CurrentFile);
                                 break;
                             }
-                        case ".xls":
+                        case ".XLS":
+                        case ".XLSX":
+                        case ".CSV":
                             {
                                 match = FileContentStringMatchXLS(CurrentFile);
                                 break;
@@ -358,7 +365,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void dgFoundFiles_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgFoundFiles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             //Open file from DataGrid
             string filepath = (string)dgFoundFiles.Rows[e.RowIndex].Cells[0].Value;
