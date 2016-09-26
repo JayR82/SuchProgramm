@@ -384,6 +384,29 @@ namespace WindowsFormsApplication1
             MessageBox.Show("Jürgen Reutter\nV1.00", "Suche",
                         MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
+
+        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(@"Unterstützte Dateiformate:
+            .TXT
+            .XML
+            .XAML
+            .CS
+            .DAT
+            .CONFIG
+            .BAK
+            .HTM
+            .HTML
+            .PDF
+            .DOC
+            .DOCX
+            .XLS
+            .XLSX
+            .CSV", "Suche",
+            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            //.PPT
+            //.PPTX
+        }
   
     }
 }
