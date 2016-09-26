@@ -42,10 +42,13 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgFoundFiles)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbInitFolder
@@ -72,7 +75,7 @@
             this.dgFoundFiles.Name = "dgFoundFiles";
             this.dgFoundFiles.ReadOnly = true;
             this.dgFoundFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgFoundFiles.Size = new System.Drawing.Size(756, 256);
+            this.dgFoundFiles.Size = new System.Drawing.Size(756, 252);
             this.dgFoundFiles.TabIndex = 5;
             this.dgFoundFiles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgFoundFiles_CellDoubleClick);
             // 
@@ -157,16 +160,15 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbSuchText, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.statusStrip1, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(942, 342);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(942, 318);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // statusStrip1
@@ -178,7 +180,7 @@
             this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(842, 60);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(100, 262);
+            this.statusStrip1.Size = new System.Drawing.Size(100, 258);
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -201,16 +203,30 @@
             this.toolStripStatusLabel2.Text = "Treffer:";
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label4
+            // menuStrip1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label4.Location = new System.Drawing.Point(3, 322);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 20);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "V1.00";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hilfeToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(942, 24);
+            this.menuStrip1.TabIndex = 11;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // hilfeToolStripMenuItem
+            // 
+            this.hilfeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.versionToolStripMenuItem});
+            this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
+            this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.hilfeToolStripMenuItem.Text = "Hilfe";
+            // 
+            // versionToolStripMenuItem
+            // 
+            this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.versionToolStripMenuItem.Text = "Version";
+            this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
             // 
             // Suche
             // 
@@ -218,6 +234,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(942, 342);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(400, 200);
             this.Name = "Suche";
             this.Text = "Suche";
@@ -227,6 +245,8 @@
             this.tableLayoutPanel1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,7 +268,9 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem hilfeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
     }
 }
 

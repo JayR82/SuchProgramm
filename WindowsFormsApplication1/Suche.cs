@@ -378,6 +378,12 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("" + filepath + " kann nicht geöffnet werden!");
             }
         }
+
+        private void versionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Jürgen Reutter\nV1.00", "Suche",
+                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
   
     }
 }
