@@ -8,7 +8,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using System.Text;
 using Code7248.word_reader;
-using Excel;
+using CSharpJExcel.Jxl;
 
 
 namespace WindowsFormsApplication1
@@ -18,6 +18,7 @@ namespace WindowsFormsApplication1
         string InitialDir;
         DataTable dt = new DataTable();
         string SuchText;
+       
 
         public Suche()
         {
@@ -160,54 +161,62 @@ namespace WindowsFormsApplication1
                 String FileEnding;
                 String CurrentFile = AllFiles[i];
 
-                toolStripProgressBar1.Value += 1;
-
-                FileSystemInfo CurrentFileInfo = new FileInfo(CurrentFile);
-                FileEnding = CurrentFileInfo.Extension;
-                switch (FileEnding)
+                try
                 {
-                    case ".txt":
-                    case ".xml":
-                    case ".xaml":
-                    case ".cs":
-                        {
-                            match = FileContentStringMatchTXT(CurrentFile);
-                            break;
-                        }
-                    case ".pdf":
-                        {
-                            match = FileContentStringMatchPDF(CurrentFile);
-                            break;
-                        }
-                    case ".doc":
-                    case ".docx":
-                        {
-                            match = FileContentStringMatchDOC(CurrentFile);
-                            break;
-                        }
-                    case ".ppt":
-                    case ".pptx":
-                        {
-                            match = FileContentStringMatchPPT(CurrentFile);
-                            break;
-                        }
-                    case ".xls":
-                        {
-                            match = FileContentStringMatchXLS(CurrentFile);
-                            break;
-                        }
-                    default:
-                        {
-                            match = false;
-                            break;
-                        }
-                }
+                    toolStripProgressBar1.Value += 1;
 
-                if (match)
+                    FileSystemInfo CurrentFileInfo = new FileInfo(CurrentFile);
+                    FileEnding = CurrentFileInfo.Extension;
+                    switch (FileEnding)
+                    {
+                        case ".txt":
+                        case ".xml":
+                        case ".xaml":
+                        case ".cs":
+                            {
+                                match = FileContentStringMatchTXT(CurrentFile);
+                                break;
+                            }
+                        case ".pdf":
+                            {
+                                match = FileContentStringMatchPDF(CurrentFile);
+                                break;
+                            }
+                        case ".doc":
+                        case ".docx":
+                            {
+                                match = FileContentStringMatchDOC(CurrentFile);
+                                break;
+                            }
+                        case ".ppt":
+                        case ".pptx":
+                            {
+                                match = FileContentStringMatchPPT(CurrentFile);
+                                break;
+                            }
+                        case ".xls":
+                            {
+                                match = FileContentStringMatchXLS(CurrentFile);
+                                break;
+                            }
+                        default:
+                            {
+                                match = false;
+                                break;
+                            }
+                    }
+
+                    if (match)
+                    {
+                        MatchedFiles.Add(CurrentFile);
+                    }
+
+                }
+                catch (Exception)
                 {
-                    MatchedFiles.Add(CurrentFile);
+                    MessageBox.Show("Fehler während suche!... \nIst vielleicht eine Datei aus dem Suchordner gerade offen???\n Bitte alle eventuell betroffenen Dateien schließen und suche neu starten!", "Suche",
+                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 }
-
             }
             
             return MatchedFiles;
@@ -247,32 +256,22 @@ namespace WindowsFormsApplication1
 
         private bool FileContentStringMatchXLS(string p)
         {
-            FileStream stream = File.Open(p, FileMode.Open, FileAccess.Read);
-            int i = 0;
-
-            //1. Reading from a binary Excel file ('97-2003 format; *.xls)
-            IExcelDataReader excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
-            //...
-            //2. Reading from a OpenXml Excel file (2007 format; *.xlsx)
-            //IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-            //...
-            //3. DataSet - The result of each spreadsheet will be created in the result.Tables
-            DataSet result = excelReader.AsDataSet();
-            //...
-            //4. DataSet - Create column names from first row
-            excelReader.IsFirstRowAsColumnNames = true;
-            //DataSet result = excelReader.AsDataSet();
-            string result2;
-            //5. Data Reader methods
-            while (excelReader.Read())
+            Workbook workbook = Workbook.getWorkbook(new System.IO.FileInfo(p));
+            int sheets = workbook.getNumberOfSheets();
+            Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
+            for (int i = 0; i < sheets; i++)
             {
-                
-                result2 = excelReader.Name.ToString();
-                i++;
+                var sheet = workbook.getSheet(i);
+                Cell CellContent = sheet.findCell(r, 0, 0, sheet.getColumns(), sheet.getRows(), false);
+                if (CellContent == null)
+                { }
+                else
+                {
+                    workbook.close();
+                    return true;
+                }
             }
-
-            //6. Free resources (IExcelDataReader is IDisposable)
-            excelReader.Close();
+            workbook.close();
             return false;
         }
 
