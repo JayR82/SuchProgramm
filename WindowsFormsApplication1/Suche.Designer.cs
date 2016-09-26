@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Suche));
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.lbInitFolder = new System.Windows.Forms.TextBox();
             this.dgFoundFiles = new System.Windows.Forms.DataGridView();
@@ -243,6 +244,7 @@
             this.ClientSize = new System.Drawing.Size(942, 342);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(400, 200);
             this.Name = "Suche";

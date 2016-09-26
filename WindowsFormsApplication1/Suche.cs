@@ -99,6 +99,12 @@ namespace WindowsFormsApplication1
                 toolStripStatusLabel1.Text = "SuchText\neingeben!";
                 return false;
             }
+            if (SuchText == "*")
+            {
+                MessageBox.Show("Nur 'Wildcard' (Stern) ist nicht möglich.\n Lieber nur ein Teil des zu suchenden Wortes eingeben...", "Suche",
+                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return false;
+            }
             
             return true;
         }
