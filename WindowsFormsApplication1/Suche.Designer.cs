@@ -67,7 +67,6 @@
             // dgFoundFiles
             // 
             this.dgFoundFiles.AllowUserToAddRows = false;
-            this.dgFoundFiles.AllowUserToDeleteRows = false;
             this.dgFoundFiles.AllowUserToResizeRows = false;
             this.dgFoundFiles.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dgFoundFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

@@ -53,8 +53,9 @@ namespace WindowsFormsApplication1
             dgFoundFiles.DataSource = dt;
 
             //Delete columns
-            if (dt.Columns.Contains("Name"))
+            if (dt.Columns.Contains("Pfad"))
             {
+                dt.Columns.Remove("Pfad");
                 dt.Columns.Remove("Name");
                 dt.Columns.Remove("Typ");
                 dt.Columns.Remove("Datum");
@@ -317,6 +318,7 @@ namespace WindowsFormsApplication1
                 if (i == 0)
                 {
                     //Add Data Grid Columns with name
+                    dt.Columns.Add("Pfad");
                     dt.Columns.Add("Name");
                     dt.Columns.Add("Typ");
                     dt.Columns.Add("Datum");
@@ -325,7 +327,9 @@ namespace WindowsFormsApplication1
                 //Prepare table content
                 dr = dt.NewRow();
                 //Get File name of each file name
-                dr["Name"] = CurrentFileInfo.FullName;
+                dr["Pfad"] = CurrentFileInfo.FullName;
+                //Get File name of each file name
+                dr["Name"] = CurrentFileInfo.Name;
                 //Get File Type/Extension of each file 
                 dr["Typ"] = CurrentFileInfo.Extension;
                 //Get file Create Date and Time 
@@ -374,15 +378,19 @@ namespace WindowsFormsApplication1
         private void dgFoundFiles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             //Open file from DataGrid
-            string filepath = (string)dgFoundFiles.Rows[e.RowIndex].Cells[0].Value;
-            if (System.IO.File.Exists(filepath))
+            if (e.RowIndex >= 0)
             {
-                System.Diagnostics.Process.Start(filepath);
+                string filepath = (string)dgFoundFiles.Rows[e.RowIndex].Cells[0].Value;
+                if (System.IO.File.Exists(filepath))
+                {
+                    System.Diagnostics.Process.Start(filepath);
+                }
+                else
+                {
+                    MessageBox.Show("" + filepath + " kann nicht geöffnet werden!");
+                }
             }
-            else
-            {
-                MessageBox.Show("" + filepath + " kann nicht geöffnet werden!");
-            }
+           
         }
 
         private void versionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -419,8 +427,9 @@ namespace WindowsFormsApplication1
             MessageBox.Show(@"Dieses Programm durchsucht Dateien in einem angegebenen Ordner und dessen Unterordner, auf ein oder mehrere zusammenhängende Worte:
 
 1. Gib den Initialen Ordner an, in dem Dateien durchsucht werden sollen
-1.1. Vermeide direkt Partitionen anzugeben (D:\ oder C:\)
-1.2. Je genauer du den initialen Ordner eingrenzt, desto schneller ist die Suche fertig
+1.1. Click [...] und navigiere zu deinem initialen Ordner, bestätige mit 'OK'
+1.2. Vermeide direkt Partitionen anzugeben (D:\ oder C:\)
+1.3. Je genauer du den initialen Ordner eingrenzt, desto schneller ist die Suche fertig
         
 2. Gib ein Suchtext ein nach dem du suchen möchtest
 2.2. Ein einzelnes Wort oder ein Wortausschnitt
