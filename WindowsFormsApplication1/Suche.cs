@@ -413,6 +413,34 @@ namespace WindowsFormsApplication1
             //.PPT
             //.PPTX
         }
+
+        private void anleitungToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(@"Dieses Programm durchsucht Dateien in einem angegebenen Ordner und dessen Unterordner, auf ein oder mehrere zusammenhängende Worte:
+
+1. Gib den Initialen Ordner an, in dem Dateien durchsucht werden sollen
+1.1. Vermeide direkt Partitionen anzugeben (D:\ oder C:\)
+1.2. Je genauer du den initialen Ordner eingrenzt, desto schneller ist die Suche fertig
+        
+2. Gib ein Suchtext ein nach dem du suchen möchtest
+2.2. Ein einzelnes Wort oder ein Wortausschnitt
+2.2. Mehrere Wörter, die so in der Reihenfolge auch tatsächlich vorkommen sollten
+2.3. Groß- / Kleinschreibung ist egal
+        
+3. Drück Suche
+3.1. Es wird rechts angezeigt, wieviele Dateien in den initialen Ordner und Unterordner gefunden wurden
+3.2. Es wird rechts angezeigt, ob die Suche fertig ist
+3.3. Es wird rechts angezeigt, wieviele Datein mit dem Suchtext gefunden wurden
+3.3.1. Treffer sind: Suchtext im Pfadnamen
+3.3.2. Treffer sind: Suchtext im Dateiinhalt
+3.4 Schau im Menu unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
+        
+4. Öffne die relevante Datei aus der Ergebnisliste
+4.1. Sortiere die Ergebnisliste nach deinen Kriterien
+4.2. Öffne eine oder mehrere Dateien durch Doppelklick auf die jeweilige Zeile
+        
+5. Schließe das Programm", "Suche", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
   
     }
 }
