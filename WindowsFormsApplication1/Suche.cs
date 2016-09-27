@@ -9,7 +9,7 @@ using iTextSharp.text.pdf.parser;
 using System.Text;
 using Code7248.word_reader;
 using CSharpJExcel.Jxl;
-
+using OfficeOpenXml;
 
 namespace WindowsFormsApplication1
 {
@@ -58,16 +58,20 @@ namespace WindowsFormsApplication1
                 dt.Columns.Remove("Pfad");
                 dt.Columns.Remove("Name");
                 dt.Columns.Remove("Typ");
-                dt.Columns.Remove("Datum");
+                dt.Columns.Remove("Erstellt Datum");
+                dt.Columns.Remove("Geändert Datum");
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             var fbd = new FolderBrowserDialog();
-            fbd.ShowDialog();
-            InitialDir = fbd.SelectedPath;
-            lbInitFolder.Text = InitialDir;
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                InitialDir = fbd.SelectedPath;
+                lbInitFolder.Text = InitialDir;
+            }
+            
         }
 
         private void btnSuche_Click(object sender, EventArgs e)
@@ -207,10 +211,14 @@ namespace WindowsFormsApplication1
                                 break;
                             }
                         case ".XLS":
-                        case ".XLSX":
                         case ".CSV":
                             {
                                 match = FileContentStringMatchXLS(CurrentFile);
+                                break;
+                            }
+                        case ".XLSX":
+                            {
+                                match = FileContentStringMatchXLSX(CurrentFile);
                                 break;
                             }
                         default:
@@ -289,6 +297,22 @@ namespace WindowsFormsApplication1
             return false;
         }
 
+        private bool FileContentStringMatchXLSX(string p)
+        {
+            //ExcelWorksheet sheet = _openXmlPackage.Workbook.Worksheets["SheetName"];
+            //using (ExcelNamedRange namedRange = sheet.Names["RangeName"])
+            //{
+            //    for (int rowIndex = Start.Row; rowIndex <= namedRange.End.Row; rowIndex++)
+            //    {
+            //        for (int columnIndex = namedRange.Start.Column; columnIndex <= namedRange.End.Column; columnIndex++)
+            //        {
+            //            sheet.Cells[rowIndex, columnIndex].Value = "no more hair pulling";
+            //        }
+            //    }
+            //}
+            return false;
+        }
+
         private bool FindText(string contents)
         {
             try
@@ -321,7 +345,8 @@ namespace WindowsFormsApplication1
                     dt.Columns.Add("Pfad");
                     dt.Columns.Add("Name");
                     dt.Columns.Add("Typ");
-                    dt.Columns.Add("Datum");
+                    dt.Columns.Add("Erstellt Datum");
+                    dt.Columns.Add("Geändert Datum");
                 }
 
                 //Prepare table content
@@ -332,8 +357,10 @@ namespace WindowsFormsApplication1
                 dr["Name"] = CurrentFileInfo.Name;
                 //Get File Type/Extension of each file 
                 dr["Typ"] = CurrentFileInfo.Extension;
-                //Get file Create Date and Time 
-                dr["Datum"] = CurrentFileInfo.CreationTime.Date.ToString("dd/MM/yyyy");
+                //Get file Create Date
+                dr["Erstellt Datum"] = CurrentFileInfo.CreationTime.Date.ToString("dd/MM/yyyy");
+                //Get file Create Date
+                dr["Geändert Datum"] = CurrentFileInfo.LastWriteTime.Date.ToString("dd/MM/yyyy");
                 //Insert collected file details in Datatable
                 dt.Rows.Add(dr);
             }

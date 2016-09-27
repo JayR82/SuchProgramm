@@ -62,6 +62,9 @@
     <Reference Include="CSharpJExcel">
       <HintPath>..\..\..\..\3rdPartyReferences\ExcelReader\CSharpJExcel\CSharpJExcel\CSharpJExcel\bin\Debug\CSharpJExcel.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\..\..\..\3rdPartyReferences\ExcelReader\xlsx\EPPlus\DotNet4\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\..\..\3rdPartyReferences\ExcelReader\output\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>

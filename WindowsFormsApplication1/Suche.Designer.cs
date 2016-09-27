@@ -75,7 +75,8 @@
             this.dgFoundFiles.MultiSelect = false;
             this.dgFoundFiles.Name = "dgFoundFiles";
             this.dgFoundFiles.ReadOnly = true;
-            this.dgFoundFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dgFoundFiles.RowHeadersVisible = false;
+            this.dgFoundFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgFoundFiles.Size = new System.Drawing.Size(756, 252);
             this.dgFoundFiles.TabIndex = 5;
             this.dgFoundFiles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgFoundFiles_CellDoubleClick);
