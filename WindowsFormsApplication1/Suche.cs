@@ -79,6 +79,8 @@ namespace WindowsFormsApplication1
             List<string> AllFiles;
             List<string> MatchedFiles;
 
+            btnSuche.Enabled = false;
+            lbSuchText.Enabled = false;
             Reset();
            
             if (GetInitialDir() && GetSearchText())
@@ -93,6 +95,8 @@ namespace WindowsFormsApplication1
                     FillTable(MatchedFiles);
                 }
             }
+            lbSuchText.Enabled = true;
+            btnSuche.Enabled = true;
         }
 
         private bool GetSearchText()
@@ -299,17 +303,7 @@ namespace WindowsFormsApplication1
 
         private bool FileContentStringMatchXLSX(string p)
         {
-            //ExcelWorksheet sheet = _openXmlPackage.Workbook.Worksheets["SheetName"];
-            //using (ExcelNamedRange namedRange = sheet.Names["RangeName"])
-            //{
-            //    for (int rowIndex = Start.Row; rowIndex <= namedRange.End.Row; rowIndex++)
-            //    {
-            //        for (int columnIndex = namedRange.Start.Column; columnIndex <= namedRange.End.Column; columnIndex++)
-            //        {
-            //            sheet.Cells[rowIndex, columnIndex].Value = "no more hair pulling";
-            //        }
-            //    }
-            //}
+            
             return false;
         }
 
