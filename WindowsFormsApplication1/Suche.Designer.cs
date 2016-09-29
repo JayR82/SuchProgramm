@@ -45,9 +45,9 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anleitungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgFoundFiles)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -62,7 +62,8 @@
             this.lbInitFolder.Name = "lbInitFolder";
             this.lbInitFolder.Size = new System.Drawing.Size(756, 20);
             this.lbInitFolder.TabIndex = 1;
-            this.lbInitFolder.Text = "Initialer Ordner zur Suche...";
+            this.lbInitFolder.TabStop = false;
+            this.lbInitFolder.Text = "D:\\test";
             // 
             // dgFoundFiles
             // 
@@ -76,9 +77,10 @@
             this.dgFoundFiles.Name = "dgFoundFiles";
             this.dgFoundFiles.ReadOnly = true;
             this.dgFoundFiles.RowHeadersVisible = false;
+            this.dgFoundFiles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgFoundFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgFoundFiles.Size = new System.Drawing.Size(756, 252);
-            this.dgFoundFiles.TabIndex = 5;
+            this.dgFoundFiles.TabIndex = 4;
             this.dgFoundFiles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgFoundFiles_CellDoubleClick);
             // 
             // btnOpenFolder
@@ -86,7 +88,7 @@
             this.btnOpenFolder.Location = new System.Drawing.Point(845, 3);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Size = new System.Drawing.Size(41, 23);
-            this.btnOpenFolder.TabIndex = 2;
+            this.btnOpenFolder.TabIndex = 1;
             this.btnOpenFolder.Text = "...";
             this.btnOpenFolder.UseVisualStyleBackColor = true;
             this.btnOpenFolder.Click += new System.EventHandler(this.button1_Click);
@@ -98,7 +100,8 @@
             this.lbSuchText.Location = new System.Drawing.Point(83, 33);
             this.lbSuchText.Name = "lbSuchText";
             this.lbSuchText.Size = new System.Drawing.Size(756, 20);
-            this.lbSuchText.TabIndex = 3;
+            this.lbSuchText.TabIndex = 2;
+            this.lbSuchText.Text = "b";
             this.lbSuchText.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbSuchText_MouseClick);
             this.lbSuchText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbSuchText_KeyDown);
             // 
@@ -107,7 +110,7 @@
             this.btnSuche.Location = new System.Drawing.Point(845, 33);
             this.btnSuche.Name = "btnSuche";
             this.btnSuche.Size = new System.Drawing.Size(75, 23);
-            this.btnSuche.TabIndex = 4;
+            this.btnSuche.TabIndex = 3;
             this.btnSuche.Text = "Suche";
             this.btnSuche.UseVisualStyleBackColor = true;
             this.btnSuche.Click += new System.EventHandler(this.btnSuche_Click);
@@ -225,26 +228,26 @@
             this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.hilfeToolStripMenuItem.Text = "Hilfe";
             // 
-            // versionToolStripMenuItem
+            // anleitungToolStripMenuItem
             // 
-            this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.versionToolStripMenuItem.Text = "Version";
-            this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
+            this.anleitungToolStripMenuItem.Name = "anleitungToolStripMenuItem";
+            this.anleitungToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.anleitungToolStripMenuItem.Text = "Anleitung";
+            this.anleitungToolStripMenuItem.Click += new System.EventHandler(this.anleitungToolStripMenuItem_Click);
             // 
             // infoToolStripMenuItem
             // 
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            this.infoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.infoToolStripMenuItem.Text = "Info";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
-            // anleitungToolStripMenuItem
+            // versionToolStripMenuItem
             // 
-            this.anleitungToolStripMenuItem.Name = "anleitungToolStripMenuItem";
-            this.anleitungToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.anleitungToolStripMenuItem.Text = "Anleitung";
-            this.anleitungToolStripMenuItem.Click += new System.EventHandler(this.anleitungToolStripMenuItem_Click);
+            this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.versionToolStripMenuItem.Text = "Version";
+            this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
             // 
             // Suche
             // 

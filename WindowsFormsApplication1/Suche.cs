@@ -9,15 +9,18 @@ using iTextSharp.text.pdf.parser;
 using System.Text;
 using Code7248.word_reader;
 using CSharpJExcel.Jxl;
-using OfficeOpenXml;
+using Excel;
+
+
+using System.Data.OleDb;
 
 namespace WindowsFormsApplication1
 {
     public partial class Suche : Form
     {
-        string InitialDir;
+        string InitialDir = @"D:\test\";
         DataTable dt = new DataTable();
-        string SuchText;
+        string SuchText = "b";
        
 
         public Suche()
@@ -193,6 +196,8 @@ namespace WindowsFormsApplication1
                         case ".BAK":
                         case ".HTM":
                         case ".HTML":
+                        case ".INI":
+                        case ".CSPROJ":
                             {
                                 match = FileContentStringMatchTXT(CurrentFile);
                                 break;
@@ -240,7 +245,10 @@ namespace WindowsFormsApplication1
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Fehler während suche!... \nIst vielleicht eine Datei aus dem Suchordner gerade offen???\n Bitte alle eventuell betroffenen Dateien schließen und suche neu starten!", "Suche",
+                    MessageBox.Show(@"Fehler während suche!
+Ist vielleicht eine Datei aus dem Suchordner gerade offen??? 
+Bitte alle eventuell betroffenen Dateien schließen und die Suche neu starten!
+Datei mit Fehler: '" + CurrentFile + "'!", "Suche",
                         MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 }
             }
@@ -303,7 +311,29 @@ namespace WindowsFormsApplication1
 
         private bool FileContentStringMatchXLSX(string p)
         {
+            FileStream stream = File.Open(p, FileMode.Open, FileAccess.Read);
+            IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+            Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
+            DataSet result = excelReader.AsDataSet();
             
+            for (int i = 0; i < result.Tables.Count; i++)
+			{
+                for (int j = 0; j < result.Tables[i].Rows.Count; j++)
+                {
+                    object[] row = result.Tables[i].Rows[j].ItemArray;
+                    foreach (object item in row)
+                    {
+                        Match m = r.Match(item.ToString());
+                        if (m.Success)
+                        {
+                            excelReader.Close();
+                            return true;
+                        }
+                    }
+                }
+			}
+
+            excelReader.Close();
             return false;
         }
 
@@ -423,21 +453,16 @@ namespace WindowsFormsApplication1
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(@"Unterstützte Dateiformate:
-            .TXT
-            .XML
-            .XAML
-            .CS
-            .DAT
-            .CONFIG
-            .BAK
-            .HTM
-            .HTML
-            .PDF
-            .DOC
-            .DOCX
-            .XLS
-            .XLSX
-            .CSV", "Suche",
+.TXT        .HTM
+.XML        .HTML
+.XAML       .PDF
+.CS         .DOC
+.DAT        .DOCX
+.CONFIG     .XLS
+.BAK        .XLSX
+.INI        .CSV
+.CSPROJ         "
+                , "Suche",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             //.PPT
             //.PPTX
