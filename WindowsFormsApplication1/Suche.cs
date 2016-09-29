@@ -18,9 +18,9 @@ namespace WindowsFormsApplication1
 {
     public partial class Suche : Form
     {
-        string InitialDir = @"D:\test\";
+        string InitialDir;
         DataTable dt = new DataTable();
-        string SuchText = "b";
+        string SuchText;
        
 
         public Suche()
@@ -444,6 +444,22 @@ Datei mit Fehler: '" + CurrentFile + "'!", "Suche",
            
         }
 
+        private void dgFoundFiles_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string filepath = (string)this.dgFoundFiles.Rows[this.dgFoundFiles.CurrentCell.RowIndex].Cells[0].Value;
+                if (System.IO.File.Exists(filepath))
+                {
+                    System.Diagnostics.Process.Start(filepath);
+                }
+                else
+                {
+                    MessageBox.Show("" + filepath + " kann nicht geöffnet werden!");
+                }
+            }
+        }
+
         private void versionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Jürgen Reutter\nV1.00", "Suche",
@@ -477,25 +493,27 @@ Datei mit Fehler: '" + CurrentFile + "'!", "Suche",
 1.2. Vermeide direkt Partitionen anzugeben (D:\ oder C:\)
 1.3. Je genauer du den initialen Ordner eingrenzt, desto schneller ist die Suche fertig
         
-2. Gib ein Suchtext ein nach dem du suchen möchtest
+2. Gib ein Suchtext ein, nach dem du suchen möchtest
 2.2. Ein einzelnes Wort oder ein Wortausschnitt
 2.2. Mehrere Wörter, die so in der Reihenfolge auch tatsächlich vorkommen sollten
 2.3. Groß- / Kleinschreibung ist egal
         
-3. Drück Suche
-3.1. Es wird rechts angezeigt, wieviele Dateien in den initialen Ordner und Unterordner gefunden wurden
-3.2. Es wird rechts angezeigt, ob die Suche fertig ist
-3.3. Es wird rechts angezeigt, wieviele Datein mit dem Suchtext gefunden wurden
-3.3.1. Treffer sind: Suchtext im Pfadnamen
-3.3.2. Treffer sind: Suchtext im Dateiinhalt
-3.4 Schau im Menu unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
+3. Starte die Suche
+3.1. Drück 'Suche' oder die Taste -Enter-
+3.2. Es wird rechts angezeigt, wieviele Dateien in den initialen Ordner und Unterordner insgesamt gefunden wurden
+3.3. Es wird rechts angezeigt, ob die Suche fertig ist (Balken is komplett grün)
+3.4. Es wird rechts angezeigt, wieviele Dateien mit dem Suchtext gefunden wurden
+3.4.1. Treffer sind: Suchtext im Pfadnamen
+3.4.2. Treffer sind: Suchtext im Dateiinhalt
+3.5 Schau im Menu unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
         
 4. Öffne die relevante Datei aus der Ergebnisliste
-4.1. Sortiere die Ergebnisliste nach deinen Kriterien
-4.2. Öffne eine oder mehrere Dateien durch Doppelklick auf die jeweilige Zeile
+4.1. Sortiere die Spalten der Ergebnisliste nach deinen Kriterien
+4.2. Öffne eine oder mehrere Dateien durch Doppelklick auf die ausgewählte Zeile oder drücke -Enter-
         
 5. Schließe das Programm", "Suche", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
+
   
     }
 }

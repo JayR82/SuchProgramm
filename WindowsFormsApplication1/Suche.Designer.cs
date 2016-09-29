@@ -63,7 +63,7 @@
             this.lbInitFolder.Size = new System.Drawing.Size(756, 20);
             this.lbInitFolder.TabIndex = 1;
             this.lbInitFolder.TabStop = false;
-            this.lbInitFolder.Text = "D:\\test";
+            this.lbInitFolder.Text = "Initialen Ordner zur Suche eingeben...";
             // 
             // dgFoundFiles
             // 
@@ -82,6 +82,7 @@
             this.dgFoundFiles.Size = new System.Drawing.Size(756, 252);
             this.dgFoundFiles.TabIndex = 4;
             this.dgFoundFiles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgFoundFiles_CellDoubleClick);
+            this.dgFoundFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgFoundFiles_KeyDown);
             // 
             // btnOpenFolder
             // 
@@ -101,7 +102,6 @@
             this.lbSuchText.Name = "lbSuchText";
             this.lbSuchText.Size = new System.Drawing.Size(756, 20);
             this.lbSuchText.TabIndex = 2;
-            this.lbSuchText.Text = "b";
             this.lbSuchText.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbSuchText_MouseClick);
             this.lbSuchText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbSuchText_KeyDown);
             // 
