@@ -67,8 +67,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>SuchIcon128.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
@@ -136,6 +135,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SuchIcon128.ico" />
     <Content Include="SuchIcon16.ico" />
     <Content Include="SuchIcon32.ico" />
     <Content Include="SuchIcon512.ico" />
