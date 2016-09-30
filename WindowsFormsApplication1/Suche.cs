@@ -138,16 +138,38 @@ namespace WindowsFormsApplication1
         {
             int FileCount;
 
-            string[] s1 = Directory.GetFiles(InitialDir, "*", SearchOption.AllDirectories);
-
-            FileCount = s1.Length;
+            IEnumerable<string> s1 = GetFiles(InitialDir, "*");
+            List<string> AllFiles = new List<string>(s1);
+            
+            FileCount = AllFiles.Count;
             toolStripStatusLabel1.Text = string.Format("Dateien: {0}", FileCount);
             statusStrip1.Refresh();
 
-            //Set string array ti list
-            List<string> AllFiles = new List<string>(s1);
-
             return AllFiles;
+        }
+
+        public static IEnumerable<string> GetFiles(string root, string searchPattern)
+        {
+            Stack<string> pending = new Stack<string>();
+            pending.Push(root);
+            while (pending.Count != 0)
+            {
+                var path = pending.Pop();
+                string[] next = null;
+                try
+                {
+                    next = Directory.GetFiles(path, searchPattern);
+                }
+                catch { }
+                if (next != null && next.Length != 0)
+                    foreach (var file in next) yield return file;
+                try
+                {
+                    next = Directory.GetDirectories(path);
+                    foreach (var subdir in next) pending.Push(subdir);
+                }
+                catch { }
+            }
         }
 
         private List<string> GetMatchedURL(List<string> AllFiles)
