@@ -466,8 +466,10 @@ Datei mit Fehler: '" + CurrentFile + "'!", "Suche",
 
         private void versionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Jürgen Reutter\nV1.00", "Suche",
-                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show(@"Jürgen Reutter
+C# .Net 4.5 
+V1.00", "Suche",
+            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
