@@ -21,7 +21,7 @@ namespace WindowsFormsApplication1
         string InitialDir;
         DataTable dt = new DataTable();
         string SuchText;
-       
+        int AusgelasseneDateien = 0;
 
         public Suche()
         {
@@ -50,6 +50,8 @@ namespace WindowsFormsApplication1
             //Reset status
             toolStripProgressBar1.Value = 0;
             toolStripStatusLabel2.Text = "Treffer: 0";
+            toolStripStatusLabel3.Text = "Ausgelasen: 0";
+            AusgelasseneDateien = 0;
 
             //Reset table
             dt.Clear();
@@ -233,6 +235,7 @@ namespace WindowsFormsApplication1
                         default:
                             {
                                 match = false;
+                                AusgelasseneDateien++;
                                 break;
                             }
                     }
@@ -245,7 +248,7 @@ namespace WindowsFormsApplication1
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show(@"Fehler während suche!
+                    MessageBox.Show(@"Fehler während Suche!
 Ist vielleicht eine Datei aus dem Suchordner gerade offen??? 
 Bitte alle eventuell betroffenen Dateien schließen und die Suche neu starten!
 Datei mit Fehler: '" + CurrentFile + "'!", "Suche",
@@ -395,6 +398,7 @@ Datei mit Fehler: '" + CurrentFile + "'!", "Suche",
             DeleteDuplicates(dgFoundFiles);
             
             toolStripStatusLabel2.Text = string.Format("Treffer: {0}", dgFoundFiles.RowCount);
+            toolStripStatusLabel3.Text = string.Format("Ausgelassen: {0}", AusgelasseneDateien);
         }
 
         private void DeleteDuplicates(DataGridView dt)
@@ -502,10 +506,11 @@ Datei mit Fehler: '" + CurrentFile + "'!", "Suche",
 3.1. Drück 'Suche' oder die Taste -Enter-
 3.2. Es wird rechts angezeigt, wieviele Dateien in den initialen Ordner und Unterordner insgesamt gefunden wurden
 3.3. Es wird rechts angezeigt, ob die Suche fertig ist (Balken is komplett grün)
-3.4. Es wird rechts angezeigt, wieviele Dateien mit dem Suchtext gefunden wurden
-3.4.1. Treffer sind: Suchtext im Pfadnamen
-3.4.2. Treffer sind: Suchtext im Dateiinhalt
-3.5 Schau im Menu unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
+3.4. Es wird rechts angezeigt, wieviele Dateien nicht duchsucht werden konnten (Bspw. wegen nicht unterstütztem Dateiformat)
+3.5. Es wird rechts angezeigt, wieviele Dateien mit dem Suchtext gefunden wurden
+3.5.1. Treffer sind: Suchtext im Pfadnamen
+3.5.2. Treffer sind: Suchtext im Dateiinhalt
+3.6. Schau im Menu unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
         
 4. Öffne die relevante Datei aus der Ergebnisliste
 4.1. Sortiere die Spalten der Ergebnisliste nach deinen Kriterien
