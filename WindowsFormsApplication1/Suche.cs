@@ -513,16 +513,9 @@ V1.00", "Suche",
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(@"Unterstützte Dateiformate:
-.TXT        .HTM
-.XML        .HTML
-.XAML       .PDF
-.CS         .DOC
-.DAT        .DOCX
-.CONFIG     .XLS
-.BAK        .XLSX
-.INI        .CSV
-.CSPROJ         "
-                , "Suche",
+.PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX
+.TXT / .HTM / .HTML / .XML / .XAML / .DAT
+.CONFIG / .INI / .CSPROJ / .CS / ", "Suche",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             //.PPT
             //.PPTX
