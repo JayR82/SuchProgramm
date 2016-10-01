@@ -78,12 +78,16 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
             var fbd = new FolderBrowserDialog();
+            if (Directory.Exists(InitialDir))
+            {
+                fbd.SelectedPath = InitialDir;
+            }
+            
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 InitialDir = fbd.SelectedPath;
                 lbInitFolder.Text = InitialDir;
             }
-            
         }
 
         private void btnSuche_Click(object sender, EventArgs e)
