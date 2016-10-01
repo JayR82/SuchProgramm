@@ -50,9 +50,11 @@ namespace WindowsFormsApplication1
         {
             //Reset status
             toolStripProgressBar1.Value = 0;
+            toolStripStatusLabel1.Text = "Dateien: 0";
             toolStripStatusLabel2.Text = "Treffer: 0";
-            toolStripStatusLabel3.Text = "Ausgelasen: 0";
+            toolStripStatusLabel3.Text = "Ausgelassen: 0";
             toolStripStatusLabel4.Text = "Lesefehler: 0";
+            toolStripStatusLabel5.Text = "Status:\nBereit für Suche";
             AusgelasseneDateien = 0;
             FileReadError = 0;
 
@@ -69,6 +71,8 @@ namespace WindowsFormsApplication1
                 dt.Columns.Remove("Erstellt Datum");
                 dt.Columns.Remove("Geändert Datum");
             }
+            statusStrip1.Refresh();
+            dgFoundFiles.Refresh();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -104,10 +108,12 @@ namespace WindowsFormsApplication1
                 {
                     FillTable(MatchedFiles);
                 }
+                toolStripStatusLabel5.Text = "Status:\nSuche fertig";
             }
             lbSuchText.Enabled = true;
             btnSuche.Enabled = true;
             btnOpenFolder.Enabled = true;
+            
         }
 
         private bool GetSearchText()
@@ -116,7 +122,7 @@ namespace WindowsFormsApplication1
             SuchText = lbSuchText.Text;
             if (SuchText == "")
             {
-                toolStripStatusLabel1.Text = "SuchText\neingeben!";
+                toolStripStatusLabel5.Text = "Status:\nSuchText\neingeben!";
                 return false;
             }
             if (SuchText == "*")
@@ -134,7 +140,7 @@ namespace WindowsFormsApplication1
             // Get initial directory for file search
             if (!Directory.Exists(InitialDir))
             {
-                toolStripStatusLabel1.Text = "Initialen Ordner\neingeben!";
+                toolStripStatusLabel5.Text = "Status:\nInitialen Ordner\neingeben!";
                 return false;
             }
             return true;
@@ -144,12 +150,14 @@ namespace WindowsFormsApplication1
         {
             int FileCount;
 
+            toolStripStatusLabel5.Text = "Status:\nSuche alle \nDateien";
+            statusStrip1.Refresh();
+
             IEnumerable<string> s1 = GetFiles(InitialDir, "*");
             List<string> AllFiles = new List<string>(s1);
-            
             FileCount = AllFiles.Count;
+
             toolStripStatusLabel1.Text = string.Format("Dateien: {0}", FileCount);
-            statusStrip1.Refresh();
 
             return AllFiles;
         }
@@ -202,6 +210,7 @@ namespace WindowsFormsApplication1
             List<string> MatchedFiles = new List<string>();      
 
             toolStripProgressBar1.Maximum = AllFiles.Count;
+            toolStripStatusLabel5.Text = "Status:\nDurchsuche alle\nDateien";
 
             for (int i = 0; i <= AllFiles.Count - 1; i++)
             {
@@ -543,6 +552,7 @@ V1.00", "Suche",
 4.4.2. Treffer sind: 'Suchtext' im Dateiinhalt
 4.5. 'Lesefehler': Zeigt die Anzahl der Dateien die potentielle Kandidaten waren, aber Fehler beim Lesen verursacht haben (keine Zugriffsrechte o.ä.) 
 4.5.1 Ist der 'Lesefehler' > 0 könnte eine relevante Datei nicht in der Ergebnisliste aufgeführt sein
+4.6. 'Status:' Was macht das Programm gerade
 
 5. Öffne die relevante Datei aus der Ergebnisliste
 5.1. Sortiere die Spalten der Ergebnisliste nach deinen Kriterien

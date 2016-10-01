@@ -23,7 +23,7 @@ namespace WindowsFormsApplication1
             catch (Exception)
             {
                 MessageBox.Show("Upps, das hätte nicht passieren dürfen\nBitte starte das Programm neu!!", "Suche",
-                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
