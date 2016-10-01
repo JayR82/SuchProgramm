@@ -45,6 +45,7 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anleitungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -186,7 +187,8 @@
             this.toolStripStatusLabel1,
             this.toolStripProgressBar1,
             this.toolStripStatusLabel2,
-            this.toolStripStatusLabel3});
+            this.toolStripStatusLabel3,
+            this.toolStripStatusLabel4});
             this.statusStrip1.Location = new System.Drawing.Point(842, 60);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(100, 258);
@@ -218,6 +220,13 @@
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(98, 15);
             this.toolStripStatusLabel3.Text = "Ausgelassen:";
             this.toolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(98, 15);
+            this.toolStripStatusLabel4.Text = "Lesefehler:";
+            this.toolStripStatusLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // menuStrip1
             // 
@@ -314,6 +323,7 @@
         private System.Windows.Forms.ToolStripMenuItem anleitungToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
     }
 }
 

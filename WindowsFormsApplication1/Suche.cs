@@ -22,6 +22,7 @@ namespace WindowsFormsApplication1
         DataTable dt = new DataTable();
         string SuchText;
         int AusgelasseneDateien = 0;
+        int FileReadError = 0;
 
         public Suche()
         {
@@ -51,7 +52,9 @@ namespace WindowsFormsApplication1
             toolStripProgressBar1.Value = 0;
             toolStripStatusLabel2.Text = "Treffer: 0";
             toolStripStatusLabel3.Text = "Ausgelasen: 0";
+            toolStripStatusLabel4.Text = "Lesefehler: 0";
             AusgelasseneDateien = 0;
+            FileReadError = 0;
 
             //Reset table
             dt.Clear();
@@ -84,8 +87,10 @@ namespace WindowsFormsApplication1
             List<string> AllFiles;
             List<string> MatchedFiles;
 
+            btnOpenFolder.Enabled = false;
             btnSuche.Enabled = false;
             lbSuchText.Enabled = false;
+            
             Reset();
            
             if (GetInitialDir() && GetSearchText())
@@ -102,6 +107,7 @@ namespace WindowsFormsApplication1
             }
             lbSuchText.Enabled = true;
             btnSuche.Enabled = true;
+            btnOpenFolder.Enabled = true;
         }
 
         private bool GetSearchText()
@@ -270,11 +276,7 @@ namespace WindowsFormsApplication1
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show(@"Fehler während Suche!
-Ist vielleicht eine Datei aus dem Suchordner gerade offen??? 
-Bitte alle eventuell betroffenen Dateien schließen und die Suche neu starten!
-Datei mit Fehler: '" + CurrentFile + "'!", "Suche",
-                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    FileReadError++;
                 }
             }
             
@@ -421,6 +423,7 @@ Datei mit Fehler: '" + CurrentFile + "'!", "Suche",
             
             toolStripStatusLabel2.Text = string.Format("Treffer: {0}", dgFoundFiles.RowCount);
             toolStripStatusLabel3.Text = string.Format("Ausgelassen: {0}", AusgelasseneDateien);
+            toolStripStatusLabel4.Text = string.Format("Lesefehler: {0}", FileReadError);
         }
 
         private void DeleteDuplicates(DataGridView dt)
@@ -520,27 +523,32 @@ V1.00", "Suche",
 1.1. Click [...] und navigiere zu deinem initialen Ordner, bestätige mit 'OK'
 1.2. Vermeide direkt Partitionen anzugeben (D:\ oder C:\)
 1.3. Je genauer du den initialen Ordner eingrenzt, desto schneller ist die Suche fertig
-        
+1.4. Schau im Menü unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
+
 2. Gib ein Suchtext ein, nach dem du suchen möchtest
-2.2. Ein einzelnes Wort oder ein Wortausschnitt
-2.2. Mehrere Wörter, die so in der Reihenfolge auch tatsächlich vorkommen sollten
+2.1. Ein einzelnes Wort oder ein Wortausschnitt
+2.2. Bei einer Sucheingabe mehrerer Wörter, sollten diese auch so in der Reihenfolge tatsächlich vorkommen
 2.3. Groß- / Kleinschreibung ist egal
+2.4. Wildcards (*, ?, %, #) sind nicht nötig um ein Suchtext zu erweitern
         
 3. Starte die Suche
 3.1. Drück 'Suche' oder die Taste -Enter-
-3.2. Es wird rechts angezeigt, wieviele Dateien in den initialen Ordner und Unterordner insgesamt gefunden wurden
-3.3. Es wird rechts angezeigt, ob die Suche fertig ist (Balken is komplett grün)
-3.4. Es wird rechts angezeigt, wieviele Dateien nicht duchsucht werden konnten (Bspw. wegen nicht unterstütztem Dateiformat)
-3.5. Es wird rechts angezeigt, wieviele Dateien mit dem Suchtext gefunden wurden
-3.5.1. Treffer sind: Suchtext im Pfadnamen
-3.5.2. Treffer sind: Suchtext im Dateiinhalt
-3.6. Schau im Menu unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
+
+4. Statusmeldungen werden rechts angezeigt
+4.1. 'Dateien': Zeigt die Anzahl der Dateien, die in dem initialen Ordner und dessen Unterordner insgesamt gefunden wurden
+4.2. 'Statusbalken': Zeigt an, ob die Suche beendet ist (Balken is komplett grün)
+4.3. 'Ausgelassen': Zeigt an, wieviele Dateien nicht durchsucht werden konnten (Bspw. wegen nicht unterstütztem Dateiformat)
+4.4. 'Treffer': Zeigt die Anzahl der Dateien in denen der 'Suchtext' gefunden wurde 
+4.4.1. Treffer sind: 'Suchtext' im Pfadnamen
+4.4.2. Treffer sind: 'Suchtext' im Dateiinhalt
+4.5. 'Lesefehler': Zeigt die Anzahl der Dateien die potentielle Kandidaten waren, aber Fehler beim Lesen verursacht haben (keine Zugriffsrechte o.ä.) 
+4.5.1 Ist der 'Lesefehler' > 0 könnte eine relevante Datei nicht in der Ergebnisliste aufgeführt sein
+
+5. Öffne die relevante Datei aus der Ergebnisliste
+5.1. Sortiere die Spalten der Ergebnisliste nach deinen Kriterien
+5.2. Öffne eine oder mehrere Dateien durch Doppelklick auf die ausgewählte Zeile oder drücke -Enter-
         
-4. Öffne die relevante Datei aus der Ergebnisliste
-4.1. Sortiere die Spalten der Ergebnisliste nach deinen Kriterien
-4.2. Öffne eine oder mehrere Dateien durch Doppelklick auf die ausgewählte Zeile oder drücke -Enter-
-        
-5. Schließe das Programm", "Suche", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+6. Schließe das Programm", "Suche", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
   
