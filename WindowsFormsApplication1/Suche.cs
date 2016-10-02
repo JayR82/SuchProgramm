@@ -570,7 +570,7 @@ V1.00", "Suche",
 
 .PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX
 .TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
-.ODT / .ODS / 
+.ODT / .ODS (OpenOffice & LibreOffice) 
 .CONFIG / .INI / .CSPROJ / .CS", "Suche",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             //.PPT
