@@ -13,6 +13,8 @@ using Excel;
 
 
 using System.Data.OleDb;
+using ICSharpCode.SharpZipLib.Zip;
+using Independentsoft.Office.Odf;
 
 namespace WindowsFormsApplication1
 {
@@ -274,6 +276,16 @@ namespace WindowsFormsApplication1
                                 match = FileContentStringMatchXLSX(CurrentFile);
                                 break;
                             }
+                        case ".ODS":
+                            {
+                                match = FileContentStringMatchODS(CurrentFile);
+                                break;
+                            }
+                        case ".ODT":
+                            {
+                                match = FileContentStringMatchODT(CurrentFile);
+                                break;
+                            }
                         default:
                             {
                                 match = false;
@@ -337,7 +349,7 @@ namespace WindowsFormsApplication1
             for (int i = 0; i < sheets; i++)
             {
                 var sheet = workbook.getSheet(i);
-                Cell CellContent = sheet.findCell(r, 0, 0, sheet.getColumns(), sheet.getRows(), false);
+                CSharpJExcel.Jxl.Cell CellContent = sheet.findCell(r, 0, 0, sheet.getColumns(), sheet.getRows(), false);
                 if (CellContent == null)
                 { }
                 else
@@ -375,6 +387,47 @@ namespace WindowsFormsApplication1
 			}
 
             excelReader.Close();
+            return false;
+        }
+
+        private bool FileContentStringMatchODS(string p)
+        {
+            Spreadsheet spreadsheet = new Spreadsheet(p);
+
+            IList<Table> sheets = spreadsheet.GetTables();
+            Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
+
+            foreach (Table sheet in sheets)
+            {
+                foreach (Row row in sheet.Rows)
+                {
+                    foreach (Independentsoft.Office.Odf.Cell cell in row.Cells)
+                    {
+                        Match m = r.Match(cell.ToString());
+                        if (m.Success)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool FileContentStringMatchODT(string p)
+        {
+            TextDocument doc = new TextDocument(p);
+            Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
+
+            IList<Text> texts = doc.GetTexts();
+            for (int i = 0; i < texts.Count; i++)
+            {
+                Match m = r.Match(texts[i].ToString());
+                if (m.Success)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
@@ -517,6 +570,7 @@ V1.00", "Suche",
 
 .PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX
 .TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
+.ODT / .ODS / 
 .CONFIG / .INI / .CSPROJ / .CS", "Suche",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             //.PPT

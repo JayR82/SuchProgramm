@@ -83,6 +83,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\..\..\3rdPartyReferences\ExcelReader\output\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Independentsoft.Office.Odf">
+      <HintPath>..\..\..\..\3rdPartyReferences\OpenOffice\ODF .NET\Bin\Independentsoft.Office.Odf.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=3.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\3rdPartyReferences\iTextSharp\itextsharp.dll</HintPath>
@@ -157,6 +160,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
