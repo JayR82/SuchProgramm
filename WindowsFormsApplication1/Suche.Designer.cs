@@ -92,7 +92,7 @@
             // 
             this.btnOpenFolder.Location = new System.Drawing.Point(845, 3);
             this.btnOpenFolder.Name = "btnOpenFolder";
-            this.btnOpenFolder.Size = new System.Drawing.Size(41, 23);
+            this.btnOpenFolder.Size = new System.Drawing.Size(38, 20);
             this.btnOpenFolder.TabIndex = 1;
             this.btnOpenFolder.Text = "...";
             this.btnOpenFolder.UseVisualStyleBackColor = true;
@@ -113,7 +113,7 @@
             // 
             this.btnSuche.Location = new System.Drawing.Point(845, 33);
             this.btnSuche.Name = "btnSuche";
-            this.btnSuche.Size = new System.Drawing.Size(75, 23);
+            this.btnSuche.Size = new System.Drawing.Size(65, 20);
             this.btnSuche.TabIndex = 3;
             this.btnSuche.Text = "Suche";
             this.btnSuche.UseVisualStyleBackColor = true;
@@ -150,7 +150,7 @@
             this.label3.Size = new System.Drawing.Size(74, 13);
             this.label3.TabIndex = 9;
             this.label3.Text = "Ergebnisliste";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel1
             // 
@@ -191,54 +191,54 @@
             this.toolStripStatusLabel4,
             this.toolStripStatusLabel6,
             this.toolStripStatusLabel5});
-            this.statusStrip1.Location = new System.Drawing.Point(842, 60);
+            this.statusStrip1.Location = new System.Drawing.Point(848, 60);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(100, 258);
+            this.statusStrip1.Size = new System.Drawing.Size(94, 258);
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 15);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(92, 15);
             this.toolStripStatusLabel1.Text = "Dateien:";
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // toolStripProgressBar1
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(96, 15);
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(90, 15);
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(98, 15);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(92, 15);
             this.toolStripStatusLabel2.Text = "Treffer:";
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(98, 15);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(92, 15);
             this.toolStripStatusLabel3.Text = "Ausgelassen:";
             this.toolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // toolStripStatusLabel4
             // 
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(98, 15);
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(92, 15);
             this.toolStripStatusLabel4.Text = "Lesefehler:";
             this.toolStripStatusLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // toolStripStatusLabel6
             // 
             this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            this.toolStripStatusLabel6.Size = new System.Drawing.Size(98, 0);
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(92, 0);
             // 
             // toolStripStatusLabel5
             // 
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(98, 15);
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(92, 15);
             this.toolStripStatusLabel5.Text = "Status:";
             this.toolStripStatusLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -249,7 +249,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(942, 24);
-            this.menuStrip1.TabIndex = 11;
+            this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // hilfeToolStripMenuItem

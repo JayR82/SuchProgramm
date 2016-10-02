@@ -231,6 +231,7 @@ namespace WindowsFormsApplication1
                     switch (FileEnding.ToUpper())
                     {
                         case ".TXT":
+                        case ".LOG":
                         case ".XML":
                         case ".XAML":
                         case ".CS":
@@ -256,12 +257,12 @@ namespace WindowsFormsApplication1
                                 match = FileContentStringMatchDOC(CurrentFile);
                                 break;
                             }
-                        case ".PPT":
-                        case ".PPTX":
-                            {
-                                match = FileContentStringMatchPPT(CurrentFile);
-                                break;
-                            }
+                        //case ".PPT":
+                        //case ".PPTX":
+                        //    {
+                        //        match = FileContentStringMatchPPT(CurrentFile);
+                        //        break;
+                        //    }
                         case ".XLS":
                         case ".CSV":
                             {
@@ -513,9 +514,10 @@ V1.00", "Suche",
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(@"Unterstützte Dateiformate:
+
 .PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX
-.TXT / .HTM / .HTML / .XML / .XAML / .DAT
-.CONFIG / .INI / .CSPROJ / .CS / ", "Suche",
+.TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
+.CONFIG / .INI / .CSPROJ / .CS", "Suche",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             //.PPT
             //.PPTX
@@ -523,19 +525,23 @@ V1.00", "Suche",
 
         private void anleitungToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(@"Dieses Programm durchsucht Dateien in einem angegebenen Ordner und dessen Unterordner, auf ein oder mehrere zusammenhängende Worte:
+            MessageBox.Show(@"Dieses Programm durchsucht textbasierte Dateien in einem angegebenen Ordner und dessen Unterordner, auf ein oder mehrere zusammenhängende Worte.
 
 1. Gib den Initialen Ordner an, in dem Dateien durchsucht werden sollen
-1.1. Click [...] und navigiere zu deinem initialen Ordner, bestätige mit 'OK'
-1.2. Vermeide direkt Partitionen anzugeben (D:\ oder C:\)
-1.3. Je genauer du den initialen Ordner eingrenzt, desto schneller ist die Suche fertig
-1.4. Schau im Menü unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
+1.1. Click [...] und navigiere im gezeigten Dialog zu deinem initialen Ordner, bestätige mit 'OK'
+1.1.1 Vermeide direkt Partitionen anzugeben (D:\ oder C:\) wegen evtl. sehr großer Datenmenge
+1.1.2 Durchsuchen von Dateien auf USB-Stick = kein Problem
+1.1.3 Durchsuchen von Dateien auf Server / NAS = kein Problem (kann ein bisschen länger dauern bis die Suche fertig ist)
+1.1.4 Durchsuchen von Dateien auf CD/DVD-Laufwerk = keine Ahnung -habe ich nicht getestet
+1.2. Je genauer du den initialen Ordner eingrenzt, desto schneller ist die Suche fertig
+1.3. Schau im Menü unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
+1.3.1 Bildbasierte Dateien, sowie Container (.zip) und Verknüpfungen werden ausgelassen und nicht durchsucht
 
-2. Gib ein Suchtext ein, nach dem du suchen möchtest
+2. Gib ein Suchtext ein, den die zu suchende Datei beinhaltet
 2.1. Ein einzelnes Wort oder ein Wortausschnitt
-2.2. Bei einer Sucheingabe mehrerer Wörter, sollten diese auch so in der Reihenfolge tatsächlich vorkommen
-2.3. Groß- / Kleinschreibung ist egal
-2.4. Wildcards (*, ?, %, #) sind nicht nötig um ein Suchtext zu erweitern
+2.2. Bei einer Suchtext-Eingabe mehrerer Wörter, sollten diese auch so in dieser Reihenfolge tatsächlich vorkommen
+2.3. Groß- / Kleinschreibung im Suchtext ist egal (Suchtext 'Rechnung' findet auch 'ABRECHNUNG' in Dateien)
+2.4. Wildcards (*, ?, %, #) sind nicht nötig um ein Suchtext zu erweitern. Lieber nur nach einem Wortausschnitt suchen
         
 3. Starte die Suche
 3.1. Drück 'Suche' oder die Taste -Enter-
@@ -547,15 +553,15 @@ V1.00", "Suche",
 4.4. 'Treffer': Zeigt die Anzahl der Dateien in denen der 'Suchtext' gefunden wurde 
 4.4.1. Treffer sind: 'Suchtext' im Pfadnamen
 4.4.2. Treffer sind: 'Suchtext' im Dateiinhalt
-4.5. 'Lesefehler': Zeigt die Anzahl der Dateien die potentielle Kandidaten waren, aber Fehler beim Lesen verursacht haben (keine Zugriffsrechte o.ä.) 
+4.5. 'Lesefehler': Zeigt die Anzahl der Dateien, die potentielle Kandidaten waren, aber Fehler beim Lesen verursacht haben (keine Zugriffsrechte o.ä.) 
 4.5.1 Ist der 'Lesefehler' > 0 könnte eine relevante Datei nicht in der Ergebnisliste aufgeführt sein
 4.6. 'Status:' Was macht das Programm gerade
 
 5. Öffne die relevante Datei aus der Ergebnisliste
-5.1. Sortiere die Spalten der Ergebnisliste nach deinen Kriterien
-5.2. Öffne eine oder mehrere Dateien durch Doppelklick auf die ausgewählte Zeile oder drücke -Enter-
+5.1. Sortiere die Spalten der Ergebnisliste nach deinen Kriterien (Name, Format, Änderungsdatum...)
+5.2. Öffne eine Datei (oder mehrere Dateien nacheinander) durch Doppelklick auf die ausgewählte Zeile oder drücke die Taste -Enter- um die markierte Datei (Zeile) zu öffnen
         
-6. Schließe das Programm", "Suche", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+6. Schließe das Programm.", "Suche", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
   
