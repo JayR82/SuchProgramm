@@ -73,6 +73,7 @@
             // 
             this.dgFoundFiles.AllowUserToAddRows = false;
             this.dgFoundFiles.AllowUserToResizeRows = false;
+            this.dgFoundFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgFoundFiles.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dgFoundFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgFoundFiles.Dock = System.Windows.Forms.DockStyle.Fill;
