@@ -86,6 +86,9 @@
     <Reference Include="Independentsoft.Office.Odf">
       <HintPath>..\..\..\..\3rdPartyReferences\OpenOffice\ODF .NET\Bin\Independentsoft.Office.Odf.dll</HintPath>
     </Reference>
+    <Reference Include="Independentsoft.Office.Presentation">
+      <HintPath>..\..\..\..\3rdPartyReferences\Presentation\Presentation .NET\Bin\Independentsoft.Office.Presentation.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=3.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\3rdPartyReferences\iTextSharp\itextsharp.dll</HintPath>
