@@ -25,7 +25,8 @@ namespace WindowsFormsApplication1
         string SuchText;
         int AusgelasseneDateien = 0;
         int FileReadError = 0;
-        public List<string> ErrorFiles = new List<string>(); 
+        public List<string> ErrorFiles = new List<string>();
+        public List<string> SkipFiles = new List<string>();
 
         public Suche()
         {
@@ -61,6 +62,7 @@ namespace WindowsFormsApplication1
             AusgelasseneDateien = 0;
             FileReadError = 0;
             ErrorFiles.Clear();
+            SkipFiles.Clear();
 
             //Reset table
             dt.Clear();
@@ -298,6 +300,7 @@ namespace WindowsFormsApplication1
                             {
                                 match = false;
                                 AusgelasseneDateien++;
+                                SkipFiles.Add(CurrentFile);
                                 break;
                             }
                     }
@@ -603,13 +606,13 @@ namespace WindowsFormsApplication1
         private void versionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(@"Jürgen Reutter
-C# .Net 4.5 
 V1.00", "Suche",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             MessageBox.Show(@"Unterstützte Dateiformate:
 
 .PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX / .PPTX
@@ -671,7 +674,19 @@ V1.00", "Suche",
             }
             string Ausgabe = String.Format("{0} Datei(en) bei denen es Lesefehler gab:\n\n{1}", ErrorFiles.Count, ErrorFileList);
             MessageBox.Show(Ausgabe, "Suche",
-           MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+           MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void ausgelassenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string SkipFileList = "";
+            foreach (String s in SkipFiles)
+            {
+                SkipFileList += s.ToString() + "\n";
+            }
+            string Ausgabe = String.Format("{0} Dateien die nicht durchsucht wurden:\n\n{1}", SkipFiles.Count, SkipFileList);
+            MessageBox.Show(Ausgabe, "Suche",
+           MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }

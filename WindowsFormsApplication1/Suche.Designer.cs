@@ -54,6 +54,7 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lesefehlerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anzeigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ausgelassenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgFoundFiles)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -66,7 +67,7 @@
             this.lbInitFolder.Enabled = false;
             this.lbInitFolder.Location = new System.Drawing.Point(83, 3);
             this.lbInitFolder.Name = "lbInitFolder";
-            this.lbInitFolder.Size = new System.Drawing.Size(756, 20);
+            this.lbInitFolder.Size = new System.Drawing.Size(604, 20);
             this.lbInitFolder.TabIndex = 1;
             this.lbInitFolder.TabStop = false;
             this.lbInitFolder.Text = "Initialen Ordner zur Suche eingeben...";
@@ -86,14 +87,14 @@
             this.dgFoundFiles.RowHeadersVisible = false;
             this.dgFoundFiles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgFoundFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgFoundFiles.Size = new System.Drawing.Size(756, 252);
+            this.dgFoundFiles.Size = new System.Drawing.Size(604, 304);
             this.dgFoundFiles.TabIndex = 4;
             this.dgFoundFiles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgFoundFiles_CellDoubleClick);
             this.dgFoundFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgFoundFiles_KeyDown);
             // 
             // btnOpenFolder
             // 
-            this.btnOpenFolder.Location = new System.Drawing.Point(845, 3);
+            this.btnOpenFolder.Location = new System.Drawing.Point(693, 3);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Size = new System.Drawing.Size(38, 20);
             this.btnOpenFolder.TabIndex = 1;
@@ -107,14 +108,14 @@
             this.lbSuchText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbSuchText.Location = new System.Drawing.Point(83, 33);
             this.lbSuchText.Name = "lbSuchText";
-            this.lbSuchText.Size = new System.Drawing.Size(756, 20);
+            this.lbSuchText.Size = new System.Drawing.Size(604, 20);
             this.lbSuchText.TabIndex = 2;
             this.lbSuchText.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbSuchText_MouseClick);
             this.lbSuchText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbSuchText_KeyDown);
             // 
             // btnSuche
             // 
-            this.btnSuche.Location = new System.Drawing.Point(845, 33);
+            this.btnSuche.Location = new System.Drawing.Point(693, 33);
             this.btnSuche.Name = "btnSuche";
             this.btnSuche.Size = new System.Drawing.Size(65, 20);
             this.btnSuche.TabIndex = 3;
@@ -180,7 +181,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(942, 318);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(790, 370);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // statusStrip1
@@ -194,9 +195,9 @@
             this.toolStripStatusLabel4,
             this.toolStripStatusLabel6,
             this.toolStripStatusLabel5});
-            this.statusStrip1.Location = new System.Drawing.Point(848, 60);
+            this.statusStrip1.Location = new System.Drawing.Point(696, 60);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(94, 258);
+            this.statusStrip1.Size = new System.Drawing.Size(94, 310);
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -252,7 +253,7 @@
             this.lesefehlerToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(942, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(790, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -290,23 +291,31 @@
             // lesefehlerToolStripMenuItem
             // 
             this.lesefehlerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.anzeigenToolStripMenuItem});
+            this.anzeigenToolStripMenuItem,
+            this.ausgelassenToolStripMenuItem});
             this.lesefehlerToolStripMenuItem.Name = "lesefehlerToolStripMenuItem";
-            this.lesefehlerToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
-            this.lesefehlerToolStripMenuItem.Text = "Lesefehler";
+            this.lesefehlerToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.lesefehlerToolStripMenuItem.Text = "Ausnahmen";
             // 
             // anzeigenToolStripMenuItem
             // 
             this.anzeigenToolStripMenuItem.Name = "anzeigenToolStripMenuItem";
             this.anzeigenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.anzeigenToolStripMenuItem.Text = "Anzeigen";
+            this.anzeigenToolStripMenuItem.Text = "Lesefehler";
             this.anzeigenToolStripMenuItem.Click += new System.EventHandler(this.anzeigenToolStripMenuItem_Click);
+            // 
+            // ausgelassenToolStripMenuItem
+            // 
+            this.ausgelassenToolStripMenuItem.Name = "ausgelassenToolStripMenuItem";
+            this.ausgelassenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ausgelassenToolStripMenuItem.Text = "Ausgelassen";
+            this.ausgelassenToolStripMenuItem.Click += new System.EventHandler(this.ausgelassenToolStripMenuItem_Click);
             // 
             // Suche
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(942, 342);
+            this.ClientSize = new System.Drawing.Size(790, 394);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -354,6 +363,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
         private System.Windows.Forms.ToolStripMenuItem lesefehlerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem anzeigenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ausgelassenToolStripMenuItem;
     }
 }
 
