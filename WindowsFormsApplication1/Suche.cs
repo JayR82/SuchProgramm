@@ -10,8 +10,6 @@ using System.Text;
 using Code7248.word_reader;
 using CSharpJExcel.Jxl;
 using Excel;
-
-
 using System.Data.OleDb;
 using ICSharpCode.SharpZipLib.Zip;
 using Independentsoft.Office.Odf;
@@ -27,6 +25,7 @@ namespace WindowsFormsApplication1
         string SuchText;
         int AusgelasseneDateien = 0;
         int FileReadError = 0;
+        public List<string> ErrorFiles = new List<string>(); 
 
         public Suche()
         {
@@ -61,6 +60,7 @@ namespace WindowsFormsApplication1
             toolStripStatusLabel5.Text = "Status:\nBereit für Suche";
             AusgelasseneDateien = 0;
             FileReadError = 0;
+            ErrorFiles.Clear();
 
             //Reset table
             dt.Clear();
@@ -116,12 +116,14 @@ namespace WindowsFormsApplication1
                 {
                     FillTable(MatchedFiles);
                 }
+                toolStripStatusLabel2.Text = string.Format("Treffer: {0}", dgFoundFiles.RowCount);
+                toolStripStatusLabel3.Text = string.Format("Ausgelassen: {0}", AusgelasseneDateien);
+                toolStripStatusLabel4.Text = string.Format("Lesefehler: {0}", FileReadError);
                 toolStripStatusLabel5.Text = "Status:\nSuche fertig";
             }
             lbSuchText.Enabled = true;
             btnSuche.Enabled = true;
             btnOpenFolder.Enabled = true;
-            
         }
 
         private bool GetSearchText()
@@ -309,6 +311,7 @@ namespace WindowsFormsApplication1
                 catch (Exception)
                 {
                     FileReadError++;
+                    ErrorFiles.Add(CurrentFile);
                 }
             }
             
@@ -499,11 +502,9 @@ namespace WindowsFormsApplication1
         private void FillTable(List<string> MatchedFiles)
         {
             DataRow dr;
-
             for (int i = 0; i <= MatchedFiles.Count - 1; i++)
             {
                 FileSystemInfo CurrentFileInfo = new FileInfo(MatchedFiles[i]);
-
                 if (i == 0)
                 {
                     //Add Data Grid Columns with name
@@ -534,10 +535,6 @@ namespace WindowsFormsApplication1
             dgFoundFiles.DataSource = dt;
             //Delete duplicates in DataGridView
             DeleteDuplicates(dgFoundFiles);
-            
-            toolStripStatusLabel2.Text = string.Format("Treffer: {0}", dgFoundFiles.RowCount);
-            toolStripStatusLabel3.Text = string.Format("Ausgelassen: {0}", AusgelasseneDateien);
-            toolStripStatusLabel4.Text = string.Format("Lesefehler: {0}", FileReadError);
         }
 
         private void DeleteDuplicates(DataGridView dt)
@@ -665,6 +662,16 @@ V1.00", "Suche",
 6. Schließe das Programm.", "Suche", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
-  
+        private void anzeigenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string ErrorFileList = "";
+            foreach (String s in ErrorFiles)
+            {
+                ErrorFileList += s.ToString() + "\n";
+            }
+            string Ausgabe = String.Format("{0} Datei(en) bei denen es Lesefehler gab:\n\n{1}", ErrorFiles.Count, ErrorFileList);
+            MessageBox.Show(Ausgabe, "Suche",
+           MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
     }
 }
