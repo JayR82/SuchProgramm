@@ -607,22 +607,17 @@ namespace WindowsFormsApplication1
         private void versionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(@"Jürgen Reutter
-V1.00", "Suche",
+V1.00", "Version",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-            MessageBox.Show(@"Unterstützte Dateiformate:
-
-.PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX / .PPTX
+            MessageBox.Show(@".PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX / .PPTX
 .TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
 .ODT / .ODS (OpenOffice & LibreOffice) 
-.CONFIG / .INI / .CSPROJ / .CS / .SVB", "Suche",
+.CONFIG / .INI / .CSPROJ / .CS / .SVB", "Unterstützte Dateiformate",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            //.PPT
-            //.PPTX
         }
 
         private void anleitungToolStripMenuItem_Click(object sender, EventArgs e)
@@ -652,18 +647,21 @@ V1.00", "Suche",
 4.1. 'Dateien': Zeigt die Anzahl der Dateien, die in dem initialen Ordner und dessen Unterordner insgesamt gefunden wurden
 4.2. 'Statusbalken': Zeigt an, ob die Suche beendet ist (Balken is komplett grün)
 4.3. 'Ausgelassen': Zeigt an, wieviele Dateien nicht durchsucht werden konnten (Bspw. wegen nicht unterstütztem Dateiformat)
+4.3.1 Klick auf 'Ausgelassen' oder über das Menü - Ausnahmen, um die Liste der ausgelassenen Dateien zu sehen
+4.3.2 Sind es mehr als 30 Dateien die ausgelassen wurden, werden nicht alle angezeigt
 4.4. 'Treffer': Zeigt die Anzahl der Dateien in denen der 'Suchtext' gefunden wurde 
 4.4.1. Treffer sind: 'Suchtext' im Pfadnamen
 4.4.2. Treffer sind: 'Suchtext' im Dateiinhalt
 4.5. 'Lesefehler': Zeigt die Anzahl der Dateien, die potentielle Kandidaten waren, aber Fehler beim Lesen verursacht haben (keine Zugriffsrechte o.ä.) 
 4.5.1 Ist der 'Lesefehler' > 0 könnte eine relevante Datei nicht in der Ergebnisliste aufgeführt sein
+4.5.2 Klick auf 'Lesefehler' oder über das Menü - Ausnahmen, um die Liste der Dateien mit Lesefehler zu sehen
+4.5.3 Sind es mehr als 30 Dateien die Fehler verursaht haben, werden nicht alle angezeigt
 4.6. 'Status:' Was macht das Programm gerade
 
 5. Öffne die relevante Datei aus der Ergebnisliste
 5.1. Sortiere die Spalten der Ergebnisliste nach deinen Kriterien (Name, Format, Änderungsdatum...)
 5.2. Öffne eine Datei (oder mehrere Dateien nacheinander) durch Doppelklick auf die ausgewählte Zeile oder drücke die Taste -Enter- um die markierte Datei (Zeile) zu öffnen
-        
-6. Schließe das Programm.", "Suche", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+", "Suche Anleitung", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void anzeigenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -745,7 +743,7 @@ itextsharp.dll
 Die 'DateiSuche.exe' kann aus diesem Ordner an einen anderen Ort verknüpft werden (nicht kopiert).
 
 Bspw. Verknüpfung auf Desktop:
-Rechtsklick auf Desktop - Neu - Verknüpfung.", "Suche",
+Rechtsklick auf Desktop - Neu - Verknüpfung.", "Abhängigkeiten des Programms",
            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 

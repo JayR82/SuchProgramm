@@ -304,15 +304,15 @@
             // anzeigenToolStripMenuItem
             // 
             this.anzeigenToolStripMenuItem.Name = "anzeigenToolStripMenuItem";
-            this.anzeigenToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.anzeigenToolStripMenuItem.Text = "Lesefehler";
+            this.anzeigenToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.anzeigenToolStripMenuItem.Text = "Lesefehler zeigen";
             this.anzeigenToolStripMenuItem.Click += new System.EventHandler(this.anzeigenToolStripMenuItem_Click);
             // 
             // ausgelassenToolStripMenuItem
             // 
             this.ausgelassenToolStripMenuItem.Name = "ausgelassenToolStripMenuItem";
-            this.ausgelassenToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.ausgelassenToolStripMenuItem.Text = "Ausgelassen";
+            this.ausgelassenToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.ausgelassenToolStripMenuItem.Text = "Ausgelassen zeigen";
             this.ausgelassenToolStripMenuItem.Click += new System.EventHandler(this.ausgelassenToolStripMenuItem_Click);
             // 
             // abhängigkeitenToolStripMenuItem
