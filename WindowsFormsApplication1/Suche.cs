@@ -688,5 +688,24 @@ V1.00", "Suche",
             MessageBox.Show(Ausgabe, "Suche",
            MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
+        private void abhängigkeitenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(@"Das Programm funktioniert nur richtig, wenn folgende Dateien in demselben Ordner wie die ausgeführte 'DateiSuch.exe' existieren:
+
+Code7248.word_reader.dll
+CSharpJExcel.dll
+Excel.4.5.dll
+ICSharpCode.SharpZipLib.dll
+Independentsoft.Office.Odf.dll
+Independentsoft.Office.Presentation.dll
+itextsharp.dll
+
+Die 'DateiSuche.exe' kann aus diesem Ordner an einen anderen Ort verknüpft werden (nicht kopiert).
+
+Bspw. Verknüpfung auf Desktop:
+Rechtsklick auf Desktop - Neu - Verknüpfung.", "Suche",
+           MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
     }
 }
