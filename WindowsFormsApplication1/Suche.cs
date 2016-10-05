@@ -628,7 +628,7 @@ V1.00", "Version",
 1.1. Click [...] und navigiere im gezeigten Dialog zu deinem initialen Ordner, bestätige mit 'OK'
 1.1.1 Vermeide direkt Partitionen anzugeben (D:\ oder C:\) wegen evtl. sehr großer Datenmenge
 1.1.2 Durchsuchen von Dateien auf USB-Stick = kein Problem
-1.1.3 Durchsuchen von Dateien auf Server / NAS = kein Problem (kann ein bisschen länger dauern bis die Suche fertig ist)
+1.1.3 Durchsuchen von Dateien auf Server / NAS = kein Problem (kann ein bisschen länger dauern, bis die Suche fertig ist)
 1.1.4 Durchsuchen von Dateien auf CD/DVD-Laufwerk = keine Ahnung -habe ich nicht getestet
 1.2. Je genauer du den initialen Ordner eingrenzt, desto schneller ist die Suche fertig
 1.3. Schau im Menü unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
@@ -646,7 +646,7 @@ V1.00", "Version",
 4. Statusmeldungen werden rechts angezeigt
 4.1. 'Dateien': Zeigt die Anzahl der Dateien, die in dem initialen Ordner und dessen Unterordner insgesamt gefunden wurden
 4.2. 'Statusbalken': Zeigt an, ob die Suche beendet ist (Balken is komplett grün)
-4.3. 'Ausgelassen': Zeigt an, wieviele Dateien nicht durchsucht werden konnten (Bspw. wegen nicht unterstütztem Dateiformat)
+4.3. 'Ausgelassen': Zeigt an, wieviele Dateien nicht durchsucht werden konnten (Bspw. wegen nicht unterstütztem Dateiformat wie Bilder oder Musik)
 4.3.1 Klick auf 'Ausgelassen' oder über das Menü - Ausnahmen, um die Liste der ausgelassenen Dateien zu sehen
 4.3.2 Sind es mehr als 30 Dateien die ausgelassen wurden, werden nicht alle angezeigt
 4.4. 'Treffer': Zeigt die Anzahl der Dateien in denen der 'Suchtext' gefunden wurde 
@@ -654,8 +654,8 @@ V1.00", "Version",
 4.4.2. Treffer sind: 'Suchtext' im Dateiinhalt
 4.5. 'Lesefehler': Zeigt die Anzahl der Dateien, die potentielle Kandidaten waren, aber Fehler beim Lesen verursacht haben (keine Zugriffsrechte o.ä.) 
 4.5.1 Ist der 'Lesefehler' > 0 könnte eine relevante Datei nicht in der Ergebnisliste aufgeführt sein
-4.5.2 Klick auf 'Lesefehler' oder über das Menü - Ausnahmen, um die Liste der Dateien mit Lesefehler zu sehen
-4.5.3 Sind es mehr als 30 Dateien die Fehler verursaht haben, werden nicht alle angezeigt
+4.5.2 Klick auf 'Lesefehler' oder über das Menü - Ausnahmen, um die Liste der Dateien mit Lesefehlern zu sehen
+4.5.3 Sind es mehr als 30 Dateien die Fehler verursacht haben, werden nicht alle angezeigt
 4.6. 'Status:' Was macht das Programm gerade
 
 5. Öffne die relevante Datei aus der Ergebnisliste
@@ -670,11 +670,19 @@ V1.00", "Version",
             string ErrorFileList = "";
             if (ErrorFiles.Count > 30)
             {
+                for (int i = 0; i < 11; i++)
+                {
+                    ErrorFileList += ErrorFiles[i].ToString() + "\n";
+                }
+
                 Ausgabe = String.Format(@"{0} Datei(en) bei denen es Lesefehler gab.
 
 Es gab ziemlich viele Lesefehler, also Dateien die eigentlich durchsucht werden könnten, ergaben Lesefehler.
 Bitte stelle sicher, dass die nötigen Abhängigkeiten erfüllt sind.
-Siehe im 'Menu - Hilfe - Abhängigkeiten'...", ErrorFiles.Count);
+Siehe im 'Menu - Hilfe - Abhängigkeiten'...
+
+Auszug der Dateien mit Lesefehler:
+{1}...", ErrorFiles.Count, ErrorFileList);
                 MessageBox.Show(Ausgabe, "Lesefehler bei Dateien",
                MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -702,11 +710,19 @@ Siehe im 'Menu - Hilfe - Abhängigkeiten'...", ErrorFiles.Count);
             string SkipFileList = "";
             if (SkipFiles.Count > 30)
             {
+                for (int i = 0; i < 11; i++)
+                {
+                    SkipFileList += SkipFiles[i].ToString() + "\n";
+                }
+                
                 Ausgabe = String.Format(@"{0} Dateien die nicht durchsucht wurden.
 
 Ziemlich viele Dateien wurden bei der Suche nicht berücksichtigt.
 Evtl. sind viele Bild- oder Musik-Dateien dabei??
-Kontrolliere im 'Menü - Hilfe - Info' die unterstützen Dateien.", SkipFiles.Count);
+Kontrolliere im 'Menü - Hilfe - Info' die unterstützen Dateien.
+
+Auszug der ausgelassenen Dateien:
+{1}...", SkipFiles.Count, SkipFileList);
                 MessageBox.Show(Ausgabe, "Ausgelassene Dateien",
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -730,7 +746,7 @@ Kontrolliere im 'Menü - Hilfe - Info' die unterstützen Dateien.", SkipFiles.Co
 
         private void abhängigkeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(@"Das Programm funktioniert nur richtig, wenn folgende Dateien in demselben Ordner wie die ausgeführte 'DateiSuch.exe' existieren:
+            MessageBox.Show(@"Das Programm funktioniert nur richtig, wenn folgende Dateien in demselben Ordner wie die ausgeführte 'DateiSuche.exe' existieren:
 
 Code7248.word_reader.dll
 CSharpJExcel.dll

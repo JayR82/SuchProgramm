@@ -51,11 +51,11 @@
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anleitungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.abhängigkeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lesefehlerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anzeigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ausgelassenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.abhängigkeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgFoundFiles)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -246,7 +246,7 @@
             // 
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
             this.toolStripStatusLabel5.Size = new System.Drawing.Size(92, 15);
-            this.toolStripStatusLabel5.Text = "Status:";
+            this.toolStripStatusLabel5.Text = "Status: Bereit";
             this.toolStripStatusLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // menuStrip1
@@ -285,6 +285,13 @@
             this.infoToolStripMenuItem.Text = "Info";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
+            // abhängigkeitenToolStripMenuItem
+            // 
+            this.abhängigkeitenToolStripMenuItem.Name = "abhängigkeitenToolStripMenuItem";
+            this.abhängigkeitenToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.abhängigkeitenToolStripMenuItem.Text = "Abhängigkeiten";
+            this.abhängigkeitenToolStripMenuItem.Click += new System.EventHandler(this.abhängigkeitenToolStripMenuItem_Click);
+            // 
             // versionToolStripMenuItem
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
@@ -314,13 +321,6 @@
             this.ausgelassenToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.ausgelassenToolStripMenuItem.Text = "Ausgelassen zeigen";
             this.ausgelassenToolStripMenuItem.Click += new System.EventHandler(this.ausgelassenToolStripMenuItem_Click);
-            // 
-            // abhängigkeitenToolStripMenuItem
-            // 
-            this.abhängigkeitenToolStripMenuItem.Name = "abhängigkeitenToolStripMenuItem";
-            this.abhängigkeitenToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.abhängigkeitenToolStripMenuItem.Text = "Abhängigkeiten";
-            this.abhängigkeitenToolStripMenuItem.Click += new System.EventHandler(this.abhängigkeitenToolStripMenuItem_Click);
             // 
             // Suche
             // 
