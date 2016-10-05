@@ -667,26 +667,66 @@ V1.00", "Suche",
 
         private void anzeigenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string Ausgabe;
             string ErrorFileList = "";
-            foreach (String s in ErrorFiles)
+            if (ErrorFiles.Count > 30)
             {
-                ErrorFileList += s.ToString() + "\n";
+                Ausgabe = String.Format(@"{0} Datei(en) bei denen es Lesefehler gab.
+
+Es gab ziemlich viele Lesefehler, also Dateien die eigentlich durchsucht werden könnten, ergaben Lesefehler.
+Bitte stelle sicher, dass die nötigen Abhängigkeiten erfüllt sind.
+Siehe im 'Menu - Hilfe - Abhängigkeiten'...", ErrorFiles.Count);
+                MessageBox.Show(Ausgabe, "Lesefehler bei Dateien",
+               MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            string Ausgabe = String.Format("{0} Datei(en) bei denen es Lesefehler gab:\n\n{1}", ErrorFiles.Count, ErrorFileList);
-            MessageBox.Show(Ausgabe, "Suche",
-           MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else if (ErrorFiles.Count == 0)
+            {
+                MessageBox.Show("Bei der letzten Suche gab es keine Lesefehler.", "Lesefehler bei Dateien",
+               MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else
+	        {
+                foreach (String s in ErrorFiles)
+                {
+                    ErrorFileList += s.ToString() + "\n";
+                }
+                Ausgabe = String.Format("{0} Datei(en) bei denen es Lesefehler gab:\n\n{1}", ErrorFiles.Count, ErrorFileList);
+                MessageBox.Show(Ausgabe, "Lesefehler bei Dateien",
+               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+	        }
+            
         }
 
         private void ausgelassenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string Ausgabe;
             string SkipFileList = "";
-            foreach (String s in SkipFiles)
+            if (SkipFiles.Count > 30)
             {
-                SkipFileList += s.ToString() + "\n";
+                Ausgabe = String.Format(@"{0} Dateien die nicht durchsucht wurden.
+
+Ziemlich viele Dateien wurden bei der Suche nicht berücksichtigt.
+Evtl. sind viele Bild- oder Musik-Dateien dabei??
+Kontrolliere im 'Menü - Hilfe - Info' die unterstützen Dateien.", SkipFiles.Count);
+                MessageBox.Show(Ausgabe, "Ausgelassene Dateien",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            string Ausgabe = String.Format("{0} Dateien die nicht durchsucht wurden:\n\n{1}", SkipFiles.Count, SkipFileList);
-            MessageBox.Show(Ausgabe, "Suche",
-           MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else if (SkipFiles.Count == 0)
+            {
+                MessageBox.Show("Bei der letzten Suche wurden alle Dateien berücksichtigt.", "Ausgelassene Dateien",
+               MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else
+            {
+                foreach (String s in SkipFiles)
+                {
+                    SkipFileList += s.ToString() + "\n";
+                }
+                Ausgabe = String.Format("{0} Dateien die nicht durchsucht wurden:\n\n{1}", SkipFiles.Count, SkipFileList);
+                MessageBox.Show(Ausgabe, "Ausgelassene Dateien",
+               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
         }
 
         private void abhängigkeitenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -706,6 +746,16 @@ Die 'DateiSuche.exe' kann aus diesem Ordner an einen anderen Ort verknüpft werd
 Bspw. Verknüpfung auf Desktop:
 Rechtsklick auf Desktop - Neu - Verknüpfung.", "Suche",
            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
+
+        private void toolStripStatusLabel3_Click(object sender, EventArgs e)
+        {
+            ausgelassenToolStripMenuItem_Click(sender, e);
+        }
+
+        private void toolStripStatusLabel4_Click(object sender, EventArgs e)
+        {
+            anzeigenToolStripMenuItem_Click(sender, e);
         }
     }
 }

@@ -227,6 +227,7 @@
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(92, 15);
             this.toolStripStatusLabel3.Text = "Ausgelassen:";
             this.toolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripStatusLabel3.Click += new System.EventHandler(this.toolStripStatusLabel3_Click);
             // 
             // toolStripStatusLabel4
             // 
@@ -234,6 +235,7 @@
             this.toolStripStatusLabel4.Size = new System.Drawing.Size(92, 15);
             this.toolStripStatusLabel4.Text = "Lesefehler:";
             this.toolStripStatusLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripStatusLabel4.Click += new System.EventHandler(this.toolStripStatusLabel4_Click);
             // 
             // toolStripStatusLabel6
             // 
