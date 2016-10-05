@@ -250,6 +250,7 @@ namespace WindowsFormsApplication1
                         case ".HTML":
                         case ".INI":
                         case ".CSPROJ":
+                        case ".SVB":
                             {
                                 match = FileContentStringMatchTXT(CurrentFile);
                                 break;
@@ -618,7 +619,7 @@ V1.00", "Suche",
 .PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX / .PPTX
 .TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
 .ODT / .ODS (OpenOffice & LibreOffice) 
-.CONFIG / .INI / .CSPROJ / .CS", "Suche",
+.CONFIG / .INI / .CSPROJ / .CS / .SVB", "Suche",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             //.PPT
             //.PPTX
