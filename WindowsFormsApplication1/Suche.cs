@@ -268,11 +268,11 @@ namespace WindowsFormsApplication1
                         //        match = FileContentStringMatchPPT(CurrentFile);
                         //        break;
                         //    }
-                        case ".PPTX":
-                            {
-                                match = FileContentStringMatchPPTX(CurrentFile);
-                                break;
-                            }
+                            //case ".PPTX":
+                        //    {
+                        //        match = FileContentStringMatchPPTX(CurrentFile);
+                         //       break;
+                        //   }
                         case ".XLS":
                         case ".CSV":
                             {
@@ -284,16 +284,16 @@ namespace WindowsFormsApplication1
                                 match = FileContentStringMatchXLSX(CurrentFile);
                                 break;
                             }
-                        case ".ODS":
-                            {
-                                match = FileContentStringMatchODS(CurrentFile);
-                                break;
-                            }
-                        case ".ODT":
-                            {
-                                match = FileContentStringMatchODT(CurrentFile);
-                                break;
-                            }
+                            //case ".ODS":
+                        //    {
+                        //        match = FileContentStringMatchODS(CurrentFile);
+                        //        break;
+                        //    }
+                            //case ".ODT":
+                        //    {
+                         //       match = FileContentStringMatchODT(CurrentFile);
+                         //       break;
+                        //    }
                         default:
                             {
                                 match = false;
