@@ -51,7 +51,6 @@
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anleitungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.abhängigkeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lesefehlerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anzeigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -265,7 +264,6 @@
             this.hilfeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.anleitungToolStripMenuItem,
             this.infoToolStripMenuItem,
-            this.abhängigkeitenToolStripMenuItem,
             this.versionToolStripMenuItem});
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
             this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -274,28 +272,21 @@
             // anleitungToolStripMenuItem
             // 
             this.anleitungToolStripMenuItem.Name = "anleitungToolStripMenuItem";
-            this.anleitungToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.anleitungToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.anleitungToolStripMenuItem.Text = "Anleitung";
             this.anleitungToolStripMenuItem.Click += new System.EventHandler(this.anleitungToolStripMenuItem_Click);
             // 
             // infoToolStripMenuItem
             // 
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            this.infoToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.infoToolStripMenuItem.Text = "Info";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
-            // 
-            // abhängigkeitenToolStripMenuItem
-            // 
-            this.abhängigkeitenToolStripMenuItem.Name = "abhängigkeitenToolStripMenuItem";
-            this.abhängigkeitenToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.abhängigkeitenToolStripMenuItem.Text = "Abhängigkeiten";
-            this.abhängigkeitenToolStripMenuItem.Click += new System.EventHandler(this.abhängigkeitenToolStripMenuItem_Click);
             // 
             // versionToolStripMenuItem
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.versionToolStripMenuItem.Text = "Version";
             this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
             // 
@@ -375,7 +366,6 @@
         private System.Windows.Forms.ToolStripMenuItem lesefehlerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem anzeigenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ausgelassenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem abhängigkeitenToolStripMenuItem;
     }
 }
 

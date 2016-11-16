@@ -293,7 +293,7 @@ namespace WindowsFormsApplication1
                         //    {
                          //       match = FileContentStringMatchODT(CurrentFile);
                          //       break;
-                        //    }
+                        //   }
                         default:
                             {
                                 match = false;
@@ -538,9 +538,8 @@ V1.00", "Version",
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(@".PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX / .PPTX
+            MessageBox.Show(@".PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX
 .TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
-.ODT / .ODS (OpenOffice & LibreOffice) 
 .CONFIG / .INI / .CSPROJ / .CS / .SVB", "Unterstützte Dateiformate",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
@@ -667,23 +666,6 @@ Auszug der ausgelassenen Dateien:
                MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             
-        }
-
-        private void abhängigkeitenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(@"Das Programm funktioniert nur richtig, wenn folgende Dateien in demselben Ordner wie die ausgeführte 'DateiSuche.exe' existieren:
-
-Code7248.word_reader.dll
-CSharpJExcel.dll
-Excel.4.5.dll
-ICSharpCode.SharpZipLib.dll
-itextsharp.dll
-
-Die 'DateiSuche.exe' kann aus diesem Ordner an einen anderen Ort verknüpft werden (nicht kopiert).
-
-Bspw. Verknüpfung auf Desktop:
-Rechtsklick auf Desktop - Neu - Verknüpfung.", "Abhängigkeiten des Programms",
-           MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void toolStripStatusLabel3_Click(object sender, EventArgs e)
