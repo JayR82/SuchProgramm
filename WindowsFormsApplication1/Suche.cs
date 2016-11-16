@@ -12,9 +12,6 @@ using CSharpJExcel.Jxl;
 using Excel;
 using System.Data.OleDb;
 using ICSharpCode.SharpZipLib.Zip;
-using Independentsoft.Office.Odf;
-using Independentsoft.Office.Presentation;
-using Independentsoft.Office.Presentation.Drawing;
 
 namespace WindowsFormsApplication1
 {
@@ -351,48 +348,7 @@ namespace WindowsFormsApplication1
 
         private bool FileContentStringMatchPPTX(string p)
         {
-            Presentation presentation = new Presentation(p);
-
-            for (int i = 0; i < presentation.Slides.Count; i++)
-            {
-                Slide slide = presentation.Slides[i];
-
-                if (slide.CommonSlideData != null)
-                {
-                    GroupShape shapeTree = slide.CommonSlideData.ShapeTree;
-
-                    if (shapeTree != null)
-                    {
-                        foreach (IGroupElement element in shapeTree.Elements)
-                        {
-                            if (element is Shape)
-                            {
-                                Shape shape = (Shape)element;
-                                if (shape.TextBody != null)
-                                {
-                                    ShapeTextBody textBody = shape.TextBody;
-                                    for (int y = 0; y < textBody.Paragraphs.Count; y++)
-                                    {
-                                        Independentsoft.Office.Drawing.TextParagraph paragraph = textBody.Paragraphs[y];
-                                        for (int r = 0; r < paragraph.Content.Count; r++)
-                                        {
-                                            if (paragraph.Content[r] is Independentsoft.Office.Drawing.TextRun)
-                                            {
-                                                Independentsoft.Office.Drawing.TextRun run = (Independentsoft.Office.Drawing.TextRun)paragraph.Content[r];
-                                                if (FindText(run.Text))
-                                                {
-                                                    return true;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return false;
+            return true;                                      
         }
 
         private bool FileContentStringMatchXLS(string p)
@@ -446,43 +402,12 @@ namespace WindowsFormsApplication1
 
         private bool FileContentStringMatchODS(string p)
         {
-            Spreadsheet spreadsheet = new Spreadsheet(p);
-
-            IList<Table> sheets = spreadsheet.GetTables();
-            Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
-
-            foreach (Table sheet in sheets)
-            {
-                foreach (Row row in sheet.Rows)
-                {
-                    foreach (Independentsoft.Office.Odf.Cell cell in row.Cells)
-                    {
-                        Match m = r.Match(cell.ToString());
-                        if (m.Success)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
+            return true;
         }
 
         private bool FileContentStringMatchODT(string p)
         {
-            TextDocument doc = new TextDocument(p);
-            Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
-
-            IList<Text> texts = doc.GetTexts();
-            for (int i = 0; i < texts.Count; i++)
-            {
-                Match m = r.Match(texts[i].ToString());
-                if (m.Success)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return true;  
         }
 
         private bool FindText(string contents)
@@ -752,8 +677,6 @@ Code7248.word_reader.dll
 CSharpJExcel.dll
 Excel.4.5.dll
 ICSharpCode.SharpZipLib.dll
-Independentsoft.Office.Odf.dll
-Independentsoft.Office.Presentation.dll
 itextsharp.dll
 
 Die 'DateiSuche.exe' kann aus diesem Ordner an einen anderen Ort verknüpft werden (nicht kopiert).
