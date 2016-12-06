@@ -11,7 +11,6 @@ using Code7248.word_reader;
 using CSharpJExcel.Jxl;
 using Excel;
 using System.Data.OleDb;
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace WindowsFormsApplication1
 {

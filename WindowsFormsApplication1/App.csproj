@@ -72,20 +72,20 @@
   <PropertyGroup />
   <ItemGroup>
     <Reference Include="Code7248.word_reader">
-      <HintPath>..\..\..\..\3rdPartyReferences\WordReader\Code7248.word_reader.dll</HintPath>
+      <HintPath>..\..\3rdPartyReferences\WordReader\Code7248.word_reader.dll</HintPath>
     </Reference>
     <Reference Include="CSharpJExcel">
-      <HintPath>..\..\..\..\3rdPartyReferences\ExcelReader\CSharpJExcel\CSharpJExcel\CSharpJExcel\bin\Debug\CSharpJExcel.dll</HintPath>
+      <HintPath>..\..\3rdPartyReferences\ExcelReader\CSharpJExcel\CSharpJExcel\CSharpJExcel\bin\Debug\CSharpJExcel.dll</HintPath>
     </Reference>
     <Reference Include="Excel.4.5">
-      <HintPath>..\..\..\..\3rdPartyReferences\ExcelReader\output\net45\Excel.4.5.dll</HintPath>
+      <HintPath>..\..\3rdPartyReferences\ExcelReader\output\net45\Excel.4.5.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\..\..\3rdPartyReferences\ExcelReader\output\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\3rdPartyReferences\ExcelReader\output\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=3.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\3rdPartyReferences\iTextSharp\itextsharp.dll</HintPath>
+      <HintPath>..\..\3rdPartyReferences\iTextSharp\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
