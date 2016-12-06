@@ -134,13 +134,23 @@ namespace WindowsFormsApplication1
                 toolStripStatusLabel5.Text = "Status:\nSuchText\neingeben!";
                 return false;
             }
-            if (SuchText == "*")
-            {
-                MessageBox.Show("Nur 'Wildcard' (Stern) ist nicht möglich.\n Lieber nur ein Teil des zu suchenden Wortes eingeben...", "Suche",
-                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                return false;
-            }
-            
+
+            //Replace som special characters for RegEx
+            SuchText = SuchText.Replace(@"\", @"\\");
+            SuchText = SuchText.Replace(@"^", @"\^");
+            SuchText = SuchText.Replace(@"$", @"\$");
+            SuchText = SuchText.Replace(@".", @"\.");
+            SuchText = SuchText.Replace(@"|", @"\|");
+            SuchText = SuchText.Replace(@"?", @"\?");
+            SuchText = SuchText.Replace(@"*", @"\*");
+            SuchText = SuchText.Replace(@"+", @"\+");
+            SuchText = SuchText.Replace(@"(", @"\(");
+            SuchText = SuchText.Replace(@")", @"\)");
+            SuchText = SuchText.Replace(@"{", @"\{");
+            SuchText = SuchText.Replace(@"}", @"\}");
+            SuchText = SuchText.Replace(@"[", @"\[");
+            SuchText = SuchText.Replace(@"]", @"\]");
+
             return true;
         }
 
