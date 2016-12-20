@@ -257,7 +257,7 @@ namespace WindowsFormsApplication1
                         case ".INI":
                         case ".CSPROJ":
                         case ".SVB":
-                        case ".tcKDTest":
+                        case ".TCKDTEST":
                             {
                                 match = FileContentStringMatchTXT(CurrentFile);
                                 break;
