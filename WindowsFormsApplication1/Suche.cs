@@ -257,6 +257,7 @@ namespace WindowsFormsApplication1
                         case ".INI":
                         case ".CSPROJ":
                         case ".SVB":
+                        case ".tcKDTest":
                             {
                                 match = FileContentStringMatchTXT(CurrentFile);
                                 break;
@@ -549,7 +550,7 @@ V1.00", "Version",
         {
             MessageBox.Show(@".PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX
 .TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
-.CONFIG / .INI / .CSPROJ / .CS / .SVB", "Unterstützte Dateiformate",
+.CONFIG / .INI / .CSPROJ / .CS / .SVB / .tcKDTest", "Unterstützte Dateiformate",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
