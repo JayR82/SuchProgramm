@@ -541,8 +541,7 @@ namespace WindowsFormsApplication1
 
         private void versionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(@"Jürgen Reutter
-V1.00", "Version",
+            MessageBox.Show("Jürgen Reutter\n" + typeof(Suche).Assembly.GetName().Version, "Version",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
