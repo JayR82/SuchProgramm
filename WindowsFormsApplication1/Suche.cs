@@ -555,21 +555,21 @@ namespace WindowsFormsApplication1
 
         private void anleitungToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(@"Dieses Programm durchsucht textbasierte Dateien in einem angegebenen Ordner und dessen Unterordner, auf ein oder mehrere zusammenhängende Worte.
+            MessageBox.Show(@"Dieses Programm durchsucht textbasierte Dateien in einem angegebenen Ordner und dessen Unterordner, auf ein oder mehrere Worte und listet die Dateien mit Treffer auf.
 
-1. Gib den Initialen Ordner an, in dem Dateien durchsucht werden sollen
-1.1. Click [...] und navigiere im gezeigten Dialog zu deinem initialen Ordner, bestätige mit 'OK'
+1. Gib den initialen Ordner an, in dem Dateien durchsucht werden sollen
+1.1. Klick [...] und navigiere im gezeigten Dialog zu deinem initialen Ordner, bestätige mit 'OK'
 1.1.1 Vermeide direkt Partitionen anzugeben (D:\ oder C:\) wegen evtl. sehr großer Datenmenge
 1.1.2 Durchsuchen von Dateien auf USB-Stick = kein Problem
 1.1.3 Durchsuchen von Dateien auf Server / NAS = kein Problem (kann ein bisschen länger dauern, bis die Suche fertig ist)
 1.1.4 Durchsuchen von Dateien auf CD/DVD-Laufwerk = keine Ahnung -habe ich nicht getestet
 1.2. Je genauer du den initialen Ordner eingrenzt, desto schneller ist die Suche fertig
 1.3. Schau im Menü unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
-1.3.1 Bildbasierte Dateien, sowie Container (.zip) und Verknüpfungen werden ausgelassen und nicht durchsucht
+1.3.1 Bild- und Tonbasierte Dateien, sowie Container (.zip) und Verknüpfungen werden ausgelassen und nicht durchsucht
 
 2. Gib ein Suchtext ein, den die zu suchende Datei beinhaltet
 2.1. Ein einzelnes Wort oder ein Wortausschnitt
-2.2. Bei einer Suchtext-Eingabe mehrerer Wörter, sollten diese auch so in dieser Reihenfolge tatsächlich vorkommen
+2.2. Bei einer Suchtext- Eingabe mehrerer Wörter, sollten diese auch so in dieser Reihenfolge tatsächlich vorkommen
 2.3. Groß- / Kleinschreibung im Suchtext ist egal (Suchtext 'Rechnung' findet auch 'ABRECHNUNG' in Dateien)
 2.4. Wildcards (*, ?, %, #) sind nicht nötig um ein Suchtext zu erweitern. Lieber nur nach einem Wortausschnitt suchen
         
@@ -586,7 +586,7 @@ namespace WindowsFormsApplication1
 4.4.1. Treffer sind: 'Suchtext' im Pfadnamen
 4.4.2. Treffer sind: 'Suchtext' im Dateiinhalt
 4.5. 'Lesefehler': Zeigt die Anzahl der Dateien, die potentielle Kandidaten waren, aber Fehler beim Lesen verursacht haben (keine Zugriffsrechte o.ä.) 
-4.5.1 Ist der 'Lesefehler' > 0 könnte eine relevante Datei nicht in der Ergebnisliste aufgeführt sein
+4.5.1 Ist der 'Lesefehler' > 0 könnte eine relevante Datei mit Treffern nicht in der Ergebnisliste aufgeführt sein
 4.5.2 Klick auf 'Lesefehler' oder über das Menü - Ausnahmen, um die Liste der Dateien mit Lesefehlern zu sehen
 4.5.3 Sind es mehr als 30 Dateien die Fehler verursacht haben, werden nicht alle angezeigt
 4.6. 'Status:' Was macht das Programm gerade
