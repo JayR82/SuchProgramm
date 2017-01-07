@@ -547,9 +547,13 @@ namespace WindowsFormsApplication1
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(@".PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX
+            MessageBox.Show(@"Dateiformate die durchsucht werden können:
+
+.PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX
 .TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
-.CONFIG / .INI / .CSPROJ / .CS / .SVB / .tcKDTest", "Unterstützte Dateiformate",
+.CONFIG / .INI / .CSPROJ / .CS / .SVB / .TCKDTEST
+
+Andere gefundene Dateiformate werden bei der Suche ausgelassen.", "Unterstützte Dateiformate",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
@@ -610,18 +614,17 @@ namespace WindowsFormsApplication1
 
                 Ausgabe = String.Format(@"{0} Datei(en) bei denen es Lesefehler gab.
 
-Es gab ziemlich viele Lesefehler, also Dateien die eigentlich durchsucht werden könnten, ergaben Lesefehler.
-Bitte stelle sicher, dass die nötigen Abhängigkeiten erfüllt sind.
-Siehe im 'Menu - Hilfe - Abhängigkeiten'...
+Es gab ziemlich viele Lesefehler, also Dateien die eigentlich durchsucht werden sollten, konnten nicht gelesen werden.
+U.U. keine Zugriffsrechte... Datei ist gerade geöffnet...
 
 Auszug der Dateien mit Lesefehler:
 {1}...", ErrorFiles.Count, ErrorFileList);
-                MessageBox.Show(Ausgabe, "Lesefehler bei Dateien",
+                MessageBox.Show(Ausgabe, "Lesefehler bei Suche",
                MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (ErrorFiles.Count == 0)
             {
-                MessageBox.Show("Bei der letzten Suche gab es keine Lesefehler.", "Lesefehler bei Dateien",
+                MessageBox.Show("Bei der letzten Suche gab es keine Lesefehler.", "Lesefehler bei Suche",
                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             else
@@ -631,7 +634,7 @@ Auszug der Dateien mit Lesefehler:
                     ErrorFileList += s.ToString() + "\n";
                 }
                 Ausgabe = String.Format("{0} Datei(en) bei denen es Lesefehler gab:\n\n{1}", ErrorFiles.Count, ErrorFileList);
-                MessageBox.Show(Ausgabe, "Lesefehler bei Dateien",
+                MessageBox.Show(Ausgabe, "Lesefehler bei Suche",
                MessageBoxButtons.OK, MessageBoxIcon.Warning);
 	        }
             
@@ -651,7 +654,7 @@ Auszug der Dateien mit Lesefehler:
                 Ausgabe = String.Format(@"{0} Dateien die nicht durchsucht wurden.
 
 Ziemlich viele Dateien wurden bei der Suche nicht berücksichtigt.
-Evtl. sind viele Bild- oder Musik-Dateien dabei??
+Evtl. sind viele Bild- oder Musik-Dateien dabei?
 Kontrolliere im 'Menü - Hilfe - Info' die unterstützen Dateien.
 
 Auszug der ausgelassenen Dateien:
@@ -661,7 +664,7 @@ Auszug der ausgelassenen Dateien:
             }
             else if (SkipFiles.Count == 0)
             {
-                MessageBox.Show("Bei der letzten Suche wurden alle Dateien berücksichtigt.", "Ausgelassene Dateien",
+                MessageBox.Show("Bei der letzten Suche wurden alle gefundenen Dateien durchsucht.", "Ausgelassene Dateien",
                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             else
