@@ -253,6 +253,7 @@ namespace WindowsFormsApplication1
                         case ".XML":
                         case ".XAML":
                         case ".CS":
+                        case ".CSV":
                         case ".DAT":
                         case ".CONFIG":
                         case ".BAK":
@@ -288,7 +289,6 @@ namespace WindowsFormsApplication1
                                 break;
                             }
                         case ".XLS":
-                        case ".CSV":
                             {
                                 match = FileContentStringMatchXLS(CurrentFile);
                                 break;
