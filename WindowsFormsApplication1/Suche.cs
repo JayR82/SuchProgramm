@@ -14,6 +14,7 @@ using DocumentFormat.OpenXml.Presentation;
 using A = DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml;
+using Spire.Presentation;
 
 
 namespace WindowsFormsApplication1
@@ -278,11 +279,11 @@ namespace WindowsFormsApplication1
                                 match = FileContentStringMatchDOC(CurrentFile);
                                 break;
                             }
-                        //case ".PPT":
-                        //    {
-                        //        match = FileContentStringMatchPPT(CurrentFile);
-                        //        break;
-                        //    }
+                        case ".PPT":
+                            {
+                                match = FileContentStringMatchPPT(CurrentFile);
+                                break;
+                            }
                         case ".PPTX":
                             {
                                 match = FileContentStringMatchPPTX(CurrentFile);
@@ -358,6 +359,39 @@ namespace WindowsFormsApplication1
             TextExtractor extractor = new TextExtractor(p);
             string text = extractor.ExtractText(); //The string 'text' is now loaded with the text from the Word Document
             return FindText(text);
+        }
+
+        private bool FileContentStringMatchPPT(string p)
+        {
+            Spire.Presentation.Presentation presentation = new Spire.Presentation.Presentation(p, FileFormat.Auto);
+
+            Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < presentation.Slides.Count; i++)
+	        {
+                for (int j = 0; j < presentation.Slides[i].Shapes.Count; j++)
+	            {
+                    if (presentation.Slides[i].Shapes[j] is IAutoShape)
+	                {
+                        IAutoShape shape = presentation.Slides[i].Shapes[j] as IAutoShape;
+	                    if (shape.TextFrame != null)
+	                    {
+	                        foreach (TextParagraph tp in shape.TextFrame.Paragraphs)
+	                        {
+                                Match m = r.Match(tp.Text);
+                                if (m.Success)
+                                {
+                                    presentation.Dispose();
+                                    return true;
+                                }
+	                        }
+	                    }
+	                }
+	            }
+	        }
+            presentation.Dispose();
+            return false;
         }
 
         private bool FileContentStringMatchPPTX(string p)
@@ -580,7 +614,7 @@ namespace WindowsFormsApplication1
         {
             MessageBox.Show(@"Dateiformate die durchsucht werden können:
 
-.PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX / .PPTX
+.PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX / .PPT / .PPTX
 .TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
 .CONFIG / .INI / .CSPROJ / .CS / .SVB / .TCKDTEST
 

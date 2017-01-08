@@ -88,6 +88,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\3rdPartyReferences\iTextSharp\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="Spire.License">
+      <HintPath>C:\Program Files (x86)\e-iceblue\Spire.Presentation\Bin\NET4.0\Spire.License.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Pdf">
+      <HintPath>C:\Program Files (x86)\e-iceblue\Spire.Presentation\Bin\NET4.0\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Presentation">
+      <HintPath>C:\Program Files (x86)\e-iceblue\Spire.Presentation\Bin\NET4.0\Spire.Presentation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
