@@ -10,7 +10,11 @@ using System.Text;
 using Code7248.word_reader;
 using CSharpJExcel.Jxl;
 using Excel;
-using System.Data.OleDb;
+using DocumentFormat.OpenXml.Presentation;
+using A = DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml;
+
 
 namespace WindowsFormsApplication1
 {
@@ -278,11 +282,11 @@ namespace WindowsFormsApplication1
                         //        match = FileContentStringMatchPPT(CurrentFile);
                         //        break;
                         //    }
-                            //case ".PPTX":
-                        //    {
-                        //        match = FileContentStringMatchPPTX(CurrentFile);
-                         //       break;
-                        //   }
+                        case ".PPTX":
+                            {
+                                match = FileContentStringMatchPPTX(CurrentFile);
+                                break;
+                            }
                         case ".XLS":
                         case ".CSV":
                             {
@@ -358,7 +362,34 @@ namespace WindowsFormsApplication1
 
         private bool FileContentStringMatchPPTX(string p)
         {
-            return true;                                      
+            using (PresentationDocument presentationDocument = PresentationDocument.Open(p, false))
+            {
+                Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
+
+                // Get the relationship ID of the first slide.
+                PresentationPart part = presentationDocument.PresentationPart;
+                OpenXmlElementList slideIds = part.Presentation.SlideIdList.ChildElements;
+                for (int i = 0; i < slideIds.Count; i++)
+                {
+                    string relId = (slideIds[i] as SlideId).RelationshipId;
+                    // Get the slide part from the relationship ID.
+                    SlidePart slide = (SlidePart)part.GetPartById(relId);
+
+                    // Get the inner text of the slide:
+                    IEnumerable<A.Text> texts = slide.Slide.Descendants<A.Text>();
+                    foreach (A.Text text in texts)
+                    {
+                        Match m = r.Match(text.InnerText);
+                        if (m.Success)
+                        {
+                            presentationDocument.Close();
+                            return true;
+                        }
+                    }
+                }
+                presentationDocument.Close();
+            }
+            return false;
         }
 
         private bool FileContentStringMatchXLS(string p)
@@ -549,7 +580,7 @@ namespace WindowsFormsApplication1
         {
             MessageBox.Show(@"Dateiformate die durchsucht werden können:
 
-.PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX
+.PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX / .PPTX
 .TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
 .CONFIG / .INI / .CSPROJ / .CS / .SVB / .TCKDTEST
 
