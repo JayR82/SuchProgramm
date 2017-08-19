@@ -111,7 +111,7 @@ namespace WindowsFormsApplication1
             if (GetInitialDir() && GetSearchText())
             {
                 AllFiles = GetAllFiles();
-                //Find search text in file URL
+                //Find search text in file URL  
                 MatchedFiles = GetMatchedURL(AllFiles);
                 //Find search text in file content
                 MatchedFiles.AddRange(GetMatchedFiles(AllFiles));
