@@ -1,20 +1,20 @@
-﻿using System;
+﻿using Code7248.word_reader;
+using CSharpJExcel.Jxl;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Presentation;
+using Excel;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
+using Spire.Presentation;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.parser;
-using System.Text;
-using Code7248.word_reader;
-using CSharpJExcel.Jxl;
-using Excel;
-using DocumentFormat.OpenXml.Presentation;
 using A = DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml;
-using Spire.Presentation;
 
 
 namespace WindowsFormsApplication1
@@ -264,6 +264,21 @@ namespace WindowsFormsApplication1
                         case ".CSPROJ":
                         case ".SVB":
                         case ".TCKDTEST":
+                        case ".SLN":
+                        case ".TSPROJ":
+                        case ".TMC":
+                        case ".TPY":
+                        case ".TCGTLO":
+                        case ".TCPOU":
+                        case ".TCDUT":
+                        case ".TCTTO":
+                        case ".PLCPROJ":
+                        case ".VWSETTINGS":
+                        case ".SETTINGS":
+                        case ".RESX":
+                        case ".CMD":
+                        case ".USER":
+                        case ".TMSETTINGS":
                             {
                                 match = FileContentStringMatchTXT(CurrentFile);
                                 break;
@@ -617,6 +632,10 @@ namespace WindowsFormsApplication1
 .PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX / .PPT / .PPTX
 .TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
 .CONFIG / .INI / .CSPROJ / .CS / .SVB / .TCKDTEST
+.SLN / .TSPROJ / .TMC / .TPY / .TcGTLO / .TcPOU / .TcDUT
+.TcTTO / .PLCPROJ / .VWSETTINGS / .SETTINGS / .RESX
+.CMD / .USER / .TMSETTINGS
+
 
 Andere gefundene Dateiformate werden bei der Suche ausgelassen.", "Unterstützte Dateiformate",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
