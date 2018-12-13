@@ -83,9 +83,6 @@
     <Reference Include="Excel.4.5">
       <HintPath>..\..\3rdPartyReferences\ExcelReader\output\net45\Excel.4.5.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\3rdPartyReferences\ExcelReader\output\net45\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="itextsharp, Version=3.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\3rdPartyReferences\iTextSharp\itextsharp.dll</HintPath>

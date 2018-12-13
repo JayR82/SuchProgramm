@@ -4,6 +4,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Presentation;
 using Excel;
+using ICSharpCode.SharpZipLib.Zip;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using Spire.Presentation;
@@ -314,16 +315,13 @@ namespace WindowsFormsApplication1
                                 match = FileContentStringMatchXLSX(CurrentFile);
                                 break;
                             }
-                            //case ".ODS":
-                        //    {
-                        //        match = FileContentStringMatchODS(CurrentFile);
-                        //        break;
-                        //    }
-                            //case ".ODT":
-                        //    {
-                         //       match = FileContentStringMatchODT(CurrentFile);
-                         //       break;
-                        //   }
+                        case ".ODS":
+                        case ".ODT":
+                        case ".ODP":
+                            {
+                                match = FileContentStringMatchODS(CurrentFile);
+                                break;
+                            }                           
                         default:
                             {
                                 match = false;
@@ -492,7 +490,38 @@ namespace WindowsFormsApplication1
 
         private bool FileContentStringMatchODS(string p)
         {
-            return true;
+            var contentXml = "";
+            FileStream stream = File.Open(p, FileMode.Open, FileAccess.Read);
+
+            using (var zipInputStream = new ZipInputStream(stream))
+            {
+                ZipEntry contentEntry = null;
+                while ((contentEntry = zipInputStream.GetNextEntry()) != null)
+                {
+                    if (!contentEntry.IsFile)
+                        continue;
+                    if (contentEntry.Name.ToLower() == "content.xml")
+                        break;
+                }
+
+                if (contentEntry.Name.ToLower() != "content.xml")
+                {
+                    return false;
+                }
+
+                var bytesResult = new byte[] { };
+                var bytes = new byte[2000];
+                var i = 0;
+
+                while ((i = zipInputStream.Read(bytes, 0, bytes.Length)) != 0)
+                {
+                    var arrayLength = bytesResult.Length;
+                    Array.Resize<byte>(ref bytesResult, arrayLength + i);
+                    Array.Copy(bytes, 0, bytesResult, arrayLength, i);
+                }
+                contentXml = Encoding.UTF8.GetString(bytesResult);
+            }
+            return FindText(contentXml);
         }
 
         private bool FileContentStringMatchODT(string p)
@@ -630,11 +659,12 @@ namespace WindowsFormsApplication1
             MessageBox.Show(@"Dateiformate die durchsucht werden können:
 
 .PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX / .PPT / .PPTX
-.TXT / .LOG / .DAT / .HTM / .HTML / .XML / .XAML
-.CONFIG / .INI / .CSPROJ / .CS / .SVB / .TCKDTEST
-.SLN / .TSPROJ / .TMC / .TPY / .TcGTLO / .TcPOU / .TcDUT
-.TcTTO / .PLCPROJ / .VWSETTINGS / .SETTINGS / .RESX
-.CMD / .USER / .TMSETTINGS
+.ODT / .ODP / .ODS / .TXT / .LOG / .DAT / .HTM / .HTML
+.XML / .XAML / .CONFIG / .INI / .SLN / .CS / .SVB / .TCKDTEST
+.CSPROJ / .TSPROJ / .PLCPROJ 
+.VWSETTINGS / .SETTINGS / .TMSETTINGS 
+.TcDUT / .TcTTO  / .TcGTLO  / .TcPOU / .TMC / .TPY 
+.CMD / .USER / .RESX
 
 
 Andere gefundene Dateiformate werden bei der Suche ausgelassen.", "Unterstützte Dateiformate",

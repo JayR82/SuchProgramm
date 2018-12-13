@@ -705,15 +705,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DateiSuche"
-        "ProductCode" = "8:{7F58BF4A-EFD6-41D5-AC75-92B74BDAC4DF}"
-        "PackageCode" = "8:{98DC8D52-A102-4768-ACA0-6CAE2DC9095F}"
+        "ProductCode" = "8:{A58A59CD-34C9-47E5-91DC-8E429DFEB778}"
+        "PackageCode" = "8:{B8BFA454-4CDC-46AD-88BE-B02FFF56CBD7}"
         "UpgradeCode" = "8:{D2C3B636-3482-403F-8E28-E8F1ADF78481}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.9"
         "Manufacturer" = "8:JayR"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -837,7 +837,7 @@
             "Target" = "8:_1B7CC4F4ABBC4AE8ADE5B107824C8C4E"
             "Folder" = "8:_2C80562855CD4D039E99E10AAE6A62CB"
             "WorkingFolder" = "8:_328C1944BE9943DCB3FD1E5E54F9AB8C"
-            "Icon" = "8:"
+            "Icon" = "8:_0F43EF0CA29A4BF3B372DD0A2C10ED56"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C0CC9F19A440464190505645D6960E82"
@@ -1255,7 +1255,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1B7CC4F4ABBC4AE8ADE5B107824C8C4E"
             {
-            "SourcePath" = "8:..\\WindowsFormsApplication1\\obj\\Debug\\DateiSuche.exe"
+            "SourcePath" = "8:..\\WindowsFormsApplication1\\obj\\Release\\DateiSuche.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_328C1944BE9943DCB3FD1E5E54F9AB8C"
