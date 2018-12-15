@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "WindowsFormsApplication1\App.csproj", "{4EB82FC9-B5D2-4953-90B6-41C240B602EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "SucheApp\App.csproj", "{4EB82FC9-B5D2-4953-90B6-41C240B602EE}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DateiSuche", "DateiSuche\DateiSuche.vdproj", "{DF98B7D1-0372-4B9D-9D56-0B7539DB610C}"
 EndProject

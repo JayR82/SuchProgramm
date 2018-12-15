@@ -18,7 +18,7 @@ using System.Windows.Forms;
 using A = DocumentFormat.OpenXml.Drawing;
 
 
-namespace WindowsFormsApplication1
+namespace SucheApp
 {
     public partial class Suche : Form
     {
