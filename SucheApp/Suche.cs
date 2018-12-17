@@ -319,7 +319,7 @@ namespace SucheApp
                         case ".ODT":
                         case ".ODP":
                             {
-                                match = FileContentStringMatchODS(CurrentFile);
+                                match = FileContentStringMatchODF(CurrentFile);
                                 break;
                             }                           
                         default:
@@ -488,7 +488,7 @@ namespace SucheApp
             return false;
         }
 
-        private bool FileContentStringMatchODS(string p)
+        private bool FileContentStringMatchODF(string p)
         {
             var contentXml = "";
             FileStream stream = File.Open(p, FileMode.Open, FileAccess.Read);
