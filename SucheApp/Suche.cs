@@ -318,6 +318,8 @@ namespace SucheApp
                         case ".ODS":
                         case ".ODT":
                         case ".ODP":
+                        case ".ODF":
+                        case ".ODG":
                             {
                                 match = FileContentStringMatchODF(CurrentFile);
                                 break;
@@ -654,8 +656,10 @@ namespace SucheApp
             MessageBox.Show(@"Dateiformate die durchsucht werden können:
 
 .PDF / .DOC / .DOCX / .CSV / .XLS / .XLSX / .PPT / .PPTX
-.ODT / .ODP / .ODS / .TXT / .LOG / .DAT / .HTM / .HTML
-.XML / .XAML / .CONFIG / .INI / .SLN / .CS / .SVB / .TCKDTEST
+.TXT / .LOG / .DAT / .HTM / .HTML
+.ODT / .ODP / .ODS / .ODF / .ODG / .XML / .XAML
+
+.CONFIG / .INI / .SLN / .CS / .SVB / .TCKDTEST
 .CSPROJ / .TSPROJ / .PLCPROJ 
 .VWSETTINGS / .SETTINGS / .TMSETTINGS 
 .TcDUT / .TcTTO  / .TcGTLO  / .TcPOU / .TMC / .TPY 
