@@ -39,16 +39,16 @@ namespace SucheApp
         {
         }
 
-        private void lbSuchText_MouseClick(object sender, MouseEventArgs e)
+        private void LbSuchText_MouseClick(object sender, MouseEventArgs e)
         {
             lbSuchText.Text = "";
         }
 
-        private void lbSuchText_KeyDown(object sender, KeyEventArgs e)
+        private void LbSuchText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                btnSuche_Click((object)sender, (EventArgs)e);
+                BtnSuche_Click((object)sender, (EventArgs)e);
             }
         }
 
@@ -83,7 +83,7 @@ namespace SucheApp
             dgFoundFiles.Refresh();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             var fbd = new FolderBrowserDialog();
             if (Directory.Exists(InitialDir))
@@ -98,7 +98,7 @@ namespace SucheApp
             }
         }
 
-        private void btnSuche_Click(object sender, EventArgs e)
+        private void BtnSuche_Click(object sender, EventArgs e)
         {
             List<string> AllFiles;
             List<string> MatchedFiles;
@@ -611,7 +611,7 @@ namespace SucheApp
             }
         }
 
-        private void dgFoundFiles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DgFoundFiles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             //Open file from DataGrid
             if (e.RowIndex >= 0)
@@ -629,7 +629,7 @@ namespace SucheApp
            
         }
 
-        private void dgFoundFiles_KeyDown(object sender, KeyEventArgs e)
+        private void DgFoundFiles_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -645,13 +645,13 @@ namespace SucheApp
             }
         }
 
-        private void versionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void VersionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Jürgen Reutter\n" + typeof(Suche).Assembly.GetName().Version, "Version",
             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
-        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void InfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(@"Dateiformate die durchsucht werden können:
 
@@ -667,10 +667,10 @@ namespace SucheApp
 
 
 Andere gefundene Dateiformate werden bei der Suche ausgelassen.", "Unterstützte Dateiformate",
-            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBoxButtons.OK, MessageBoxIcon.None);
         }
 
-        private void anleitungToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AnleitungToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(@"Dieses Programm durchsucht textbasierte Dateien in einem angegebenen Ordner und dessen Unterordner, auf ein oder mehrere Worte und listet die Dateien mit Treffer auf.
 
@@ -714,7 +714,7 @@ Andere gefundene Dateiformate werden bei der Suche ausgelassen.", "Unterstützte
 ", "Suche Anleitung", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
-        private void anzeigenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AnzeigenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string Ausgabe;
             string ErrorFileList = "";
@@ -753,7 +753,7 @@ Auszug der Dateien mit Lesefehler:
             
         }
 
-        private void ausgelassenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AusgelassenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string Ausgabe;
             string SkipFileList = "";
@@ -793,14 +793,14 @@ Auszug der ausgelassenen Dateien:
             
         }
 
-        private void toolStripStatusLabel3_Click(object sender, EventArgs e)
+        private void ToolStripStatusLabel3_Click(object sender, EventArgs e)
         {
-            ausgelassenToolStripMenuItem_Click(sender, e);
+            AusgelassenToolStripMenuItem_Click(sender, e);
         }
 
-        private void toolStripStatusLabel4_Click(object sender, EventArgs e)
+        private void ToolStripStatusLabel4_Click(object sender, EventArgs e)
         {
-            anzeigenToolStripMenuItem_Click(sender, e);
+            AnzeigenToolStripMenuItem_Click(sender, e);
         }
     }
 }

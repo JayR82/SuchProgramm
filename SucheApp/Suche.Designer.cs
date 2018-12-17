@@ -89,8 +89,8 @@
             this.dgFoundFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgFoundFiles.Size = new System.Drawing.Size(604, 304);
             this.dgFoundFiles.TabIndex = 4;
-            this.dgFoundFiles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgFoundFiles_CellDoubleClick);
-            this.dgFoundFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgFoundFiles_KeyDown);
+            this.dgFoundFiles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgFoundFiles_CellDoubleClick);
+            this.dgFoundFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DgFoundFiles_KeyDown);
             // 
             // btnOpenFolder
             // 
@@ -100,7 +100,7 @@
             this.btnOpenFolder.TabIndex = 1;
             this.btnOpenFolder.Text = "...";
             this.btnOpenFolder.UseVisualStyleBackColor = true;
-            this.btnOpenFolder.Click += new System.EventHandler(this.button1_Click);
+            this.btnOpenFolder.Click += new System.EventHandler(this.Button1_Click);
             // 
             // lbSuchText
             // 
@@ -110,8 +110,8 @@
             this.lbSuchText.Name = "lbSuchText";
             this.lbSuchText.Size = new System.Drawing.Size(604, 20);
             this.lbSuchText.TabIndex = 2;
-            this.lbSuchText.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbSuchText_MouseClick);
-            this.lbSuchText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbSuchText_KeyDown);
+            this.lbSuchText.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LbSuchText_MouseClick);
+            this.lbSuchText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LbSuchText_KeyDown);
             // 
             // btnSuche
             // 
@@ -121,7 +121,7 @@
             this.btnSuche.TabIndex = 3;
             this.btnSuche.Text = "Suche";
             this.btnSuche.UseVisualStyleBackColor = true;
-            this.btnSuche.Click += new System.EventHandler(this.btnSuche_Click);
+            this.btnSuche.Click += new System.EventHandler(this.BtnSuche_Click);
             // 
             // label1
             // 
@@ -226,7 +226,7 @@
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(92, 15);
             this.toolStripStatusLabel3.Text = "Ausgelassen:";
             this.toolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripStatusLabel3.Click += new System.EventHandler(this.toolStripStatusLabel3_Click);
+            this.toolStripStatusLabel3.Click += new System.EventHandler(this.ToolStripStatusLabel3_Click);
             // 
             // toolStripStatusLabel4
             // 
@@ -234,7 +234,7 @@
             this.toolStripStatusLabel4.Size = new System.Drawing.Size(92, 15);
             this.toolStripStatusLabel4.Text = "Lesefehler:";
             this.toolStripStatusLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripStatusLabel4.Click += new System.EventHandler(this.toolStripStatusLabel4_Click);
+            this.toolStripStatusLabel4.Click += new System.EventHandler(this.ToolStripStatusLabel4_Click);
             // 
             // toolStripStatusLabel6
             // 
@@ -274,21 +274,21 @@
             this.anleitungToolStripMenuItem.Name = "anleitungToolStripMenuItem";
             this.anleitungToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.anleitungToolStripMenuItem.Text = "Anleitung";
-            this.anleitungToolStripMenuItem.Click += new System.EventHandler(this.anleitungToolStripMenuItem_Click);
+            this.anleitungToolStripMenuItem.Click += new System.EventHandler(this.AnleitungToolStripMenuItem_Click);
             // 
             // infoToolStripMenuItem
             // 
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
             this.infoToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.infoToolStripMenuItem.Text = "Info";
-            this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
+            this.infoToolStripMenuItem.Click += new System.EventHandler(this.InfoToolStripMenuItem_Click);
             // 
             // versionToolStripMenuItem
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
             this.versionToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.versionToolStripMenuItem.Text = "Version";
-            this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
+            this.versionToolStripMenuItem.Click += new System.EventHandler(this.VersionToolStripMenuItem_Click);
             // 
             // lesefehlerToolStripMenuItem
             // 
@@ -304,14 +304,14 @@
             this.anzeigenToolStripMenuItem.Name = "anzeigenToolStripMenuItem";
             this.anzeigenToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.anzeigenToolStripMenuItem.Text = "Lesefehler zeigen";
-            this.anzeigenToolStripMenuItem.Click += new System.EventHandler(this.anzeigenToolStripMenuItem_Click);
+            this.anzeigenToolStripMenuItem.Click += new System.EventHandler(this.AnzeigenToolStripMenuItem_Click);
             // 
             // ausgelassenToolStripMenuItem
             // 
             this.ausgelassenToolStripMenuItem.Name = "ausgelassenToolStripMenuItem";
             this.ausgelassenToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.ausgelassenToolStripMenuItem.Text = "Ausgelassen zeigen";
-            this.ausgelassenToolStripMenuItem.Click += new System.EventHandler(this.ausgelassenToolStripMenuItem_Click);
+            this.ausgelassenToolStripMenuItem.Click += new System.EventHandler(this.AusgelassenToolStripMenuItem_Click);
             // 
             // Suche
             // 
