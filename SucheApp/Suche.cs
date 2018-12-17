@@ -524,11 +524,6 @@ namespace SucheApp
             return FindText(contentXml);
         }
 
-        private bool FileContentStringMatchODT(string p)
-        {
-            return true;  
-        }
-
         private bool FindText(string contents)
         {
             try
