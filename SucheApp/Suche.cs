@@ -29,6 +29,8 @@ namespace SucheApp
         int FileReadError = 0;
         public List<string> ErrorFiles = new List<string>();
         public List<string> SkipFiles = new List<string>();
+        List<string> AllFiles;
+        bool newGetFiles = true;
 
         public Suche()
         {
@@ -56,11 +58,16 @@ namespace SucheApp
         {
             //Reset status
             toolStripProgressBar1.Value = 0;
-            toolStripStatusLabel1.Text = "Dateien: 0";
+            if (newGetFiles)
+            {
+                toolStripStatusLabel1.Text = "Dateien: 0";
+            }
+
             toolStripStatusLabel2.Text = "Treffer: 0";
             toolStripStatusLabel3.Text = "Ausgelassen: 0";
             toolStripStatusLabel4.Text = "Lesefehler: 0";
             toolStripStatusLabel5.Text = "Status:\nBereit für Suche";
+
             AusgelasseneDateien = 0;
             FileReadError = 0;
             ErrorFiles.Clear();
@@ -85,6 +92,7 @@ namespace SucheApp
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            newGetFiles = true;
             var fbd = new FolderBrowserDialog();
             if (Directory.Exists(InitialDir))
             {
@@ -100,7 +108,6 @@ namespace SucheApp
 
         private void BtnSuche_Click(object sender, EventArgs e)
         {
-            List<string> AllFiles;
             List<string> MatchedFiles;
 
             btnOpenFolder.Enabled = false;
@@ -111,11 +118,13 @@ namespace SucheApp
            
             if (GetInitialDir() && GetSearchText())
             {
-                AllFiles = GetAllFiles();
-                //Find search text in file URL  
-                MatchedFiles = GetMatchedURL(AllFiles);
+                if (newGetFiles)
+                {
+                    AllFiles = GetAllFiles();
+                    newGetFiles = false;
+                }
                 //Find search text in file content
-                MatchedFiles.AddRange(GetMatchedFiles(AllFiles));
+                MatchedFiles = GetMatchedFiles();
                 if (MatchedFiles.Count > 0)
                 {
                     FillTable(MatchedFiles);
@@ -210,142 +219,140 @@ namespace SucheApp
             }
         }
 
-        private List<string> GetMatchedURL(List<string> AllFiles)
+        private List<string> GetMatchedFiles()
         {
-            List<string> MatchedURLs = new List<string>();
-
-            for (int i = 0; i <= AllFiles.Count - 1; i++)
-            {
-                String CurrentFileURL = AllFiles[i];
-
-                Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
-                Match m = r.Match(CurrentFileURL);
-                if (m.Success)
-                {
-                    MatchedURLs.Add(CurrentFileURL);
-                }
-            }
-
-            return MatchedURLs;
-        }
-
-        private List<string> GetMatchedFiles(List<string> AllFiles)
-        {
-            List<string> MatchedFiles = new List<string>();      
+            List<string> MatchedFiles = new List<string>();
+            Boolean match;
+            String FileEnding;
+            String CurrentFile;
+            Regex r ;
+            Match m;
 
             toolStripProgressBar1.Maximum = AllFiles.Count;
             toolStripStatusLabel5.Text = "Status:\nDurchsuche alle\nDateien";
+            statusStrip1.Refresh();
 
             for (int i = 0; i <= AllFiles.Count - 1; i++)
             {
-                Boolean match;
-                String FileEnding;
-                String CurrentFile = AllFiles[i];
+                toolStripProgressBar1.Value++;
+                CurrentFile = AllFiles[i];
+                match = false;
 
-                try
+                //if searched text is in file path/name do not read file
+                r = new Regex(SuchText, RegexOptions.IgnoreCase);
+                m = r.Match(CurrentFile);
+                if (m.Success)
                 {
-                    toolStripProgressBar1.Value += 1;
-
-                    FileSystemInfo CurrentFileInfo = new FileInfo(CurrentFile);
-                    FileEnding = CurrentFileInfo.Extension;
-                    switch (FileEnding.ToUpper())
-                    {
-                        case ".TXT":
-                        case ".LOG":
-                        case ".XML":
-                        case ".XAML":
-                        case ".CS":
-                        case ".CSV":
-                        case ".DAT":
-                        case ".CONFIG":
-                        case ".BAK":
-                        case ".HTM":
-                        case ".HTML":
-                        case ".INI":
-                        case ".CSPROJ":
-                        case ".SVB":
-                        case ".TCKDTEST":
-                        case ".SLN":
-                        case ".TSPROJ":
-                        case ".TMC":
-                        case ".TPY":
-                        case ".TCGTLO":
-                        case ".TCPOU":
-                        case ".TCDUT":
-                        case ".TCTTO":
-                        case ".PLCPROJ":
-                        case ".VWSETTINGS":
-                        case ".SETTINGS":
-                        case ".RESX":
-                        case ".CMD":
-                        case ".USER":
-                        case ".TMSETTINGS":
-                            {
-                                match = FileContentStringMatchTXT(CurrentFile);
-                                break;
-                            }
-                        case ".PDF":
-                            {
-                                match = FileContentStringMatchPDF(CurrentFile);
-                                break;
-                            }
-                        case ".DOC":
-                        case ".DOCX":
-                            {
-                                match = FileContentStringMatchDOC(CurrentFile);
-                                break;
-                            }
-                        case ".PPT":
-                            {
-                                match = FileContentStringMatchPPT(CurrentFile);
-                                break;
-                            }
-                        case ".PPTX":
-                            {
-                                match = FileContentStringMatchPPTX(CurrentFile);
-                                break;
-                            }
-                        case ".XLS":
-                            {
-                                match = FileContentStringMatchXLS(CurrentFile);
-                                break;
-                            }
-                        case ".XLSX":
-                            {
-                                match = FileContentStringMatchXLSX(CurrentFile);
-                                break;
-                            }
-                        case ".ODS":
-                        case ".ODT":
-                        case ".ODP":
-                        case ".ODF":
-                        case ".ODG":
-                            {
-                                match = FileContentStringMatchODF(CurrentFile);
-                                break;
-                            }                           
-                        default:
-                            {
-                                match = false;
-                                AusgelasseneDateien++;
-                                SkipFiles.Add(CurrentFile);
-                                break;
-                            }
-                    }
-
-                    if (match)
-                    {
-                        MatchedFiles.Add(CurrentFile);
-                    }
-
+                    match = true;
                 }
-                catch (Exception)
+                else
                 {
-                    FileReadError++;
-                    ErrorFiles.Add(CurrentFile);
+                    try
+                    {
+
+                        FileSystemInfo CurrentFileInfo = new FileInfo(CurrentFile);
+                        FileEnding = CurrentFileInfo.Extension;
+                        switch (FileEnding.ToUpper())
+                        {
+                            case ".TXT":
+                            case ".LOG":
+                            case ".XML":
+                            case ".XAML":
+                            case ".CS":
+                            case ".CSV":
+                            case ".DAT":
+                            case ".CONFIG":
+                            case ".BAK":
+                            case ".HTM":
+                            case ".HTML":
+                            case ".INI":
+                            case ".CSPROJ":
+                            case ".SVB":
+                            case ".TCKDTEST":
+                            case ".SLN":
+                            case ".TSPROJ":
+                            case ".TMC":
+                            case ".TPY":
+                            case ".TCGTLO":
+                            case ".TCPOU":
+                            case ".TCDUT":
+                            case ".TCTTO":
+                            case ".PLCPROJ":
+                            case ".VWSETTINGS":
+                            case ".SETTINGS":
+                            case ".RESX":
+                            case ".CMD":
+                            case ".USER":
+                            case ".TMSETTINGS":
+                                {
+                                    match = FileContentStringMatchTXT(CurrentFile);
+                                    break;
+                                }
+                            case ".PDF":
+                                {
+                                    match = FileContentStringMatchPDF(CurrentFile);
+                                    break;
+                                }
+                            case ".DOC":
+                            case ".DOCX":
+                                {
+                                    match = FileContentStringMatchDOC(CurrentFile);
+                                    break;
+                                }
+                            case ".PPT":
+                                {
+                                    match = FileContentStringMatchPPT(CurrentFile);
+                                    break;
+                                }
+                            case ".PPTX":
+                                {
+                                    match = FileContentStringMatchPPTX(CurrentFile);
+                                    break;
+                                }
+                            case ".XLS":
+                                {
+                                    match = FileContentStringMatchXLS(CurrentFile);
+                                    break;
+                                }
+                            case ".XLSX":
+                                {
+                                    match = FileContentStringMatchXLSX(CurrentFile);
+                                    break;
+                                }
+                            case ".ODS":
+                            case ".ODT":
+                            case ".ODP":
+                            case ".ODF":
+                            case ".ODG":
+                                {
+                                    match = FileContentStringMatchODF(CurrentFile);
+                                    break;
+                                }
+                            default:
+                                {
+                                    match = false;
+                                    AusgelasseneDateien++;
+                                    SkipFiles.Add(CurrentFile);
+                                    break;
+                                }
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        FileReadError++;
+                        ErrorFiles.Add(CurrentFile);
+                        match = false;
+                    }
+                }
+
+                if (match)
+                {
+                    MatchedFiles.Add(CurrentFile);
                 }
             }
-            
+
+            //Return  list of files with matched text in its content
             return MatchedFiles;
         }
 
@@ -578,37 +585,6 @@ namespace SucheApp
             
             //Write to table
             dgFoundFiles.DataSource = dt;
-            //Delete duplicates in DataGridView
-            DeleteDuplicates(dgFoundFiles);
-        }
-
-        private void DeleteDuplicates(DataGridView dt)
-        {
-            for (int currentRow = 0; currentRow < dt.Rows.Count - 1; currentRow++)
-            {
-                DataGridViewRow rowToCompare = dt.Rows[currentRow];
-
-                for (int otherRow = currentRow + 1; otherRow < dt.Rows.Count; otherRow++)
-                {
-                    DataGridViewRow row = dt.Rows[otherRow];
-                    bool duplicateRow = true;
-
-                    for (int cellIndex = 0; cellIndex < row.Cells.Count; cellIndex++)
-                    {
-                        if (!rowToCompare.Cells[cellIndex].Value.Equals(row.Cells[cellIndex].Value))
-                        {
-                            duplicateRow = false;
-                            break;
-                        }
-                    }
-
-                    if (duplicateRow)
-                    {
-                        dt.Rows.Remove(row);
-                        otherRow--;
-                    }
-                }
-            }
         }
 
         private void DgFoundFiles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -647,8 +623,8 @@ namespace SucheApp
 
         private void VersionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Jürgen Reutter\n" + typeof(Suche).Assembly.GetName().Version, "Version",
-            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show("Jürgen Reutter\n" + typeof(Suche).Assembly.GetName().Version, "Version"
+            ,MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void InfoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -667,7 +643,7 @@ namespace SucheApp
 
 
 Andere gefundene Dateiformate werden bei der Suche ausgelassen.", "Unterstützte Dateiformate",
-            MessageBoxButtons.OK, MessageBoxIcon.None);
+            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void AnleitungToolStripMenuItem_Click(object sender, EventArgs e)
