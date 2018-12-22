@@ -1,36 +1,26 @@
-﻿using Code7248.word_reader;
-using CSharpJExcel.Jxl;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Presentation;
-using Excel;
-using ICSharpCode.SharpZipLib.Zip;
-using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.parser;
-using Spire.Presentation;
+﻿using DateiSuche;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using A = DocumentFormat.OpenXml.Drawing;
 
 
 namespace SucheApp
 {
     public partial class Suche : Form
     {
-        string InitialDir;
-        DataTable dt = new DataTable();
-        string SuchText;
-        int AusgelasseneDateien = 0;
-        int FileReadError = 0;
-        public List<string> ErrorFiles = new List<string>();
-        public List<string> SkipFiles = new List<string>();
-        List<string> AllFiles;
-        bool newGetFiles = true;
+        private DataTable dtDataTable = new DataTable();
+        private int SkippedFiles = 0;
+        private int FileReadError = 0;
+        private List<string> ErrorFiles = new List<string>();
+        private List<string> SkipFiles = new List<string>();
+        private List<string> AllFiles;
+        private bool newFileSearch = true;
+        private string _TextToSearch;
+
+        public string InitialDir { get; set; }
 
         public Suche()
         {
@@ -58,7 +48,7 @@ namespace SucheApp
         {
             //Reset status
             toolStripProgressBar1.Value = 0;
-            if (newGetFiles)
+            if (newFileSearch)
             {
                 toolStripStatusLabel1.Text = "Dateien: 0";
             }
@@ -68,23 +58,23 @@ namespace SucheApp
             toolStripStatusLabel4.Text = "Lesefehler: 0";
             toolStripStatusLabel5.Text = "Status:\nBereit für Suche";
 
-            AusgelasseneDateien = 0;
+            SkippedFiles = 0;
             FileReadError = 0;
             ErrorFiles.Clear();
             SkipFiles.Clear();
 
             //Reset table
-            dt.Clear();
-            dgFoundFiles.DataSource = dt;
+            dtDataTable.Clear();
+            dgFoundFiles.DataSource = dtDataTable;
 
             //Delete columns
-            if (dt.Columns.Contains("Pfad"))
+            if (dtDataTable.Columns.Contains("Pfad"))
             {
-                dt.Columns.Remove("Pfad");
-                dt.Columns.Remove("Name");
-                dt.Columns.Remove("Typ");
-                dt.Columns.Remove("Erstellt Datum");
-                dt.Columns.Remove("Geändert Datum");
+                dtDataTable.Columns.Remove("Pfad");
+                dtDataTable.Columns.Remove("Name");
+                dtDataTable.Columns.Remove("Typ");
+                dtDataTable.Columns.Remove("Erstellt Datum");
+                dtDataTable.Columns.Remove("Geändert Datum");
             }
             statusStrip1.Refresh();
             dgFoundFiles.Refresh();
@@ -92,7 +82,7 @@ namespace SucheApp
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            newGetFiles = true;
+            newFileSearch = true;
             var fbd = new FolderBrowserDialog();
             if (Directory.Exists(InitialDir))
             {
@@ -113,15 +103,16 @@ namespace SucheApp
             btnOpenFolder.Enabled = false;
             btnSuche.Enabled = false;
             lbSuchText.Enabled = false;
-            
+
             Reset();
-           
-            if (GetInitialDir() && GetSearchText())
+
+            _TextToSearch = lbSuchText.Text;
+            if (InitialDirExists() && (_TextToSearch != ""))
             {
-                if (newGetFiles)
+                if (newFileSearch)
                 {
-                    AllFiles = GetAllFiles();
-                    newGetFiles = false;
+                    AllFiles = ProvideFileList();
+                    newFileSearch = false;
                 }
                 //Find search text in file content
                 MatchedFiles = GetMatchedFiles();
@@ -130,45 +121,20 @@ namespace SucheApp
                     FillTable(MatchedFiles);
                 }
                 toolStripStatusLabel2.Text = string.Format("Treffer: {0}", dgFoundFiles.RowCount);
-                toolStripStatusLabel3.Text = string.Format("Ausgelassen: {0}", AusgelasseneDateien);
+                toolStripStatusLabel3.Text = string.Format("Ausgelassen: {0}", SkippedFiles);
                 toolStripStatusLabel4.Text = string.Format("Lesefehler: {0}", FileReadError);
                 toolStripStatusLabel5.Text = "Status:\nSuche fertig";
+            }
+            else
+            {
+                toolStripStatusLabel5.Text = "Status:\nSuchText\neingeben!";
             }
             lbSuchText.Enabled = true;
             btnSuche.Enabled = true;
             btnOpenFolder.Enabled = true;
         }
 
-        private bool GetSearchText()
-        {
-            // Get search text frim TextVarIn
-            SuchText = lbSuchText.Text;
-            if (SuchText == "")
-            {
-                toolStripStatusLabel5.Text = "Status:\nSuchText\neingeben!";
-                return false;
-            }
-
-            //Replace som special characters for RegEx
-            SuchText = SuchText.Replace(@"\", @"\\");
-            SuchText = SuchText.Replace(@"^", @"\^");
-            SuchText = SuchText.Replace(@"$", @"\$");
-            SuchText = SuchText.Replace(@".", @"\.");
-            SuchText = SuchText.Replace(@"|", @"\|");
-            SuchText = SuchText.Replace(@"?", @"\?");
-            SuchText = SuchText.Replace(@"*", @"\*");
-            SuchText = SuchText.Replace(@"+", @"\+");
-            SuchText = SuchText.Replace(@"(", @"\(");
-            SuchText = SuchText.Replace(@")", @"\)");
-            SuchText = SuchText.Replace(@"{", @"\{");
-            SuchText = SuchText.Replace(@"}", @"\}");
-            SuchText = SuchText.Replace(@"[", @"\[");
-            SuchText = SuchText.Replace(@"]", @"\]");
-
-            return true;
-        }
-
-        private bool GetInitialDir()
+        private bool InitialDirExists()
         {
             // Get initial directory for file search
             if (!Directory.Exists(InitialDir))
@@ -179,14 +145,14 @@ namespace SucheApp
             return true;
         }
 
-        private List<string> GetAllFiles()
+        private List<string> ProvideFileList()
         {
             int FileCount;
 
             toolStripStatusLabel5.Text = "Status:\nSuche alle \nDateien";
             statusStrip1.Refresh();
 
-            IEnumerable<string> s1 = GetFiles(InitialDir, "*");
+            IEnumerable<string> s1 = GetAllFiles(InitialDir, "*");
             List<string> AllFiles = new List<string>(s1);
             FileCount = AllFiles.Count;
 
@@ -195,7 +161,7 @@ namespace SucheApp
             return AllFiles;
         }
 
-        public static IEnumerable<string> GetFiles(string root, string searchPattern)
+        public static IEnumerable<string> GetAllFiles(string root, string searchPattern)
         {
             Stack<string> pending = new Stack<string>();
             pending.Push(root);
@@ -239,7 +205,7 @@ namespace SucheApp
                 match = false;
 
                 //if searched text is in file path/name do not read file
-                r = new Regex(SuchText, RegexOptions.IgnoreCase);
+                r = new Regex(_TextToSearch, RegexOptions.IgnoreCase);
                 m = r.Match(CurrentFile);
                 if (m.Success)
                 {
@@ -285,38 +251,38 @@ namespace SucheApp
                             case ".USER":
                             case ".TMSETTINGS":
                                 {
-                                    match = FileContentStringMatchTXT(CurrentFile);
+                                    match = FileContentStringMatchTXT.ReadFileCompateText(CurrentFile, _TextToSearch);
                                     break;
                                 }
                             case ".PDF":
                                 {
-                                    match = FileContentStringMatchPDF(CurrentFile);
+                                    match = FileContentStringMatchPDF.ReadFileCompateText(CurrentFile, _TextToSearch);
                                     break;
                                 }
                             case ".DOC":
                             case ".DOCX":
                                 {
-                                    match = FileContentStringMatchDOC(CurrentFile);
+                                    match = FileContentStringMatchDOC.ReadFileCompateText(CurrentFile, _TextToSearch);
                                     break;
                                 }
                             case ".PPT":
                                 {
-                                    match = FileContentStringMatchPPT(CurrentFile);
+                                    match = FileContentStringMatchPPT.ReadFileCompateText(CurrentFile, _TextToSearch);
                                     break;
                                 }
                             case ".PPTX":
                                 {
-                                    match = FileContentStringMatchPPTX(CurrentFile);
+                                    match = FileContentStringMatchPPTX.ReadFileCompateText(CurrentFile, _TextToSearch);
                                     break;
                                 }
                             case ".XLS":
                                 {
-                                    match = FileContentStringMatchXLS(CurrentFile);
+                                    match = FileContentStringMatchXLS.ReadFileCompateText(CurrentFile, _TextToSearch);
                                     break;
                                 }
                             case ".XLSX":
                                 {
-                                    match = FileContentStringMatchXLSX(CurrentFile);
+                                    match = FileContentStringMatchXLSX.ReadFileCompateText(CurrentFile, _TextToSearch);
                                     break;
                                 }
                             case ".ODS":
@@ -325,13 +291,13 @@ namespace SucheApp
                             case ".ODF":
                             case ".ODG":
                                 {
-                                    match = FileContentStringMatchODF(CurrentFile);
+                                    match = FileContentStringMatchODF.ReadFileCompateText(CurrentFile, _TextToSearch);
                                     break;
                                 }
                             default:
                                 {
                                     match = false;
-                                    AusgelasseneDateien++;
+                                    SkippedFiles++;
                                     SkipFiles.Add(CurrentFile);
                                     break;
                                 }
@@ -354,201 +320,27 @@ namespace SucheApp
 
             //Return  list of files with matched text in its content
             return MatchedFiles;
-        }
+        }       
 
-        private bool FileContentStringMatchTXT(string p)
+       private string PrepareForeRegEx(string s)
         {
-            string contents = System.IO.File.ReadAllText(p);
-            return FindText(contents);
-        }
+            //Replace som special characters for RegEx
+            s = s.Replace(@"\", @"\\");
+            s = s.Replace(@"$", @"\$");
+            s = s.Replace(@".", @"\.");
+            s = s.Replace(@"|", @"\|");
+            s = s.Replace(@"^", @"\^");
+            s = s.Replace(@"?", @"\?");
+            s = s.Replace(@"*", @"\*");
+            s = s.Replace(@"+", @"\+");
+            s = s.Replace(@"(", @"\(");
+            s = s.Replace(@")", @"\)");
+            s = s.Replace(@"{", @"\{");
+            s = s.Replace(@"}", @"\}");
+            s = s.Replace(@"[", @"\[");
+            s = s.Replace(@"]", @"\]");
 
-        private bool FileContentStringMatchPDF(string p)
-        {
-             using (PdfReader reader = new PdfReader(p))
-            {
-                StringBuilder text = new StringBuilder();
-                for (int i = 1; i <= reader.NumberOfPages; i++)
-                {
-                    text.Append(PdfTextExtractor.GetTextFromPage(reader, i));
-                }
-               
-                return FindText(text.ToString());
-            }
-        }
-
-        private bool FileContentStringMatchDOC(string p)
-        {
-            TextExtractor extractor = new TextExtractor(p);
-            string text = extractor.ExtractText(); //The string 'text' is now loaded with the text from the Word Document
-            return FindText(text);
-        }
-
-        private bool FileContentStringMatchPPT(string p)
-        {
-            Spire.Presentation.Presentation presentation = new Spire.Presentation.Presentation(p, FileFormat.Auto);
-
-            Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
-            StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < presentation.Slides.Count; i++)
-	        {
-                for (int j = 0; j < presentation.Slides[i].Shapes.Count; j++)
-	            {
-                    if (presentation.Slides[i].Shapes[j] is IAutoShape)
-	                {
-                        IAutoShape shape = presentation.Slides[i].Shapes[j] as IAutoShape;
-	                    if (shape.TextFrame != null)
-	                    {
-	                        foreach (TextParagraph tp in shape.TextFrame.Paragraphs)
-	                        {
-                                Match m = r.Match(tp.Text);
-                                if (m.Success)
-                                {
-                                    presentation.Dispose();
-                                    return true;
-                                }
-	                        }
-	                    }
-	                }
-	            }
-	        }
-            presentation.Dispose();
-            return false;
-        }
-
-        private bool FileContentStringMatchPPTX(string p)
-        {
-            using (PresentationDocument presentationDocument = PresentationDocument.Open(p, false))
-            {
-                Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
-
-                // Get the relationship ID of the first slide.
-                PresentationPart part = presentationDocument.PresentationPart;
-                OpenXmlElementList slideIds = part.Presentation.SlideIdList.ChildElements;
-                for (int i = 0; i < slideIds.Count; i++)
-                {
-                    string relId = (slideIds[i] as SlideId).RelationshipId;
-                    // Get the slide part from the relationship ID.
-                    SlidePart slide = (SlidePart)part.GetPartById(relId);
-
-                    // Get the inner text of the slide:
-                    IEnumerable<A.Text> texts = slide.Slide.Descendants<A.Text>();
-                    foreach (A.Text text in texts)
-                    {
-                        Match m = r.Match(text.InnerText);
-                        if (m.Success)
-                        {
-                            presentationDocument.Close();
-                            return true;
-                        }
-                    }
-                }
-                presentationDocument.Close();
-            }
-            return false;
-        }
-
-        private bool FileContentStringMatchXLS(string p)
-        {
-            Workbook workbook = Workbook.getWorkbook(new System.IO.FileInfo(p));
-            int sheets = workbook.getNumberOfSheets();
-            Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
-            for (int i = 0; i < sheets; i++)
-            {
-                var sheet = workbook.getSheet(i);
-                CSharpJExcel.Jxl.Cell CellContent = sheet.findCell(r, 0, 0, sheet.getColumns(), sheet.getRows(), false);
-                if (CellContent == null)
-                { }
-                else
-                {
-                    workbook.close();
-                    return true;
-                }
-            }
-            workbook.close();
-            return false;
-        }
-
-        private bool FileContentStringMatchXLSX(string p)
-        {
-            FileStream stream = File.Open(p, FileMode.Open, FileAccess.Read);
-            IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-            Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
-            DataSet result = excelReader.AsDataSet();
-            
-            for (int i = 0; i < result.Tables.Count; i++)
-			{
-                for (int j = 0; j < result.Tables[i].Rows.Count; j++)
-                {
-                    object[] row = result.Tables[i].Rows[j].ItemArray;
-                    foreach (object item in row)
-                    {
-                        Match m = r.Match(item.ToString());
-                        if (m.Success)
-                        {
-                            excelReader.Close();
-                            return true;
-                        }
-                    }
-                }
-			}
-
-            excelReader.Close();
-            return false;
-        }
-
-        private bool FileContentStringMatchODF(string p)
-        {
-            var contentXml = "";
-            FileStream stream = File.Open(p, FileMode.Open, FileAccess.Read);
-
-            using (var zipInputStream = new ZipInputStream(stream))
-            {
-                ZipEntry contentEntry = null;
-                while ((contentEntry = zipInputStream.GetNextEntry()) != null)
-                {
-                    if (!contentEntry.IsFile)
-                        continue;
-                    if (contentEntry.Name.ToLower() == "content.xml")
-                        break;
-                }
-
-                if (contentEntry.Name.ToLower() != "content.xml")
-                {
-                    return false;
-                }
-
-                var bytesResult = new byte[] { };
-                var bytes = new byte[2000];
-                var i = 0;
-
-                while ((i = zipInputStream.Read(bytes, 0, bytes.Length)) != 0)
-                {
-                    var arrayLength = bytesResult.Length;
-                    Array.Resize<byte>(ref bytesResult, arrayLength + i);
-                    Array.Copy(bytes, 0, bytesResult, arrayLength, i);
-                }
-                contentXml = Encoding.UTF8.GetString(bytesResult);
-            }
-            return FindText(contentXml);
-        }
-
-        private bool FindText(string contents)
-        {
-            try
-            {
-                Regex r = new Regex(SuchText, RegexOptions.IgnoreCase);
-                Match m = r.Match(contents);
-                if (m.Success)
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return s;
         }
 
         private void FillTable(List<string> MatchedFiles)
@@ -560,15 +352,15 @@ namespace SucheApp
                 if (i == 0)
                 {
                     //Add Data Grid Columns with name
-                    dt.Columns.Add("Pfad");
-                    dt.Columns.Add("Name");
-                    dt.Columns.Add("Typ");
-                    dt.Columns.Add("Erstellt Datum");
-                    dt.Columns.Add("Geändert Datum");
+                    dtDataTable.Columns.Add("Pfad");
+                    dtDataTable.Columns.Add("Name");
+                    dtDataTable.Columns.Add("Typ");
+                    dtDataTable.Columns.Add("Erstellt Datum");
+                    dtDataTable.Columns.Add("Geändert Datum");
                 }
 
                 //Prepare table content
-                dr = dt.NewRow();
+                dr = dtDataTable.NewRow();
                 //Get File name of each file name
                 dr["Pfad"] = CurrentFileInfo.FullName;
                 //Get File name of each file name
@@ -580,11 +372,11 @@ namespace SucheApp
                 //Get file Create Date
                 dr["Geändert Datum"] = CurrentFileInfo.LastWriteTime.Date.ToString("dd/MM/yyyy");
                 //Insert collected file details in Datatable
-                dt.Rows.Add(dr);
+                dtDataTable.Rows.Add(dr);
             }
             
             //Write to table
-            dgFoundFiles.DataSource = dt;
+            dgFoundFiles.DataSource = dtDataTable;
         }
 
         private void DgFoundFiles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

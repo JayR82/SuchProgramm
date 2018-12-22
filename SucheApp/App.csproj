@@ -105,6 +105,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileContentStringMatchDOC.cs" />
+    <Compile Include="FileContentStringMatchODF.cs" />
+    <Compile Include="FileContentStringMatchPDF.cs" />
+    <Compile Include="FileContentStringMatchPPT.cs" />
+    <Compile Include="FileContentStringMatchPPTX.cs" />
+    <Compile Include="FileContentStringMatchTXT.cs" />
+    <Compile Include="FileContentStringMatchXLS.cs" />
+    <Compile Include="FileContentStringMatchXLSX.cs" />
     <Compile Include="Suche.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +121,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Comparer.cs" />
     <EmbeddedResource Include="Suche.resx">
       <DependentUpon>Suche.cs</DependentUpon>
     </EmbeddedResource>
