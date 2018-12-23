@@ -12,13 +12,13 @@ namespace SucheApp
     public partial class Suche : Form
     {
         private DataTable dtDataTable = new DataTable();
-        private int SkippedFiles = 0;
-        private int FileReadError = 0;
-        private List<string> ErrorFiles = new List<string>();
-        private List<string> SkipFiles = new List<string>();
-        private List<string> AllFiles;
+        private int skippedFiles = 0;
+        private int fileReadError = 0;
+        private List<string> errorFiles = new List<string>();
+        private List<string> skipFiles = new List<string>();
+        private List<string> allFiles;
         private bool newFileSearch = true;
-        private string _TextToSearch;
+        private string textToSearch;
 
         public string InitialDir { get; set; }
 
@@ -31,41 +31,41 @@ namespace SucheApp
         {
         }
 
-        private void LbSuchText_MouseClick(object sender, MouseEventArgs e)
+        private void lbEditSearchText_MouseClick(object sender, MouseEventArgs e)
         {
-            lbSuchText.Text = "";
+            lbEditSearchText.Text = "";
         }
 
-        private void LbSuchText_KeyDown(object sender, KeyEventArgs e)
+        private void lbEditSearchText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                BtnSuche_Click((object)sender, (EventArgs)e);
+                btnStartSearch_Click((object)sender, (EventArgs)e);
             }
         }
 
         private void Reset()
         {
             //Reset status
-            toolStripProgressBar1.Value = 0;
+            toolStripProgressBar.Value = 0;
             if (newFileSearch)
             {
                 toolStripStatusLabel1.Text = "Dateien: 0";
             }
 
-            toolStripStatusLabel2.Text = "Treffer: 0";
-            toolStripStatusLabel3.Text = "Ausgelassen: 0";
-            toolStripStatusLabel4.Text = "Lesefehler: 0";
-            toolStripStatusLabel5.Text = "Status:\nBereit für Suche";
+            toolStripMatches.Text = "Treffer: 0";
+            toolStripSkipped.Text = "Ausgelassen: 0";
+            toolStripReadError.Text = "Lesefehler: 0";
+            toolStripStatus.Text = "Status:\nBereit für Suche";
 
-            SkippedFiles = 0;
-            FileReadError = 0;
-            ErrorFiles.Clear();
-            SkipFiles.Clear();
+            skippedFiles = 0;
+            fileReadError = 0;
+            errorFiles.Clear();
+            skipFiles.Clear();
 
             //Reset table
             dtDataTable.Clear();
-            dgFoundFiles.DataSource = dtDataTable;
+            dgFilesFound.DataSource = dtDataTable;
 
             //Delete columns
             if (dtDataTable.Columns.Contains("Pfad"))
@@ -76,8 +76,8 @@ namespace SucheApp
                 dtDataTable.Columns.Remove("Erstellt Datum");
                 dtDataTable.Columns.Remove("Geändert Datum");
             }
-            statusStrip1.Refresh();
-            dgFoundFiles.Refresh();
+            statusStrip.Refresh();
+            dgFilesFound.Refresh();
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -96,22 +96,22 @@ namespace SucheApp
             }
         }
 
-        private void BtnSuche_Click(object sender, EventArgs e)
+        private void btnStartSearch_Click(object sender, EventArgs e)
         {
             List<string> MatchedFiles;
 
-            btnOpenFolder.Enabled = false;
-            btnSuche.Enabled = false;
-            lbSuchText.Enabled = false;
+            btnOpenBrowseFolder.Enabled = false;
+            btnStartSearch.Enabled = false;
+            lbEditSearchText.Enabled = false;
 
             Reset();
 
-            _TextToSearch = lbSuchText.Text;
-            if (InitialDirExists() && (_TextToSearch != ""))
+            textToSearch = lbEditSearchText.Text;
+            if (InitialDirExists() && (textToSearch != ""))
             {
                 if (newFileSearch)
                 {
-                    AllFiles = ProvideFileList();
+                    allFiles = ProvideFileList();
                     newFileSearch = false;
                 }
                 //Find search text in file content
@@ -120,18 +120,18 @@ namespace SucheApp
                 {
                     FillTable(MatchedFiles);
                 }
-                toolStripStatusLabel2.Text = string.Format("Treffer: {0}", dgFoundFiles.RowCount);
-                toolStripStatusLabel3.Text = string.Format("Ausgelassen: {0}", SkippedFiles);
-                toolStripStatusLabel4.Text = string.Format("Lesefehler: {0}", FileReadError);
-                toolStripStatusLabel5.Text = "Status:\nSuche fertig";
+                toolStripMatches.Text = string.Format("Treffer: {0}", dgFilesFound.RowCount);
+                toolStripSkipped.Text = string.Format("Ausgelassen: {0}", skippedFiles);
+                toolStripReadError.Text = string.Format("Lesefehler: {0}", fileReadError);
+                toolStripStatus.Text = "Status:\nSuche fertig";
             }
             else
             {
-                toolStripStatusLabel5.Text = "Status:\nSuchText\neingeben!";
+                toolStripStatus.Text = "Status:\nSuchText\neingeben!";
             }
-            lbSuchText.Enabled = true;
-            btnSuche.Enabled = true;
-            btnOpenFolder.Enabled = true;
+            lbEditSearchText.Enabled = true;
+            btnStartSearch.Enabled = true;
+            btnOpenBrowseFolder.Enabled = true;
         }
 
         private bool InitialDirExists()
@@ -139,7 +139,7 @@ namespace SucheApp
             // Get initial directory for file search
             if (!Directory.Exists(InitialDir))
             {
-                toolStripStatusLabel5.Text = "Status:\nInitialen Ordner\neingeben!";
+                toolStripStatus.Text = "Status:\nInitialen Ordner\neingeben!";
                 return false;
             }
             return true;
@@ -149,16 +149,16 @@ namespace SucheApp
         {
             int FileCount;
 
-            toolStripStatusLabel5.Text = "Status:\nSuche alle \nDateien";
-            statusStrip1.Refresh();
+            toolStripStatus.Text = "Status:\nSuche alle \nDateien";
+            statusStrip.Refresh();
 
             IEnumerable<string> s1 = GetAllFiles(InitialDir, "*");
-            List<string> AllFiles = new List<string>(s1);
-            FileCount = AllFiles.Count;
+            List<string> AllFilesFoundList = new List<string>(s1);
+            FileCount = AllFilesFoundList.Count;
 
             toolStripStatusLabel1.Text = string.Format("Dateien: {0}", FileCount);
 
-            return AllFiles;
+            return AllFilesFoundList;
         }
 
         public static IEnumerable<string> GetAllFiles(string root, string searchPattern)
@@ -194,18 +194,18 @@ namespace SucheApp
             Regex r ;
             Match m;
 
-            toolStripProgressBar1.Maximum = AllFiles.Count;
-            toolStripStatusLabel5.Text = "Status:\nDurchsuche alle\nDateien";
-            statusStrip1.Refresh();
+            toolStripProgressBar.Maximum = allFiles.Count;
+            toolStripStatus.Text = "Status:\nDurchsuche alle\nDateien";
+            statusStrip.Refresh();
 
-            for (int i = 0; i <= AllFiles.Count - 1; i++)
+            for (int i = 0; i <= allFiles.Count - 1; i++)
             {
-                toolStripProgressBar1.Value++;
-                CurrentFile = AllFiles[i];
+                toolStripProgressBar.Value++;
+                CurrentFile = allFiles[i];
                 match = false;
 
                 //if searched text is in file path/name do not read file
-                r = new Regex(_TextToSearch, RegexOptions.IgnoreCase);
+                r = new Regex(textToSearch, RegexOptions.IgnoreCase);
                 m = r.Match(CurrentFile);
                 if (m.Success)
                 {
@@ -251,38 +251,38 @@ namespace SucheApp
                             case ".USER":
                             case ".TMSETTINGS":
                                 {
-                                    match = FileContentStringMatchTXT.ReadFileCompateText(CurrentFile, _TextToSearch);
+                                    match = FileContentStringMatchTXT.ReadFileCompateText(CurrentFile, textToSearch);
                                     break;
                                 }
                             case ".PDF":
                                 {
-                                    match = FileContentStringMatchPDF.ReadFileCompateText(CurrentFile, _TextToSearch);
+                                    match = FileContentStringMatchPDF.ReadFileCompateText(CurrentFile, textToSearch);
                                     break;
                                 }
                             case ".DOC":
                             case ".DOCX":
                                 {
-                                    match = FileContentStringMatchDOC.ReadFileCompateText(CurrentFile, _TextToSearch);
+                                    match = FileContentStringMatchDOC.ReadFileCompateText(CurrentFile, textToSearch);
                                     break;
                                 }
                             case ".PPT":
                                 {
-                                    match = FileContentStringMatchPPT.ReadFileCompateText(CurrentFile, _TextToSearch);
+                                    match = FileContentStringMatchPPT.ReadFileCompateText(CurrentFile, textToSearch);
                                     break;
                                 }
                             case ".PPTX":
                                 {
-                                    match = FileContentStringMatchPPTX.ReadFileCompateText(CurrentFile, _TextToSearch);
+                                    match = FileContentStringMatchPPTX.ReadFileCompateText(CurrentFile, textToSearch);
                                     break;
                                 }
                             case ".XLS":
                                 {
-                                    match = FileContentStringMatchXLS.ReadFileCompateText(CurrentFile, _TextToSearch);
+                                    match = FileContentStringMatchXLS.ReadFileCompateText(CurrentFile, textToSearch);
                                     break;
                                 }
                             case ".XLSX":
                                 {
-                                    match = FileContentStringMatchXLSX.ReadFileCompateText(CurrentFile, _TextToSearch);
+                                    match = FileContentStringMatchXLSX.ReadFileCompateText(CurrentFile, textToSearch);
                                     break;
                                 }
                             case ".ODS":
@@ -291,14 +291,14 @@ namespace SucheApp
                             case ".ODF":
                             case ".ODG":
                                 {
-                                    match = FileContentStringMatchODF.ReadFileCompateText(CurrentFile, _TextToSearch);
+                                    match = FileContentStringMatchODF.ReadFileCompateText(CurrentFile, textToSearch);
                                     break;
                                 }
                             default:
                                 {
                                     match = false;
-                                    SkippedFiles++;
-                                    SkipFiles.Add(CurrentFile);
+                                    skippedFiles++;
+                                    skipFiles.Add(CurrentFile);
                                     break;
                                 }
                         }
@@ -306,8 +306,8 @@ namespace SucheApp
                     }
                     catch (Exception)
                     {
-                        FileReadError++;
-                        ErrorFiles.Add(CurrentFile);
+                        fileReadError++;
+                        errorFiles.Add(CurrentFile);
                         match = false;
                     }
                 }
@@ -376,7 +376,7 @@ namespace SucheApp
             }
             
             //Write to table
-            dgFoundFiles.DataSource = dtDataTable;
+            dgFilesFound.DataSource = dtDataTable;
         }
 
         private void DgFoundFiles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -384,7 +384,7 @@ namespace SucheApp
             //Open file from DataGrid
             if (e.RowIndex >= 0)
             {
-                string filepath = (string)dgFoundFiles.Rows[e.RowIndex].Cells[0].Value;
+                string filepath = (string)dgFilesFound.Rows[e.RowIndex].Cells[0].Value;
                 if (System.IO.File.Exists(filepath))
                 {
                     System.Diagnostics.Process.Start(filepath);
@@ -401,7 +401,7 @@ namespace SucheApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                string filepath = (string)this.dgFoundFiles.Rows[this.dgFoundFiles.CurrentCell.RowIndex].Cells[0].Value;
+                string filepath = (string)this.dgFilesFound.Rows[this.dgFilesFound.CurrentCell.RowIndex].Cells[0].Value;
                 if (System.IO.File.Exists(filepath))
                 {
                     System.Diagnostics.Process.Start(filepath);
@@ -486,11 +486,11 @@ Andere gefundene Dateiformate werden bei der Suche ausgelassen.", "Unterstützte
         {
             string Ausgabe;
             string ErrorFileList = "";
-            if (ErrorFiles.Count > 30)
+            if (errorFiles.Count > 30)
             {
                 for (int i = 0; i < 11; i++)
                 {
-                    ErrorFileList += ErrorFiles[i].ToString() + "\n";
+                    ErrorFileList += errorFiles[i].ToString() + "\n";
                 }
 
                 Ausgabe = String.Format(@"{0} Datei(en) bei denen es Lesefehler gab.
@@ -499,22 +499,22 @@ Es gab ziemlich viele Lesefehler, also Dateien die eigentlich durchsucht werden 
 U.U. keine Zugriffsrechte... Datei ist gerade geöffnet...
 
 Auszug der Dateien mit Lesefehler:
-{1}...", ErrorFiles.Count, ErrorFileList);
+{1}...", errorFiles.Count, ErrorFileList);
                 MessageBox.Show(Ausgabe, "Lesefehler bei Suche",
                MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if (ErrorFiles.Count == 0)
+            else if (errorFiles.Count == 0)
             {
                 MessageBox.Show("Bei der letzten Suche gab es keine Lesefehler.", "Lesefehler bei Suche",
                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             else
 	        {
-                foreach (String s in ErrorFiles)
+                foreach (String s in errorFiles)
                 {
                     ErrorFileList += s.ToString() + "\n";
                 }
-                Ausgabe = String.Format("{0} Datei(en) bei denen es Lesefehler gab:\n\n{1}", ErrorFiles.Count, ErrorFileList);
+                Ausgabe = String.Format("{0} Datei(en) bei denen es Lesefehler gab:\n\n{1}", errorFiles.Count, ErrorFileList);
                 MessageBox.Show(Ausgabe, "Lesefehler bei Suche",
                MessageBoxButtons.OK, MessageBoxIcon.Warning);
 	        }
@@ -525,11 +525,11 @@ Auszug der Dateien mit Lesefehler:
         {
             string Ausgabe;
             string SkipFileList = "";
-            if (SkipFiles.Count > 30)
+            if (skipFiles.Count > 30)
             {
                 for (int i = 0; i < 11; i++)
                 {
-                    SkipFileList += SkipFiles[i].ToString() + "\n";
+                    SkipFileList += skipFiles[i].ToString() + "\n";
                 }
                 
                 Ausgabe = String.Format(@"{0} Dateien die nicht durchsucht wurden.
@@ -539,34 +539,34 @@ Evtl. sind viele Bild- oder Musik-Dateien dabei?
 Kontrolliere im 'Menü - Hilfe - Info' die unterstützen Dateien.
 
 Auszug der ausgelassenen Dateien:
-{1}...", SkipFiles.Count, SkipFileList);
+{1}...", skipFiles.Count, SkipFileList);
                 MessageBox.Show(Ausgabe, "Ausgelassene Dateien",
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if (SkipFiles.Count == 0)
+            else if (skipFiles.Count == 0)
             {
                 MessageBox.Show("Bei der letzten Suche wurden alle gefundenen Dateien durchsucht.", "Ausgelassene Dateien",
                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             else
             {
-                foreach (String s in SkipFiles)
+                foreach (String s in skipFiles)
                 {
                     SkipFileList += s.ToString() + "\n";
                 }
-                Ausgabe = String.Format("{0} Dateien die nicht durchsucht wurden:\n\n{1}", SkipFiles.Count, SkipFileList);
+                Ausgabe = String.Format("{0} Dateien die nicht durchsucht wurden:\n\n{1}", skipFiles.Count, SkipFileList);
                 MessageBox.Show(Ausgabe, "Ausgelassene Dateien",
                MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             
         }
 
-        private void ToolStripStatusLabel3_Click(object sender, EventArgs e)
+        private void toolStripSkipped_Click(object sender, EventArgs e)
         {
             AusgelassenToolStripMenuItem_Click(sender, e);
         }
 
-        private void ToolStripStatusLabel4_Click(object sender, EventArgs e)
+        private void toolStripReadError_Click(object sender, EventArgs e)
         {
             AnzeigenToolStripMenuItem_Click(sender, e);
         }

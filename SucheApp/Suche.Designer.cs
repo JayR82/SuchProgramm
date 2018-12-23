@@ -31,22 +31,22 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Suche));
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.lbInitFolder = new System.Windows.Forms.TextBox();
-            this.dgFoundFiles = new System.Windows.Forms.DataGridView();
-            this.btnOpenFolder = new System.Windows.Forms.Button();
-            this.lbSuchText = new System.Windows.Forms.TextBox();
-            this.btnSuche = new System.Windows.Forms.Button();
+            this.dgFilesFound = new System.Windows.Forms.DataGridView();
+            this.btnOpenBrowseFolder = new System.Windows.Forms.Button();
+            this.lbEditSearchText = new System.Windows.Forms.TextBox();
+            this.btnStartSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripMatches = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripSkipped = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripReadError = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anleitungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,9 +55,10 @@
             this.lesefehlerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anzeigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ausgelassenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.dgFoundFiles)).BeginInit();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            ((System.ComponentModel.ISupportInitialize)(this.dgFilesFound)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,56 +73,56 @@
             this.lbInitFolder.TabStop = false;
             this.lbInitFolder.Text = "Initialen Ordner zur Suche eingeben...";
             // 
-            // dgFoundFiles
+            // dgFilesFound
             // 
-            this.dgFoundFiles.AllowUserToAddRows = false;
-            this.dgFoundFiles.AllowUserToResizeRows = false;
-            this.dgFoundFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgFoundFiles.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            this.dgFoundFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgFoundFiles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgFoundFiles.Location = new System.Drawing.Point(83, 63);
-            this.dgFoundFiles.MultiSelect = false;
-            this.dgFoundFiles.Name = "dgFoundFiles";
-            this.dgFoundFiles.ReadOnly = true;
-            this.dgFoundFiles.RowHeadersVisible = false;
-            this.dgFoundFiles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dgFoundFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgFoundFiles.Size = new System.Drawing.Size(604, 304);
-            this.dgFoundFiles.TabIndex = 4;
-            this.dgFoundFiles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgFoundFiles_CellDoubleClick);
-            this.dgFoundFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DgFoundFiles_KeyDown);
+            this.dgFilesFound.AllowUserToAddRows = false;
+            this.dgFilesFound.AllowUserToResizeRows = false;
+            this.dgFilesFound.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgFilesFound.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            this.dgFilesFound.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgFilesFound.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgFilesFound.Location = new System.Drawing.Point(83, 63);
+            this.dgFilesFound.MultiSelect = false;
+            this.dgFilesFound.Name = "dgFilesFound";
+            this.dgFilesFound.ReadOnly = true;
+            this.dgFilesFound.RowHeadersVisible = false;
+            this.dgFilesFound.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgFilesFound.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgFilesFound.Size = new System.Drawing.Size(604, 304);
+            this.dgFilesFound.TabIndex = 4;
+            this.dgFilesFound.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgFoundFiles_CellDoubleClick);
+            this.dgFilesFound.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DgFoundFiles_KeyDown);
             // 
-            // btnOpenFolder
+            // btnOpenBrowseFolder
             // 
-            this.btnOpenFolder.Location = new System.Drawing.Point(693, 3);
-            this.btnOpenFolder.Name = "btnOpenFolder";
-            this.btnOpenFolder.Size = new System.Drawing.Size(38, 20);
-            this.btnOpenFolder.TabIndex = 1;
-            this.btnOpenFolder.Text = "...";
-            this.btnOpenFolder.UseVisualStyleBackColor = true;
-            this.btnOpenFolder.Click += new System.EventHandler(this.Button1_Click);
+            this.btnOpenBrowseFolder.Location = new System.Drawing.Point(693, 3);
+            this.btnOpenBrowseFolder.Name = "btnOpenBrowseFolder";
+            this.btnOpenBrowseFolder.Size = new System.Drawing.Size(38, 20);
+            this.btnOpenBrowseFolder.TabIndex = 1;
+            this.btnOpenBrowseFolder.Text = "...";
+            this.btnOpenBrowseFolder.UseVisualStyleBackColor = true;
+            this.btnOpenBrowseFolder.Click += new System.EventHandler(this.Button1_Click);
             // 
-            // lbSuchText
+            // lbEditSearchText
             // 
-            this.lbSuchText.AcceptsReturn = true;
-            this.lbSuchText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbSuchText.Location = new System.Drawing.Point(83, 33);
-            this.lbSuchText.Name = "lbSuchText";
-            this.lbSuchText.Size = new System.Drawing.Size(604, 20);
-            this.lbSuchText.TabIndex = 2;
-            this.lbSuchText.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LbSuchText_MouseClick);
-            this.lbSuchText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LbSuchText_KeyDown);
+            this.lbEditSearchText.AcceptsReturn = true;
+            this.lbEditSearchText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbEditSearchText.Location = new System.Drawing.Point(83, 33);
+            this.lbEditSearchText.Name = "lbEditSearchText";
+            this.lbEditSearchText.Size = new System.Drawing.Size(604, 20);
+            this.lbEditSearchText.TabIndex = 2;
+            this.lbEditSearchText.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbEditSearchText_MouseClick);
+            this.lbEditSearchText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbEditSearchText_KeyDown);
             // 
-            // btnSuche
+            // btnStartSearch
             // 
-            this.btnSuche.Location = new System.Drawing.Point(693, 33);
-            this.btnSuche.Name = "btnSuche";
-            this.btnSuche.Size = new System.Drawing.Size(65, 20);
-            this.btnSuche.TabIndex = 3;
-            this.btnSuche.Text = "Suche";
-            this.btnSuche.UseVisualStyleBackColor = true;
-            this.btnSuche.Click += new System.EventHandler(this.BtnSuche_Click);
+            this.btnStartSearch.Location = new System.Drawing.Point(693, 33);
+            this.btnStartSearch.Name = "btnStartSearch";
+            this.btnStartSearch.Size = new System.Drawing.Size(65, 20);
+            this.btnStartSearch.TabIndex = 3;
+            this.btnStartSearch.Text = "Suche";
+            this.btnStartSearch.UseVisualStyleBackColor = true;
+            this.btnStartSearch.Click += new System.EventHandler(this.btnStartSearch_Click);
             // 
             // label1
             // 
@@ -164,15 +165,15 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.btnOpenFolder, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnOpenBrowseFolder, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnSuche, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.dgFoundFiles, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.btnStartSearch, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.dgFilesFound, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.lbInitFolder, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lbSuchText, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.statusStrip1, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lbEditSearchText, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.statusStrip, 2, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -184,69 +185,70 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(790, 370);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusStrip.Dock = System.Windows.Forms.DockStyle.Right;
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripProgressBar1,
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel3,
-            this.toolStripStatusLabel4,
+            this.toolStripProgressBar,
+            this.toolStripMatches,
+            this.toolStripSkipped,
+            this.toolStripReadError,
             this.toolStripStatusLabel6,
-            this.toolStripStatusLabel5});
-            this.statusStrip1.Location = new System.Drawing.Point(696, 60);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(94, 310);
-            this.statusStrip1.TabIndex = 10;
-            this.statusStrip1.Text = "statusStrip1";
+            this.toolStripStatus,
+            this.toolStripStatusLabel2});
+            this.statusStrip.Location = new System.Drawing.Point(690, 60);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(100, 310);
+            this.statusStrip.TabIndex = 10;
+            this.statusStrip.Text = "statusStrip";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(92, 15);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 15);
             this.toolStripStatusLabel1.Text = "Dateien:";
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // toolStripProgressBar1
+            // toolStripProgressBar
             // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(90, 15);
+            this.toolStripProgressBar.Name = "toolStripProgressBar";
+            this.toolStripProgressBar.Size = new System.Drawing.Size(96, 15);
             // 
-            // toolStripStatusLabel2
+            // toolStripMatches
             // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(92, 15);
-            this.toolStripStatusLabel2.Text = "Treffer:";
-            this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripMatches.Name = "toolStripMatches";
+            this.toolStripMatches.Size = new System.Drawing.Size(98, 15);
+            this.toolStripMatches.Text = "Treffer:";
+            this.toolStripMatches.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // toolStripStatusLabel3
+            // toolStripSkipped
             // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(92, 15);
-            this.toolStripStatusLabel3.Text = "Ausgelassen:";
-            this.toolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripStatusLabel3.Click += new System.EventHandler(this.ToolStripStatusLabel3_Click);
+            this.toolStripSkipped.Name = "toolStripSkipped";
+            this.toolStripSkipped.Size = new System.Drawing.Size(98, 15);
+            this.toolStripSkipped.Text = "Ausgelassen:";
+            this.toolStripSkipped.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripSkipped.Click += new System.EventHandler(this.toolStripSkipped_Click);
             // 
-            // toolStripStatusLabel4
+            // toolStripReadError
             // 
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(92, 15);
-            this.toolStripStatusLabel4.Text = "Lesefehler:";
-            this.toolStripStatusLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripStatusLabel4.Click += new System.EventHandler(this.ToolStripStatusLabel4_Click);
+            this.toolStripReadError.Name = "toolStripReadError";
+            this.toolStripReadError.Size = new System.Drawing.Size(98, 15);
+            this.toolStripReadError.Text = "Lesefehler:";
+            this.toolStripReadError.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripReadError.Click += new System.EventHandler(this.toolStripReadError_Click);
             // 
             // toolStripStatusLabel6
             // 
             this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            this.toolStripStatusLabel6.Size = new System.Drawing.Size(92, 0);
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(98, 0);
             // 
-            // toolStripStatusLabel5
+            // toolStripStatus
             // 
-            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(92, 15);
-            this.toolStripStatusLabel5.Text = "Status: Bereit";
-            this.toolStripStatusLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripStatus.Name = "toolStripStatus";
+            this.toolStripStatus.Size = new System.Drawing.Size(98, 15);
+            this.toolStripStatus.Text = "Status: Bereit";
+            this.toolStripStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // menuStrip1
             // 
@@ -313,6 +315,12 @@
             this.ausgelassenToolStripMenuItem.Text = "Ausgelassen zeigen";
             this.ausgelassenToolStripMenuItem.Click += new System.EventHandler(this.AusgelassenToolStripMenuItem_Click);
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(98, 15);
+            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            // 
             // Suche
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -326,11 +334,11 @@
             this.Name = "Suche";
             this.Text = "Suche";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgFoundFiles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgFilesFound)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -342,30 +350,31 @@
 
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox lbInitFolder;
-        private System.Windows.Forms.DataGridView dgFoundFiles;
-        private System.Windows.Forms.Button btnOpenFolder;
-        private System.Windows.Forms.TextBox lbSuchText;
-        private System.Windows.Forms.Button btnSuche;
+        private System.Windows.Forms.DataGridView dgFilesFound;
+        private System.Windows.Forms.Button btnOpenBrowseFolder;
+        private System.Windows.Forms.TextBox lbEditSearchText;
+        private System.Windows.Forms.Button btnStartSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripMatches;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem hilfeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem anleitungToolStripMenuItem;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripSkipped;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripReadError;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatus;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
         private System.Windows.Forms.ToolStripMenuItem lesefehlerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem anzeigenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ausgelassenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
     }
 }
 

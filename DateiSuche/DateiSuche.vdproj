@@ -705,15 +705,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DateiSuche"
-        "ProductCode" = "8:{13EE4DF1-11B0-4412-A2FD-826434737E74}"
-        "PackageCode" = "8:{B5E307B6-35E4-4AAB-8320-29D7B9EA74ED}"
+        "ProductCode" = "8:{8EE3981B-FCE4-4C8D-AC47-DC9D2CD4D213}"
+        "PackageCode" = "8:{8DF8DCBF-4A27-4509-9E99-CE85DD3BBF8F}"
         "UpgradeCode" = "8:{D2C3B636-3482-403F-8E28-E8F1ADF78481}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.14"
+        "ProductVersion" = "8:1.0.15"
         "Manufacturer" = "8:JayR"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1255,7 +1255,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_76BD2B517AD94BEFB81ADE11EE86F7FB"
             {
-            "SourcePath" = "8:..\\SucheApp\\obj\\Debug\\DateiSuche.exe"
+            "SourcePath" = "8:..\\SucheApp\\obj\\Release\\DateiSuche.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_328C1944BE9943DCB3FD1E5E54F9AB8C"
