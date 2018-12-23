@@ -99,6 +99,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A1F12AB74F52448096466A9DFB7DD185"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E318DA21B218E2FECAF9805A268A9E10"
         "OwnerKey" = "8:_76BD2B517AD94BEFB81ADE11EE86F7FB"
         "MsmSig" = "8:_UNDEFINED"
@@ -556,6 +562,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A1F12AB74F52448096466A9DFB7DD185"
+            {
+            "SourcePath" = "8:..\\SucheApp\\bin\\Release\\Description.html"
+            "TargetName" = "8:Description.html"
+            "Tag" = "8:"
+            "Folder" = "8:_328C1944BE9943DCB3FD1E5E54F9AB8C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E318DA21B218E2FECAF9805A268A9E10"
             {
             "AssemblyRegister" = "3:1"
@@ -706,7 +732,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DateiSuche"
         "ProductCode" = "8:{8EE3981B-FCE4-4C8D-AC47-DC9D2CD4D213}"
-        "PackageCode" = "8:{8DF8DCBF-4A27-4509-9E99-CE85DD3BBF8F}"
+        "PackageCode" = "8:{332851F2-8994-4BC8-930C-743F6D1F8433}"
         "UpgradeCode" = "8:{D2C3B636-3482-403F-8E28-E8F1ADF78481}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

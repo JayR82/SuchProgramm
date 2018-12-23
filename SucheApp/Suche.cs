@@ -345,7 +345,7 @@ namespace SucheApp
 
         private void FillTable(List<string> MatchedFiles)
         {
-            DataRow dr;
+            DataRow drDataRow;
             for (int i = 0; i <= MatchedFiles.Count - 1; i++)
             {
                 FileSystemInfo CurrentFileInfo = new FileInfo(MatchedFiles[i]);
@@ -360,19 +360,19 @@ namespace SucheApp
                 }
 
                 //Prepare table content
-                dr = dtDataTable.NewRow();
+                drDataRow = dtDataTable.NewRow();
                 //Get File name of each file name
-                dr["Pfad"] = CurrentFileInfo.FullName;
+                drDataRow["Pfad"] = CurrentFileInfo.FullName;
                 //Get File name of each file name
-                dr["Name"] = CurrentFileInfo.Name;
+                drDataRow["Name"] = CurrentFileInfo.Name;
                 //Get File Type/Extension of each file 
-                dr["Typ"] = CurrentFileInfo.Extension;
+                drDataRow["Typ"] = CurrentFileInfo.Extension;
                 //Get file Create Date
-                dr["Erstellt Datum"] = CurrentFileInfo.CreationTime.Date.ToString("dd/MM/yyyy");
+                drDataRow["Erstellt Datum"] = CurrentFileInfo.CreationTime.Date.ToString("dd/MM/yyyy");
                 //Get file Create Date
-                dr["Geändert Datum"] = CurrentFileInfo.LastWriteTime.Date.ToString("dd/MM/yyyy");
+                drDataRow["Geändert Datum"] = CurrentFileInfo.LastWriteTime.Date.ToString("dd/MM/yyyy");
                 //Insert collected file details in Datatable
-                dtDataTable.Rows.Add(dr);
+                dtDataTable.Rows.Add(drDataRow);
             }
             
             //Write to table
@@ -404,7 +404,12 @@ namespace SucheApp
                 string filepath = (string)this.dgFilesFound.Rows[this.dgFilesFound.CurrentCell.RowIndex].Cells[0].Value;
                 if (System.IO.File.Exists(filepath))
                 {
-                    System.Diagnostics.Process.Start(filepath);
+                    try
+                    {
+                        System.Diagnostics.Process.Start(filepath);
+                    }
+                    catch (Exception)
+                    { }
                 }
                 else
                 {
@@ -440,46 +445,13 @@ Andere gefundene Dateiformate werden bei der Suche ausgelassen.", "Unterstützte
 
         private void AnleitungToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(@"Dieses Programm durchsucht textbasierte Dateien in einem angegebenen Ordner und dessen Unterordner, auf ein oder mehrere Worte und listet die Dateien mit Treffer auf.
-
-1. Gib den initialen Ordner an, in dem Dateien durchsucht werden sollen
-1.1. Klick [...] und navigiere im gezeigten Dialog zu deinem initialen Ordner, bestätige mit 'OK'
-1.1.1 Vermeide direkt Partitionen anzugeben (D:\ oder C:\) wegen evtl. sehr großer Datenmenge
-1.1.2 Durchsuchen von Dateien auf USB-Stick = kein Problem
-1.1.3 Durchsuchen von Dateien auf Server / NAS = kein Problem (kann ein bisschen länger dauern, bis die Suche fertig ist)
-1.1.4 Durchsuchen von Dateien auf CD/DVD-Laufwerk = keine Ahnung -habe ich nicht getestet
-1.2. Je genauer du den initialen Ordner eingrenzt, desto schneller ist die Suche fertig
-1.3. Schau im Menü unter 'Hilfe-Info' nach, ob alle erwartenden Dateiformate unterstützt werden
-1.3.1 Bild- und Tonbasierte Dateien, sowie Container (.zip) und Verknüpfungen werden ausgelassen und nicht durchsucht
-
-2. Gib ein Suchtext ein, den die zu suchende Datei beinhaltet
-2.1. Ein einzelnes Wort oder ein Wortausschnitt
-2.2. Bei einer Suchtext- Eingabe mehrerer Wörter, sollten diese auch so in dieser Reihenfolge tatsächlich vorkommen
-2.3. Groß- / Kleinschreibung im Suchtext ist egal (Suchtext 'Rechnung' findet auch 'ABRECHNUNG' in Dateien)
-2.4. Wildcards (*, ?, %, #) sind nicht nötig um ein Suchtext zu erweitern. Lieber nur nach einem Wortausschnitt suchen
-        
-3. Starte die Suche
-3.1. Drück 'Suche' oder die Taste -Enter-
-
-4. Statusmeldungen werden rechts angezeigt
-4.1. 'Dateien': Zeigt die Anzahl der Dateien, die in dem initialen Ordner und dessen Unterordner insgesamt gefunden wurden
-4.2. 'Statusbalken': Zeigt an, ob die Suche beendet ist (Balken is komplett grün)
-4.3. 'Ausgelassen': Zeigt an, wieviele Dateien nicht durchsucht werden konnten (Bspw. wegen nicht unterstütztem Dateiformat wie Bilder oder Musik)
-4.3.1 Klick auf 'Ausgelassen' oder über das Menü - Ausnahmen, um die Liste der ausgelassenen Dateien zu sehen
-4.3.2 Sind es mehr als 30 Dateien die ausgelassen wurden, werden nicht alle angezeigt
-4.4. 'Treffer': Zeigt die Anzahl der Dateien in denen der 'Suchtext' gefunden wurde 
-4.4.1. Treffer sind: 'Suchtext' im Pfadnamen
-4.4.2. Treffer sind: 'Suchtext' im Dateiinhalt
-4.5. 'Lesefehler': Zeigt die Anzahl der Dateien, die potentielle Kandidaten waren, aber Fehler beim Lesen verursacht haben (keine Zugriffsrechte o.ä.) 
-4.5.1 Ist der 'Lesefehler' > 0 könnte eine relevante Datei mit Treffern nicht in der Ergebnisliste aufgeführt sein
-4.5.2 Klick auf 'Lesefehler' oder über das Menü - Ausnahmen, um die Liste der Dateien mit Lesefehlern zu sehen
-4.5.3 Sind es mehr als 30 Dateien die Fehler verursacht haben, werden nicht alle angezeigt
-4.6. 'Status:' Was macht das Programm gerade
-
-5. Öffne die relevante Datei aus der Ergebnisliste
-5.1. Sortiere die Spalten der Ergebnisliste nach deinen Kriterien (Name, Format, Änderungsdatum...)
-5.2. Öffne eine Datei (oder mehrere Dateien nacheinander) durch Doppelklick auf die ausgewählte Zeile oder drücke die Taste -Enter- um die markierte Datei (Zeile) zu öffnen
-", "Suche Anleitung", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            try
+            {
+                System.Diagnostics.Process.Start(@".\Description.html");
+            }
+            catch (Exception)
+            { }
+            
         }
 
         private void AnzeigenToolStripMenuItem_Click(object sender, EventArgs e)

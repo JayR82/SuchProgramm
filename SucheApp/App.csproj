@@ -149,6 +149,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Description.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="SuchIcon128.ico" />
     <Content Include="SuchIcon16.ico" />
     <Content Include="SuchIcon32.ico" />

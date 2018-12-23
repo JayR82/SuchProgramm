@@ -55,7 +55,6 @@
             this.lesefehlerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anzeigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ausgelassenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgFilesFound)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -195,8 +194,7 @@
             this.toolStripSkipped,
             this.toolStripReadError,
             this.toolStripStatusLabel6,
-            this.toolStripStatus,
-            this.toolStripStatusLabel2});
+            this.toolStripStatus});
             this.statusStrip.Location = new System.Drawing.Point(690, 60);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(100, 310);
@@ -315,12 +313,6 @@
             this.ausgelassenToolStripMenuItem.Text = "Ausgelassen zeigen";
             this.ausgelassenToolStripMenuItem.Click += new System.EventHandler(this.AusgelassenToolStripMenuItem_Click);
             // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(98, 15);
-            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
-            // 
             // Suche
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -374,7 +366,6 @@
         private System.Windows.Forms.ToolStripMenuItem lesefehlerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem anzeigenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ausgelassenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
     }
 }
 
